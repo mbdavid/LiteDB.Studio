@@ -63,6 +63,9 @@ namespace LiteDB.Studio
                     this.Disconnect();
                 }
             };
+
+            // set assembly version on window title
+            this.Text += $" (v.{typeof(MainForm).Assembly.GetName().Version.ToString()})";
         }
 
         private async Task<LiteDatabase> AsyncConnect(ConnectionString connectionString)
