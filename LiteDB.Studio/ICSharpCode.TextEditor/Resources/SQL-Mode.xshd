@@ -187,7 +187,6 @@ http://minisqlquery.codeplex.com/license
         <Key word="CONCAT" />
         <Key word="RAW_ID" />
         <Key word="KEYS" />
-        <Key word="REMOVE_KEYS" />
         <Key word="OID_CREATIONTIME" />
         <Key word="IIF" />
         <Key word="COALESCE" />
