@@ -30,6 +30,14 @@ namespace LiteDB.Studio.Forms
 
         private void BtnConnect_Click(object sender, EventArgs e)
         {
+            BuildConnectionString();
+
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        private void BuildConnectionString()
+        {
             this.ConnectionString.Mode =
                 radModeEmbedded.Checked ? ConnectionMode.Embedded :
                 radModeShared.Checked ? ConnectionMode.Shared : ConnectionMode.Embedded;
@@ -52,9 +60,6 @@ namespace LiteDB.Studio.Forms
             {
                 this.ConnectionString.LimitSize = limitSize * MB;
             }
-
-            this.DialogResult = DialogResult.OK;
-            this.Close();
         }
 
         private void BtnOpen_Click(object sender, EventArgs e)
@@ -79,6 +84,20 @@ namespace LiteDB.Studio.Forms
             else
             {
                 chkUpgrade.Enabled = true;
+            }
+        }
+
+        private void btnCreate_Click(object sender, EventArgs e)
+        {
+            var fi = new  System.IO.FileInfo(txtFilename.Text);
+            if (!fi.Exists)
+            {
+                BuildConnectionString();
+                using (var ldb = new LiteDatabase(ConnectionString))
+                {
+                    ldb.Shrink();
+                }
+             
             }
         }
     }

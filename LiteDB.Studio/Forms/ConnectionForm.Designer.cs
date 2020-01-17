@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.radModeShared = new System.Windows.Forms.RadioButton();
             this.radModeEmbedded = new System.Windows.Forms.RadioButton();
             this.btnOK = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -49,7 +50,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.radModeShared = new System.Windows.Forms.RadioButton();
+            this.btnCreate = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -66,14 +67,28 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Connection Mode";
             // 
+            // radModeShared
+            // 
+            this.radModeShared.AutoSize = true;
+            this.radModeShared.Location = new System.Drawing.Point(118, 25);
+            this.radModeShared.Name = "radModeShared";
+            this.radModeShared.Size = new System.Drawing.Size(76, 24);
+            this.radModeShared.TabIndex = 10;
+            this.radModeShared.Text = "Shared";
+            this.toolTip.SetToolTip(this.radModeShared, "Open database as shared mode.\r\n- Open datafile cross processes (and threads)\r\n- G" +
+        "reat to access data when running app\r\n- Slow connection (not recommened for prod" +
+        "uction)");
+            this.radModeShared.UseVisualStyleBackColor = true;
+            // 
             // radModeEmbedded
             // 
             this.radModeEmbedded.AutoSize = true;
             this.radModeEmbedded.Checked = true;
             this.radModeEmbedded.Location = new System.Drawing.Point(30, 25);
             this.radModeEmbedded.Name = "radModeEmbedded";
-            this.radModeEmbedded.Size = new System.Drawing.Size(82, 19);
+            this.radModeEmbedded.Size = new System.Drawing.Size(103, 24);
             this.radModeEmbedded.TabIndex = 9;
+            this.radModeEmbedded.TabStop = true;
             this.radModeEmbedded.Text = "Embedded";
             this.toolTip.SetToolTip(this.radModeEmbedded, "Open database as embedded.\r\n- Support only this single connection\r\n- Support mult" +
         "ple threads in this connection");
@@ -109,7 +124,7 @@
             this.chkUTC.AutoSize = true;
             this.chkUTC.Location = new System.Drawing.Point(257, 53);
             this.chkUTC.Name = "chkUTC";
-            this.chkUTC.Size = new System.Drawing.Size(75, 19);
+            this.chkUTC.Size = new System.Drawing.Size(93, 24);
             this.chkUTC.TabIndex = 26;
             this.chkUTC.Text = "UTC Date";
             this.toolTip.SetToolTip(this.chkUTC, "When deserialize BSON document from datafile, use UTC converstion (default is con" +
@@ -120,7 +135,7 @@
             // 
             this.txtLimitSize.Location = new System.Drawing.Point(151, 109);
             this.txtLimitSize.Name = "txtLimitSize";
-            this.txtLimitSize.Size = new System.Drawing.Size(70, 23);
+            this.txtLimitSize.Size = new System.Drawing.Size(70, 27);
             this.txtLimitSize.TabIndex = 25;
             this.txtLimitSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -128,7 +143,7 @@
             // 
             this.txtInitialSize.Location = new System.Drawing.Point(151, 80);
             this.txtInitialSize.Name = "txtInitialSize";
-            this.txtInitialSize.Size = new System.Drawing.Size(70, 23);
+            this.txtInitialSize.Size = new System.Drawing.Size(70, 27);
             this.txtInitialSize.TabIndex = 24;
             this.txtInitialSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -147,7 +162,7 @@
             // 
             this.txtFilename.Location = new System.Drawing.Point(19, 28);
             this.txtFilename.Name = "txtFilename";
-            this.txtFilename.Size = new System.Drawing.Size(502, 23);
+            this.txtFilename.Size = new System.Drawing.Size(502, 27);
             this.txtFilename.TabIndex = 2;
             // 
             // groupBox3
@@ -177,7 +192,7 @@
             this.chkUpgrade.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkUpgrade.Location = new System.Drawing.Point(257, 111);
             this.chkUpgrade.Name = "chkUpgrade";
-            this.chkUpgrade.Size = new System.Drawing.Size(213, 19);
+            this.chkUpgrade.Size = new System.Drawing.Size(272, 24);
             this.chkUpgrade.TabIndex = 33;
             this.chkUpgrade.Text = "Upgrade data file if version is earlier";
             this.chkUpgrade.UseVisualStyleBackColor = true;
@@ -187,7 +202,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(18, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 15);
+            this.label1.Size = new System.Drawing.Size(70, 20);
             this.label1.TabIndex = 32;
             this.label1.Text = "Password";
             // 
@@ -196,14 +211,14 @@
             this.txtPassword.Location = new System.Drawing.Point(151, 22);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(404, 23);
+            this.txtPassword.Size = new System.Drawing.Size(404, 27);
             this.txtPassword.TabIndex = 4;
             // 
             // txtTimeout
             // 
             this.txtTimeout.Location = new System.Drawing.Point(151, 51);
             this.txtTimeout.Name = "txtTimeout";
-            this.txtTimeout.Size = new System.Drawing.Size(70, 23);
+            this.txtTimeout.Size = new System.Drawing.Size(70, 27);
             this.txtTimeout.TabIndex = 23;
             this.txtTimeout.Text = "00:01:00";
             this.txtTimeout.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -213,7 +228,7 @@
             this.chkReadonly.AutoSize = true;
             this.chkReadonly.Location = new System.Drawing.Point(257, 82);
             this.chkReadonly.Name = "chkReadonly";
-            this.chkReadonly.Size = new System.Drawing.Size(78, 19);
+            this.chkReadonly.Size = new System.Drawing.Size(97, 24);
             this.chkReadonly.TabIndex = 27;
             this.chkReadonly.Text = "Read only";
             this.chkReadonly.UseVisualStyleBackColor = true;
@@ -224,7 +239,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(18, 112);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(89, 15);
+            this.label4.Size = new System.Drawing.Size(112, 20);
             this.label4.TabIndex = 31;
             this.label4.Text = "Limit Size (MB):";
             // 
@@ -233,7 +248,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(18, 83);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(91, 15);
+            this.label3.Size = new System.Drawing.Size(116, 20);
             this.label3.TabIndex = 30;
             this.label3.Text = "Initial Size (MB):";
             // 
@@ -242,28 +257,30 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(16, 54);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(109, 15);
+            this.label2.Size = new System.Drawing.Size(134, 20);
             this.label2.TabIndex = 29;
             this.label2.Text = "Timeout (seconds):";
             // 
-            // radModeShared
+            // btnCreate
             // 
-            this.radModeShared.AutoSize = true;
-            this.radModeShared.Location = new System.Drawing.Point(118, 25);
-            this.radModeShared.Name = "radModeShared";
-            this.radModeShared.Size = new System.Drawing.Size(61, 19);
-            this.radModeShared.TabIndex = 10;
-            this.radModeShared.Text = "Shared";
-            this.toolTip.SetToolTip(this.radModeShared, "Open database as shared mode.\r\n- Open datafile cross processes (and threads)\r\n- G" +
-        "reat to access data when running app\r\n- Slow connection (not recommened for prod" +
-        "uction)");
-            this.radModeShared.UseVisualStyleBackColor = true;
+            this.btnCreate.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCreate.Image = global::LiteDB.Studio.Properties.Resources.database;
+            this.btnCreate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCreate.Location = new System.Drawing.Point(297, 318);
+            this.btnCreate.Name = "btnCreate";
+            this.btnCreate.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnCreate.Size = new System.Drawing.Size(127, 38);
+            this.btnCreate.TabIndex = 30;
+            this.btnCreate.Text = "Create";
+            this.btnCreate.UseVisualStyleBackColor = true;
+            this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
             // 
             // ConnectionForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(596, 368);
+            this.Controls.Add(this.btnCreate);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -308,5 +325,6 @@
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.CheckBox chkUpgrade;
         private System.Windows.Forms.RadioButton radModeShared;
+        private System.Windows.Forms.Button btnCreate;
     }
 }
