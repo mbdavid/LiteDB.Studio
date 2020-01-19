@@ -86,9 +86,15 @@ namespace LiteDB.Studio
             try
             {
                 _db = await this.AsyncConnect(connectionString);
+
+                // force open database
+                var uv = _db.UserVersion;
             }
             catch (Exception ex)
             {
+                _db?.Dispose();
+                _db = null;
+
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 return;

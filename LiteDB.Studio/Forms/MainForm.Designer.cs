@@ -76,6 +76,7 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuImport = new System.Windows.Forms.ToolStripMenuItem();
             this.imgCodeCompletion = new System.Windows.Forms.ImageList(this.components);
+            this.mnuRebuild = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).BeginInit();
             this.splitMain.Panel1.SuspendLayout();
             this.splitMain.Panel2.SuspendLayout();
@@ -533,9 +534,10 @@
             this.ctxMenuRoot.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuInfo,
             this.toolStripSeparator3,
-            this.mnuImport});
+            this.mnuImport,
+            this.mnuRebuild});
             this.ctxMenuRoot.Name = "ctxMenu";
-            this.ctxMenuRoot.Size = new System.Drawing.Size(181, 76);
+            this.ctxMenuRoot.Size = new System.Drawing.Size(181, 98);
             this.ctxMenuRoot.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.CtxMenuRoot_ItemClicked);
             // 
             // mnuInfo
@@ -569,6 +571,14 @@
             this.imgCodeCompletion.Images.SetKeyName(3, "KEYWORD");
             this.imgCodeCompletion.Images.SetKeyName(4, "SYSTEM");
             this.imgCodeCompletion.Images.SetKeyName(5, "SYSTEM_FN");
+            // 
+            // mnuRebuild
+            // 
+            this.mnuRebuild.Image = global::LiteDB.Studio.Properties.Resources.compress;
+            this.mnuRebuild.Name = "mnuRebuild";
+            this.mnuRebuild.Size = new System.Drawing.Size(180, 22);
+            this.mnuRebuild.Tag = "REBUILD { collation: \'en-US/IgnoreCase\',  password: \'newpassword\' };";
+            this.mnuRebuild.Text = "Rebuild";
             // 
             // MainForm
             // 
@@ -657,6 +667,7 @@
         private System.Windows.Forms.ImageList imgCodeCompletion;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton btnCheckpoint;
+        private System.Windows.Forms.ToolStripMenuItem mnuRebuild;
     }
 }
 
