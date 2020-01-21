@@ -119,6 +119,15 @@ namespace LiteDB.Studio.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Column 的本地化字符串。
+        /// </summary>
+        internal static string Column {
+            get {
+                return ResourceManager.GetString("Column", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
         internal static System.Drawing.Bitmap compress {
@@ -289,6 +298,15 @@ namespace LiteDB.Studio.Properties {
             get {
                 object obj = ResourceManager.GetObject("lightning", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Line 的本地化字符串。
+        /// </summary>
+        internal static string Line {
+            get {
+                return ResourceManager.GetString("Line", resourceCulture);
             }
         }
         
