@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConnectionForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.radModeShared = new System.Windows.Forms.RadioButton();
             this.radModeDirect = new System.Windows.Forms.RadioButton();
@@ -54,85 +55,58 @@
             // 
             this.groupBox1.Controls.Add(this.radModeShared);
             this.groupBox1.Controls.Add(this.radModeDirect);
-            this.groupBox1.Location = new System.Drawing.Point(12, 11);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(569, 60);
-            this.groupBox1.TabIndex = 27;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Connection Mode";
             // 
             // radModeShared
             // 
-            this.radModeShared.AutoSize = true;
-            this.radModeShared.Location = new System.Drawing.Point(151, 25);
+            resources.ApplyResources(this.radModeShared, "radModeShared");
             this.radModeShared.Name = "radModeShared";
-            this.radModeShared.Size = new System.Drawing.Size(61, 19);
-            this.radModeShared.TabIndex = 10;
-            this.radModeShared.Text = "Shared";
             this.radModeShared.UseVisualStyleBackColor = true;
             // 
             // radModeDirect
             // 
-            this.radModeDirect.AutoSize = true;
+            resources.ApplyResources(this.radModeDirect, "radModeDirect");
             this.radModeDirect.Checked = true;
-            this.radModeDirect.Location = new System.Drawing.Point(30, 25);
             this.radModeDirect.Name = "radModeDirect";
-            this.radModeDirect.Size = new System.Drawing.Size(56, 19);
-            this.radModeDirect.TabIndex = 9;
             this.radModeDirect.TabStop = true;
-            this.radModeDirect.Text = "Direct";
             this.radModeDirect.UseVisualStyleBackColor = true;
             // 
             // btnOK
             // 
-            this.btnOK.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            resources.ApplyResources(this.btnOK, "btnOK");
             this.btnOK.Image = global::LiteDB.Studio.Properties.Resources.database_connect;
-            this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOK.Location = new System.Drawing.Point(454, 300);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnOK.Size = new System.Drawing.Size(127, 38);
-            this.btnOK.TabIndex = 11;
-            this.btnOK.Text = "Connect";
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.BtnConnect_Click);
             // 
             // btnOpen
             // 
             this.btnOpen.Image = global::LiteDB.Studio.Properties.Resources.folder_explore;
-            this.btnOpen.Location = new System.Drawing.Point(527, 28);
+            resources.ApplyResources(this.btnOpen, "btnOpen");
             this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(28, 24);
-            this.btnOpen.TabIndex = 3;
-            this.toolTip.SetToolTip(this.btnOpen, "Open existing datafile");
+            this.toolTip.SetToolTip(this.btnOpen, resources.GetString("btnOpen.ToolTip"));
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.BtnOpen_Click);
             // 
             // txtInitialSize
             // 
-            this.txtInitialSize.Location = new System.Drawing.Point(151, 61);
+            resources.ApplyResources(this.txtInitialSize, "txtInitialSize");
             this.txtInitialSize.Name = "txtInitialSize";
-            this.txtInitialSize.Size = new System.Drawing.Size(70, 23);
-            this.txtInitialSize.TabIndex = 24;
-            this.txtInitialSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.btnOpen);
             this.groupBox2.Controls.Add(this.txtFilename);
-            this.groupBox2.Location = new System.Drawing.Point(12, 81);
+            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(569, 72);
-            this.groupBox2.TabIndex = 28;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Filename";
             // 
             // txtFilename
             // 
-            this.txtFilename.Location = new System.Drawing.Point(19, 28);
+            resources.ApplyResources(this.txtFilename, "txtFilename");
             this.txtFilename.Name = "txtFilename";
-            this.txtFilename.Size = new System.Drawing.Size(502, 23);
-            this.txtFilename.TabIndex = 2;
             // 
             // groupBox3
             // 
@@ -142,79 +116,53 @@
             this.groupBox3.Controls.Add(this.txtInitialSize);
             this.groupBox3.Controls.Add(this.chkReadonly);
             this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Location = new System.Drawing.Point(12, 159);
+            resources.ApplyResources(this.groupBox3, "groupBox3");
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(569, 126);
-            this.groupBox3.TabIndex = 29;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Parameters";
             // 
             // chkUpgrade
             // 
-            this.chkUpgrade.AutoSize = true;
+            resources.ApplyResources(this.chkUpgrade, "chkUpgrade");
             this.chkUpgrade.Checked = true;
             this.chkUpgrade.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkUpgrade.Location = new System.Drawing.Point(273, 94);
             this.chkUpgrade.Name = "chkUpgrade";
-            this.chkUpgrade.Size = new System.Drawing.Size(213, 19);
-            this.chkUpgrade.TabIndex = 33;
-            this.chkUpgrade.Text = "Upgrade data file if version is earlier";
             this.chkUpgrade.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 25);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 15);
-            this.label1.TabIndex = 32;
-            this.label1.Text = "Password";
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(151, 22);
+            resources.ApplyResources(this.txtPassword, "txtPassword");
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(404, 23);
-            this.txtPassword.TabIndex = 4;
             // 
             // chkReadonly
             // 
-            this.chkReadonly.AutoSize = true;
-            this.chkReadonly.Location = new System.Drawing.Point(273, 65);
+            resources.ApplyResources(this.chkReadonly, "chkReadonly");
             this.chkReadonly.Name = "chkReadonly";
-            this.chkReadonly.Size = new System.Drawing.Size(78, 19);
-            this.chkReadonly.TabIndex = 27;
-            this.chkReadonly.Text = "Read only";
             this.chkReadonly.UseVisualStyleBackColor = true;
             this.chkReadonly.CheckedChanged += new System.EventHandler(this.chkReadonly_CheckedChanged);
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(18, 64);
+            resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(91, 15);
-            this.label3.TabIndex = 30;
-            this.label3.Text = "Initial Size (MB):";
             // 
             // ConnectionForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(596, 352);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnOK);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ConnectionForm";
             this.ShowIcon = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Connection Manager";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

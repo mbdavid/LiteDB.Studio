@@ -189,4 +189,13 @@
   <data name="$this.Text" xml:space="preserve">
     <value>LiteDB Studio</value>
   </data>
+  <data name="mnuRebuild.Text" xml:space="preserve">
+    <value>重建</value>
+  </data>
+  <data name="stbStatus.Text" xml:space="preserve">
+    <value>就绪</value>
+  </data>
+  <data name="tlbMain.Text" xml:space="preserve">
+    <value>toolStrip</value>
+  </data>
 </root>

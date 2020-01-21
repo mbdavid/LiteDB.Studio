@@ -168,4 +168,7 @@
   <data name="label2.Text" xml:space="preserve">
     <value>超时(秒):</value>
   </data>
+  <data name="radModeDirect.Text" xml:space="preserve">
+    <value>直接</value>
+  </data>
 </root>
