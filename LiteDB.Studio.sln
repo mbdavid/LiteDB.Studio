@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.29709.97
+VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteDB.Studio", "LiteDB.Studio\LiteDB.Studio.csproj", "{0002E0FF-C91F-4B8B-B29B-2A477E184408}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiteDB", "LiteDB\LiteDB\LiteDB.csproj", "{1C294C07-2535-443D-9B68-A7C6E74DEF82}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,13 +17,15 @@ Global
 		{0002E0FF-C91F-4B8B-B29B-2A477E184408}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0002E0FF-C91F-4B8B-B29B-2A477E184408}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0002E0FF-C91F-4B8B-B29B-2A477E184408}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C294C07-2535-443D-9B68-A7C6E74DEF82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C294C07-2535-443D-9B68-A7C6E74DEF82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C294C07-2535-443D-9B68-A7C6E74DEF82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C294C07-2535-443D-9B68-A7C6E74DEF82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_ConfirmAddLanguageFile = True
-		RESX_AutoCreateNewLanguageFiles = True
 		SolutionGuid = {B3EA7577-3327-44E1-BA2F-7C59A6FABC0E}
 	EndGlobalSection
 EndGlobal

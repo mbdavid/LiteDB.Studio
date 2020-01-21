@@ -1,7 +1,6 @@
 ﻿using ICSharpCode.TextEditor;
 using LiteDB.Engine;
 using LiteDB.Studio.Forms;
-using LiteDB.Studio.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -79,18 +78,24 @@ namespace LiteDB.Studio
 
         public async void Connect(ConnectionString connectionString)
         {
-            lblCursor.Text = Resources.Opening + connectionString.Filename;
-            lblElapsed.Text = Resources.Reading;
+            lblCursor.Text = "Opening " + connectionString.Filename;
+            lblElapsed.Text = "Reading...";
             prgRunning.Style = ProgressBarStyle.Marquee;
             btnConnect.Enabled = false;
 
             try
             {
                 _db = await this.AsyncConnect(connectionString);
+
+                // force open database
+                var uv = _db.UserVersion;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _db?.Dispose();
+                _db = null;
+
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 return;
             }
@@ -110,7 +115,7 @@ namespace LiteDB.Studio
 
             _codeCompletion.UpdateCodeCompletion(_db);
 
-            btnConnect.Text = Resources.Disconnect;
+            btnConnect.Text = "Disconnect";
 
             this.UIState(true);
 
@@ -140,14 +145,14 @@ namespace LiteDB.Studio
 
             tvwDatabase.Nodes.Clear();
 
-            btnConnect.Text = Resources.Connect;
+            btnConnect.Text = "Connect";
 
             this.UIState(false);
 
             tvwDatabase.Focus();
 
             tlbMain.Enabled = false;
-            lblCursor.Text = Resources.Closing;
+            lblCursor.Text = "Closing...";
 
             try
             {
@@ -159,7 +164,7 @@ namespace LiteDB.Studio
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, Resources.ERROR_U, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
 
@@ -222,7 +227,7 @@ namespace LiteDB.Studio
             tvwDatabase.Nodes.Clear();
 
             var root = tvwDatabase.Nodes.Add(Path.GetFileName(_connectionString.Filename));
-            var system = root.Nodes.Add(Resources.System);
+            var system = root.Nodes.Add("System");
 
             root.ImageKey = "database";
             root.ContextMenuStrip = ctxMenuRoot;
@@ -349,7 +354,7 @@ namespace LiteDB.Studio
                 txtParameters.Clear();
 
                 lblResultCount.Visible = false;
-                lblElapsed.Text = Resources.Running;
+                lblElapsed.Text = "Running";
                 prgRunning.Style = ProgressBarStyle.Marquee;
                 txtParameters.Clear();
             }
@@ -360,9 +365,9 @@ namespace LiteDB.Studio
                 prgRunning.Style = ProgressBarStyle.Blocks;
                 lblResultCount.Text = 
                     data.Result == null ? "" :
-                    data.Result.Count == 0 ? Resources.NoDocuments :
-                    data.Result.Count  == 1 ? Resources._1Document : 
-                    data.Result.Count + (data.LimitExceeded ? "+" : "") + Resources.Documents;
+                    data.Result.Count == 0 ? "no documents" :
+                    data.Result.Count  == 1 ? "1 document" : 
+                    data.Result.Count + (data.LimitExceeded ? "+" : "") + " documents";
 
                 if (data.Exception != null)
                 {
@@ -465,11 +470,11 @@ namespace LiteDB.Studio
 
                 if (r.Current == 1) return value;
 
-                throw new Exception(Resources.CurrentDocumentWasNotFoundTryRunYourQueryAgain);
+                throw new Exception("Current document was not found. Try run your query again");
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, Resources.UpdateError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Update error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return current;
             }
         }

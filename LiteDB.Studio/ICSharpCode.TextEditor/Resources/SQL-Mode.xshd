@@ -65,7 +65,8 @@ http://minisqlquery.codeplex.com/license
         <Key word="TRANSACTION" />
         <Key word="ANALYZE" />
         <Key word="CHECKPOINT" />
-        <Key word="SHRINK" />
+        <Key word="REBUILD" />
+        <Key word="PRAGMA" />
         <Key word="CREATE" />
         <Key word="INDEX" />
         <Key word="ON" />
@@ -106,7 +107,15 @@ http://minisqlquery.codeplex.com/license
       </KeyWords>
       
       <KeyWords name="SqlMethods" bold="false" italic="false" color="Fuchsia">
-        
+
+        <!-- Pragmas.cs -->
+        <Key word="USER_VERSION" />
+        <Key word="COLLATION" />
+        <Key word="TIMEOUT" />
+        <Key word="LIMIT_SIZE" />
+        <Key word="UTC_DATE" />
+        <Key word="CHECKPOINT" />
+
         <!-- Aggregate.cs -->
         <Key word="COUNT" />
         <Key word="MIN" />
