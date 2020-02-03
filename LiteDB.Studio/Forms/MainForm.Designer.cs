@@ -75,8 +75,8 @@
             this.mnuInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuImport = new System.Windows.Forms.ToolStripMenuItem();
-            this.imgCodeCompletion = new System.Windows.Forms.ImageList(this.components);
             this.mnuRebuild = new System.Windows.Forms.ToolStripMenuItem();
+            this.imgCodeCompletion = new System.Windows.Forms.ImageList(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).BeginInit();
             this.splitMain.Panel1.SuspendLayout();
             this.splitMain.Panel2.SuspendLayout();
@@ -502,7 +502,7 @@
             this.mnuExport.Image = global::LiteDB.Studio.Properties.Resources.table_save;
             this.mnuExport.Name = "mnuExport";
             this.mnuExport.Size = new System.Drawing.Size(155, 22);
-            this.mnuExport.Tag = "SELECT $\\n  INTO $file_json(\'C:/temp/{0}.json\')\\n  FROM {0};";
+            this.mnuExport.Tag = "SELECT $\\n  INTO $file(\'C:/temp/{0}.json\')\\n  FROM {0};";
             this.mnuExport.Text = "Export to JSON";
             // 
             // mnuAnalyze
@@ -558,8 +558,16 @@
             this.mnuImport.Image = global::LiteDB.Studio.Properties.Resources.layout_add;
             this.mnuImport.Name = "mnuImport";
             this.mnuImport.Size = new System.Drawing.Size(180, 22);
-            this.mnuImport.Tag = "SELECT $\\n  INTO new_col\\n  FROM $file_json(\'C:/temp/file.json\');";
+            this.mnuImport.Tag = "SELECT $\\n  INTO new_col\\n  FROM $file(\'C:/temp/file.json\');";
             this.mnuImport.Text = "Import from JSON";
+            // 
+            // mnuRebuild
+            // 
+            this.mnuRebuild.Image = global::LiteDB.Studio.Properties.Resources.compress;
+            this.mnuRebuild.Name = "mnuRebuild";
+            this.mnuRebuild.Size = new System.Drawing.Size(180, 22);
+            this.mnuRebuild.Tag = "REBUILD { collation: \'en-US/IgnoreCase\',  password: \'newpassword\' };";
+            this.mnuRebuild.Text = "Rebuild";
             // 
             // imgCodeCompletion
             // 
@@ -571,14 +579,6 @@
             this.imgCodeCompletion.Images.SetKeyName(3, "KEYWORD");
             this.imgCodeCompletion.Images.SetKeyName(4, "SYSTEM");
             this.imgCodeCompletion.Images.SetKeyName(5, "SYSTEM_FN");
-            // 
-            // mnuRebuild
-            // 
-            this.mnuRebuild.Image = global::LiteDB.Studio.Properties.Resources.compress;
-            this.mnuRebuild.Name = "mnuRebuild";
-            this.mnuRebuild.Size = new System.Drawing.Size(180, 22);
-            this.mnuRebuild.Tag = "REBUILD { collation: \'en-US/IgnoreCase\',  password: \'newpassword\' };";
-            this.mnuRebuild.Text = "Rebuild";
             // 
             // MainForm
             // 
