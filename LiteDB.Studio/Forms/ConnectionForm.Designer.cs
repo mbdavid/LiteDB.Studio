@@ -40,7 +40,8 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtFilename = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.chkUpgrade = new System.Windows.Forms.CheckBox();
+            this.cbUpgrade = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.chkReadonly = new System.Windows.Forms.CheckBox();
@@ -112,7 +113,7 @@
             // 
             this.txtInitialSize.Location = new System.Drawing.Point(151, 61);
             this.txtInitialSize.Name = "txtInitialSize";
-            this.txtInitialSize.Size = new System.Drawing.Size(70, 23);
+            this.txtInitialSize.Size = new System.Drawing.Size(79, 23);
             this.txtInitialSize.TabIndex = 24;
             this.txtInitialSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -136,7 +137,8 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.chkUpgrade);
+            this.groupBox3.Controls.Add(this.cbUpgrade);
+            this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.txtPassword);
             this.groupBox3.Controls.Add(this.txtInitialSize);
@@ -149,17 +151,23 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Parameters";
             // 
-            // chkUpgrade
+            // cbUpgrade
             // 
-            this.chkUpgrade.AutoSize = true;
-            this.chkUpgrade.Checked = true;
-            this.chkUpgrade.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkUpgrade.Location = new System.Drawing.Point(273, 94);
-            this.chkUpgrade.Name = "chkUpgrade";
-            this.chkUpgrade.Size = new System.Drawing.Size(213, 19);
-            this.chkUpgrade.TabIndex = 33;
-            this.chkUpgrade.Text = "Upgrade data file if version is earlier";
-            this.chkUpgrade.UseVisualStyleBackColor = true;
+            this.cbUpgrade.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbUpgrade.FormattingEnabled = true;
+            this.cbUpgrade.Location = new System.Drawing.Point(151, 97);
+            this.cbUpgrade.Name = "cbUpgrade";
+            this.cbUpgrade.Size = new System.Drawing.Size(79, 23);
+            this.cbUpgrade.TabIndex = 34;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(18, 100);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(94, 15);
+            this.label2.TabIndex = 33;
+            this.label2.Text = "Upgrade datafile";
             // 
             // label1
             // 
@@ -240,7 +248,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtPassword;
-        private System.Windows.Forms.CheckBox chkUpgrade;
         private System.Windows.Forms.RadioButton radModeShared;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox cbUpgrade;
     }
 }

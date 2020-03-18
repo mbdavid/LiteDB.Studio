@@ -339,7 +339,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\LiteDB\LiteDB\LiteDB.csproj">
-      <Project>{9497da19-1fca-4c2e-a1ab-8dfaacbc76e1}</Project>
+      <Project>{1de94be9-dc69-4151-a739-4bec708b76c7}</Project>
       <Name>LiteDB</Name>
     </ProjectReference>
   </ItemGroup>
