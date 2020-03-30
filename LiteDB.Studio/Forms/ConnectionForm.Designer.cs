@@ -40,12 +40,15 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtFilename = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.cbUpgrade = new System.Windows.Forms.ComboBox();
+            this.cmbSort = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.cmbCulture = new System.Windows.Forms.ComboBox();
+            this.chkUpgrade = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.chkReadonly = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -89,7 +92,7 @@
             this.btnOK.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOK.Image = global::LiteDB.Studio.Properties.Resources.database_connect;
             this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOK.Location = new System.Drawing.Point(454, 300);
+            this.btnOK.Location = new System.Drawing.Point(454, 383);
             this.btnOK.Name = "btnOK";
             this.btnOK.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnOK.Size = new System.Drawing.Size(127, 38);
@@ -137,8 +140,11 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.cbUpgrade);
+            this.groupBox3.Controls.Add(this.label4);
+            this.groupBox3.Controls.Add(this.cmbSort);
             this.groupBox3.Controls.Add(this.label2);
+            this.groupBox3.Controls.Add(this.cmbCulture);
+            this.groupBox3.Controls.Add(this.chkUpgrade);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.txtPassword);
             this.groupBox3.Controls.Add(this.txtInitialSize);
@@ -146,37 +152,60 @@
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Location = new System.Drawing.Point(12, 159);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(569, 126);
+            this.groupBox3.Size = new System.Drawing.Size(569, 209);
             this.groupBox3.TabIndex = 29;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Parameters";
             // 
-            // cbUpgrade
+            // cmbSort
             // 
-            this.cbUpgrade.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbUpgrade.FormattingEnabled = true;
-            this.cbUpgrade.Location = new System.Drawing.Point(151, 97);
-            this.cbUpgrade.Name = "cbUpgrade";
-            this.cbUpgrade.Size = new System.Drawing.Size(79, 23);
-            this.cbUpgrade.TabIndex = 34;
+            this.cmbSort.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmbSort.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmbSort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSort.FormattingEnabled = true;
+            this.cmbSort.Location = new System.Drawing.Point(292, 100);
+            this.cmbSort.Name = "cmbSort";
+            this.cmbSort.Size = new System.Drawing.Size(117, 23);
+            this.cmbSort.TabIndex = 37;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 100);
+            this.label2.Location = new System.Drawing.Point(18, 103);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(94, 15);
-            this.label2.TabIndex = 33;
-            this.label2.Text = "Upgrade datafile";
+            this.label2.Size = new System.Drawing.Size(58, 15);
+            this.label2.TabIndex = 36;
+            this.label2.Text = "Collation:";
+            // 
+            // cmbCulture
+            // 
+            this.cmbCulture.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmbCulture.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmbCulture.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCulture.FormattingEnabled = true;
+            this.cmbCulture.Location = new System.Drawing.Point(151, 100);
+            this.cmbCulture.Name = "cmbCulture";
+            this.cmbCulture.Size = new System.Drawing.Size(117, 23);
+            this.cmbCulture.TabIndex = 35;
+            // 
+            // chkUpgrade
+            // 
+            this.chkUpgrade.AutoSize = true;
+            this.chkUpgrade.Location = new System.Drawing.Point(21, 175);
+            this.chkUpgrade.Name = "chkUpgrade";
+            this.chkUpgrade.Size = new System.Drawing.Size(212, 19);
+            this.chkUpgrade.TabIndex = 33;
+            this.chkUpgrade.Text = "Upgrade from LiteDB v4 (if needed)";
+            this.chkUpgrade.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(18, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 15);
+            this.label1.Size = new System.Drawing.Size(60, 15);
             this.label1.TabIndex = 32;
-            this.label1.Text = "Password";
+            this.label1.Text = "Password:";
             // 
             // txtPassword
             // 
@@ -189,7 +218,7 @@
             // chkReadonly
             // 
             this.chkReadonly.AutoSize = true;
-            this.chkReadonly.Location = new System.Drawing.Point(273, 65);
+            this.chkReadonly.Location = new System.Drawing.Point(21, 139);
             this.chkReadonly.Name = "chkReadonly";
             this.chkReadonly.Size = new System.Drawing.Size(78, 19);
             this.chkReadonly.TabIndex = 27;
@@ -206,11 +235,20 @@
             this.label3.TabIndex = 30;
             this.label3.Text = "Initial Size (MB):";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(274, 103);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(12, 15);
+            this.label4.TabIndex = 38;
+            this.label4.Text = "/";
+            // 
             // ConnectionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(596, 352);
+            this.ClientSize = new System.Drawing.Size(596, 436);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -249,7 +287,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.RadioButton radModeShared;
+        private System.Windows.Forms.ComboBox cmbSort;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cbUpgrade;
+        private System.Windows.Forms.ComboBox cmbCulture;
+        private System.Windows.Forms.CheckBox chkUpgrade;
+        private System.Windows.Forms.Label label4;
     }
 }
