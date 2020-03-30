@@ -116,7 +116,7 @@
             // 
             this.txtInitialSize.Location = new System.Drawing.Point(151, 61);
             this.txtInitialSize.Name = "txtInitialSize";
-            this.txtInitialSize.Size = new System.Drawing.Size(79, 23);
+            this.txtInitialSize.Size = new System.Drawing.Size(70, 23);
             this.txtInitialSize.TabIndex = 24;
             this.txtInitialSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -196,7 +196,6 @@
             this.chkUpgrade.Size = new System.Drawing.Size(212, 19);
             this.chkUpgrade.TabIndex = 33;
             this.chkUpgrade.Text = "Upgrade from LiteDB v4 (if needed)";
-            this.chkUpgrade.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -286,11 +285,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtPassword;
+        private System.Windows.Forms.CheckBox chkUpgrade;
         private System.Windows.Forms.RadioButton radModeShared;
         private System.Windows.Forms.ComboBox cmbSort;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmbCulture;
-        private System.Windows.Forms.CheckBox chkUpgrade;
         private System.Windows.Forms.Label label4;
     }
 }
