@@ -23,9 +23,6 @@ namespace LiteDB.Studio.Forms
             txtFilename.Text = cs.Filename;
             chkReadonly.Checked = cs.ReadOnly;
             txtInitialSize.Text = (cs.InitialSize / MB).ToString();
-
-            cbUpgrade.DataSource = Enum.GetValues(typeof(UpgradeOption));
-            cbUpgrade.SelectedItem = UpgradeOption.True;
         }
 
         private void BtnConnect_Click(object sender, EventArgs e)
@@ -36,7 +33,7 @@ namespace LiteDB.Studio.Forms
 
             this.ConnectionString.Filename = txtFilename.Text;
             this.ConnectionString.ReadOnly = chkReadonly.Checked;
-            this.ConnectionString.Upgrade = (UpgradeOption)cbUpgrade.SelectedItem;
+            this.ConnectionString.Upgrade = chkUpgrade.Checked;
             this.ConnectionString.Password = txtPassword.Text.Trim().Length > 0 ? txtPassword.Text.Trim() : null;
 
             if (int.TryParse(txtInitialSize.Text, out var initialSize))
@@ -64,12 +61,12 @@ namespace LiteDB.Studio.Forms
         {
             if (chkReadonly.Checked)
             {
-                cbUpgrade.SelectedItem = UpgradeOption.False;
-                cbUpgrade.Enabled = false;
+                chkUpgrade.Checked = false;
+                chkUpgrade.Enabled = false;
             }
             else
             {
-                cbUpgrade.Enabled = true;
+                chkUpgrade.Enabled = true;
             }
         }
     }
