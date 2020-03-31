@@ -52,6 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Debugger\DatabaseDebugger.cs" />
+    <Compile Include="Classes\Debugger\HtmlPageDump.cs" />
+    <Compile Include="Classes\Debugger\HtmlPageList.cs" />
     <Compile Include="Classes\SqlCodeCompletion.cs" />
     <Compile Include="Classes\UIExtensions.cs" />
     <Compile Include="Forms\ConnectionForm.cs">
@@ -333,6 +336,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="LiteDB.Studio.ico" />
+    <None Include="Resources\bug_link.png" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

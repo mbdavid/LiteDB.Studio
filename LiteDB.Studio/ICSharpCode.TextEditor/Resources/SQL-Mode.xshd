@@ -219,6 +219,8 @@ http://minisqlquery.codeplex.com/license
         <Key word="SPLIT" />
         <Key word="FORMAT" />
         <Key word="JOIN" />
+        <Key word="IS_MATCH" />
+        <Key word="MATCH" />
 
       </KeyWords>
       

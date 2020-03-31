@@ -21,6 +21,7 @@ namespace LiteDB.Studio
         private readonly SynchronizationContext _synchronizationContext;
 
         private LiteDatabase _db = null;
+        private DatabaseDebugger _debugger = null;
         private ConnectionString _connectionString = null;
         private SqlCodeCompletion _codeCompletion;
 
@@ -156,6 +157,9 @@ namespace LiteDB.Studio
 
             try
             {
+                _debugger?.Dispose();
+                _debugger = null;
+
                 _db?.Dispose();
                 _db = null;
 
@@ -182,6 +186,7 @@ namespace LiteDB.Studio
             btnCommit.Enabled = enabled;
             btnRollback.Enabled = enabled;
             btnCheckpoint.Enabled = enabled;
+            btnDebug.Enabled = enabled;
         }
 
         private TaskData ActiveTask => tabSql.SelectedTab?.Tag as TaskData;
@@ -543,6 +548,18 @@ namespace LiteDB.Studio
             }
         }
 
+        private void btnDebug_Click(object sender, EventArgs e)
+        {
+            if (_debugger == null)
+            {
+                _debugger = new DatabaseDebugger(_db, new Random().Next(8000, 9000));
+
+                _debugger.Start();
+            }
+
+            Process.Start("http://localhost:" + _debugger.Port);
+        }
+
         #endregion
 
         #region ContextMenu
@@ -672,5 +689,6 @@ namespace LiteDB.Studio
         }
 
         #endregion
+
     }
 }

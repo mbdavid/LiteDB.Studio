@@ -49,34 +49,36 @@
             this.prgRunning = new System.Windows.Forms.ToolStripProgressBar();
             this.lblElapsed = new System.Windows.Forms.ToolStripStatusLabel();
             this.tlbMain = new System.Windows.Forms.ToolStrip();
-            this.btnConnect = new System.Windows.Forms.ToolStripButton();
             this.tlbSep1 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.tlbSep2 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnRun = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.ctxMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mnuSep1 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuSep2 = new System.Windows.Forms.ToolStripSeparator();
+            this.ctxMenuRoot = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.imgCodeCompletion = new System.Windows.Forms.ImageList(this.components);
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnConnect = new System.Windows.Forms.ToolStripButton();
+            this.btnRefresh = new System.Windows.Forms.ToolStripButton();
+            this.btnRun = new System.Windows.Forms.ToolStripButton();
             this.btnBegin = new System.Windows.Forms.ToolStripButton();
             this.btnCommit = new System.Windows.Forms.ToolStripButton();
             this.btnRollback = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnCheckpoint = new System.Windows.Forms.ToolStripButton();
-            this.ctxMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.btnDebug = new System.Windows.Forms.ToolStripButton();
             this.mnuQueryAll = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuQueryCount = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuExplanPlan = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuSep1 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuIndexes = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuSep2 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuExport = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAnalyze = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuRename = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDropCollection = new System.Windows.Forms.ToolStripMenuItem();
-            this.ctxMenuRoot = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mnuInfo = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuImport = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuRebuild = new System.Windows.Forms.ToolStripMenuItem();
-            this.imgCodeCompletion = new System.Windows.Forms.ImageList(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).BeginInit();
             this.splitMain.Panel1.SuspendLayout();
             this.splitMain.Panel2.SuspendLayout();
@@ -216,7 +218,7 @@
             this.grdResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdResult.Location = new System.Drawing.Point(6, 5);
             this.grdResult.Name = "grdResult";
-            this.grdResult.Size = new System.Drawing.Size(811, 348);
+            this.grdResult.Size = new System.Drawing.Size(811, 346);
             this.grdResult.TabIndex = 0;
             this.grdResult.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.GrdResult_CellBeginEdit);
             this.grdResult.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrdResult_CellEndEdit);
@@ -225,10 +227,10 @@
             // tabText
             // 
             this.tabText.Controls.Add(this.txtResult);
-            this.tabText.Location = new System.Drawing.Point(4, 22);
+            this.tabText.Location = new System.Drawing.Point(4, 24);
             this.tabText.Name = "tabText";
             this.tabText.Padding = new System.Windows.Forms.Padding(3);
-            this.tabText.Size = new System.Drawing.Size(824, 363);
+            this.tabText.Size = new System.Drawing.Size(824, 361);
             this.tabText.TabIndex = 3;
             this.tabText.Text = "Text";
             this.tabText.UseVisualStyleBackColor = true;
@@ -252,10 +254,10 @@
             // tabParameters
             // 
             this.tabParameters.Controls.Add(this.txtParameters);
-            this.tabParameters.Location = new System.Drawing.Point(4, 22);
+            this.tabParameters.Location = new System.Drawing.Point(4, 24);
             this.tabParameters.Name = "tabParameters";
             this.tabParameters.Padding = new System.Windows.Forms.Padding(3);
-            this.tabParameters.Size = new System.Drawing.Size(824, 363);
+            this.tabParameters.Size = new System.Drawing.Size(824, 361);
             this.tabParameters.TabIndex = 5;
             this.tabParameters.Text = "Parameters";
             this.tabParameters.UseVisualStyleBackColor = true;
@@ -343,13 +345,94 @@
             this.btnCommit,
             this.btnRollback,
             this.toolStripSeparator2,
-            this.btnCheckpoint});
+            this.btnCheckpoint,
+            this.toolStripSeparator4,
+            this.btnDebug});
             this.tlbMain.Location = new System.Drawing.Point(0, 0);
             this.tlbMain.Name = "tlbMain";
             this.tlbMain.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
             this.tlbMain.Size = new System.Drawing.Size(1090, 33);
             this.tlbMain.TabIndex = 12;
             this.tlbMain.Text = "toolStrip";
+            // 
+            // tlbSep1
+            // 
+            this.tlbSep1.Name = "tlbSep1";
+            this.tlbSep1.Size = new System.Drawing.Size(6, 29);
+            // 
+            // tlbSep2
+            // 
+            this.tlbSep2.Name = "tlbSep2";
+            this.tlbSep2.Size = new System.Drawing.Size(6, 29);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 29);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 29);
+            // 
+            // ctxMenu
+            // 
+            this.ctxMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuQueryAll,
+            this.mnuQueryCount,
+            this.mnuExplanPlan,
+            this.mnuSep1,
+            this.mnuIndexes,
+            this.mnuSep2,
+            this.mnuExport,
+            this.mnuAnalyze,
+            this.mnuRename,
+            this.mnuDropCollection});
+            this.ctxMenu.Name = "ctxMenu";
+            this.ctxMenu.Size = new System.Drawing.Size(156, 192);
+            this.ctxMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.CtxMenu_ItemClicked);
+            // 
+            // mnuSep1
+            // 
+            this.mnuSep1.Name = "mnuSep1";
+            this.mnuSep1.Size = new System.Drawing.Size(152, 6);
+            // 
+            // mnuSep2
+            // 
+            this.mnuSep2.Name = "mnuSep2";
+            this.mnuSep2.Size = new System.Drawing.Size(152, 6);
+            // 
+            // ctxMenuRoot
+            // 
+            this.ctxMenuRoot.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuInfo,
+            this.toolStripSeparator3,
+            this.mnuImport,
+            this.mnuRebuild});
+            this.ctxMenuRoot.Name = "ctxMenu";
+            this.ctxMenuRoot.Size = new System.Drawing.Size(171, 76);
+            this.ctxMenuRoot.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.CtxMenuRoot_ItemClicked);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(167, 6);
+            // 
+            // imgCodeCompletion
+            // 
+            this.imgCodeCompletion.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgCodeCompletion.ImageStream")));
+            this.imgCodeCompletion.TransparentColor = System.Drawing.Color.Transparent;
+            this.imgCodeCompletion.Images.SetKeyName(0, "METHOD");
+            this.imgCodeCompletion.Images.SetKeyName(1, "COLLECTION");
+            this.imgCodeCompletion.Images.SetKeyName(2, "FIELD");
+            this.imgCodeCompletion.Images.SetKeyName(3, "KEYWORD");
+            this.imgCodeCompletion.Images.SetKeyName(4, "SYSTEM");
+            this.imgCodeCompletion.Images.SetKeyName(5, "SYSTEM_FN");
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 29);
             // 
             // btnConnect
             // 
@@ -361,11 +444,6 @@
             this.btnConnect.Text = "Connect";
             this.btnConnect.Click += new System.EventHandler(this.BtnConnect_Click);
             // 
-            // tlbSep1
-            // 
-            this.tlbSep1.Name = "tlbSep1";
-            this.tlbSep1.Size = new System.Drawing.Size(6, 29);
-            // 
             // btnRefresh
             // 
             this.btnRefresh.Image = global::LiteDB.Studio.Properties.Resources.arrow_refresh;
@@ -376,11 +454,6 @@
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.Click += new System.EventHandler(this.BtnRefresh_Click);
             // 
-            // tlbSep2
-            // 
-            this.tlbSep2.Name = "tlbSep2";
-            this.tlbSep2.Size = new System.Drawing.Size(6, 29);
-            // 
             // btnRun
             // 
             this.btnRun.Image = global::LiteDB.Studio.Properties.Resources.resultset_next;
@@ -390,11 +463,6 @@
             this.btnRun.Size = new System.Drawing.Size(54, 26);
             this.btnRun.Text = "Run";
             this.btnRun.Click += new System.EventHandler(this.BtnRun_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 29);
             // 
             // btnBegin
             // 
@@ -424,11 +492,6 @@
             this.btnRollback.Text = "Rollback";
             this.btnRollback.Click += new System.EventHandler(this.BtnRollback_Click);
             // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 29);
-            // 
             // btnCheckpoint
             // 
             this.btnCheckpoint.Image = global::LiteDB.Studio.Properties.Resources.application_put;
@@ -438,22 +501,14 @@
             this.btnCheckpoint.Text = "Checkpoint";
             this.btnCheckpoint.Click += new System.EventHandler(this.BtnCheckpoint_Click);
             // 
-            // ctxMenu
+            // btnDebug
             // 
-            this.ctxMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuQueryAll,
-            this.mnuQueryCount,
-            this.mnuExplanPlan,
-            this.mnuSep1,
-            this.mnuIndexes,
-            this.mnuSep2,
-            this.mnuExport,
-            this.mnuAnalyze,
-            this.mnuRename,
-            this.mnuDropCollection});
-            this.ctxMenu.Name = "ctxMenu";
-            this.ctxMenu.Size = new System.Drawing.Size(156, 192);
-            this.ctxMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.CtxMenu_ItemClicked);
+            this.btnDebug.Image = global::LiteDB.Studio.Properties.Resources.bug_link;
+            this.btnDebug.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDebug.Name = "btnDebug";
+            this.btnDebug.Size = new System.Drawing.Size(62, 26);
+            this.btnDebug.Text = "Debug";
+            this.btnDebug.Click += new System.EventHandler(this.btnDebug_Click);
             // 
             // mnuQueryAll
             // 
@@ -479,11 +534,6 @@
             this.mnuExplanPlan.Tag = "EXPLAIN SELECT $ FROM {0};";
             this.mnuExplanPlan.Text = "Explain plan";
             // 
-            // mnuSep1
-            // 
-            this.mnuSep1.Name = "mnuSep1";
-            this.mnuSep1.Size = new System.Drawing.Size(152, 6);
-            // 
             // mnuIndexes
             // 
             this.mnuIndexes.Image = global::LiteDB.Studio.Properties.Resources.key;
@@ -491,11 +541,6 @@
             this.mnuIndexes.Size = new System.Drawing.Size(155, 22);
             this.mnuIndexes.Tag = "SELECT $ FROM $indexes WHERE collection = \"{0}\";";
             this.mnuIndexes.Text = "Indexes";
-            // 
-            // mnuSep2
-            // 
-            this.mnuSep2.Name = "mnuSep2";
-            this.mnuSep2.Size = new System.Drawing.Size(152, 6);
             // 
             // mnuExport
             // 
@@ -529,35 +574,19 @@
             this.mnuDropCollection.Tag = "DROP COLLECTION {0};";
             this.mnuDropCollection.Text = "Drop collection";
             // 
-            // ctxMenuRoot
-            // 
-            this.ctxMenuRoot.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuInfo,
-            this.toolStripSeparator3,
-            this.mnuImport,
-            this.mnuRebuild});
-            this.ctxMenuRoot.Name = "ctxMenu";
-            this.ctxMenuRoot.Size = new System.Drawing.Size(181, 98);
-            this.ctxMenuRoot.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.CtxMenuRoot_ItemClicked);
-            // 
             // mnuInfo
             // 
             this.mnuInfo.Image = global::LiteDB.Studio.Properties.Resources.information;
             this.mnuInfo.Name = "mnuInfo";
-            this.mnuInfo.Size = new System.Drawing.Size(180, 22);
+            this.mnuInfo.Size = new System.Drawing.Size(170, 22);
             this.mnuInfo.Tag = "SELECT $ FROM $database;";
             this.mnuInfo.Text = "Database Info";
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
             // 
             // mnuImport
             // 
             this.mnuImport.Image = global::LiteDB.Studio.Properties.Resources.layout_add;
             this.mnuImport.Name = "mnuImport";
-            this.mnuImport.Size = new System.Drawing.Size(180, 22);
+            this.mnuImport.Size = new System.Drawing.Size(170, 22);
             this.mnuImport.Tag = "SELECT $\\n  INTO new_col\\n  FROM $file(\'C:/temp/file.json\');";
             this.mnuImport.Text = "Import from JSON";
             // 
@@ -565,20 +594,9 @@
             // 
             this.mnuRebuild.Image = global::LiteDB.Studio.Properties.Resources.compress;
             this.mnuRebuild.Name = "mnuRebuild";
-            this.mnuRebuild.Size = new System.Drawing.Size(180, 22);
+            this.mnuRebuild.Size = new System.Drawing.Size(170, 22);
             this.mnuRebuild.Tag = "REBUILD { collation: \'en-US/IgnoreCase\',  password: \'newpassword\' };";
             this.mnuRebuild.Text = "Rebuild";
-            // 
-            // imgCodeCompletion
-            // 
-            this.imgCodeCompletion.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgCodeCompletion.ImageStream")));
-            this.imgCodeCompletion.TransparentColor = System.Drawing.Color.Transparent;
-            this.imgCodeCompletion.Images.SetKeyName(0, "METHOD");
-            this.imgCodeCompletion.Images.SetKeyName(1, "COLLECTION");
-            this.imgCodeCompletion.Images.SetKeyName(2, "FIELD");
-            this.imgCodeCompletion.Images.SetKeyName(3, "KEYWORD");
-            this.imgCodeCompletion.Images.SetKeyName(4, "SYSTEM");
-            this.imgCodeCompletion.Images.SetKeyName(5, "SYSTEM_FN");
             // 
             // MainForm
             // 
@@ -668,6 +686,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton btnCheckpoint;
         private System.Windows.Forms.ToolStripMenuItem mnuRebuild;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripButton btnDebug;
     }
 }
 
