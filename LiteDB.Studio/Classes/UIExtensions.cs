@@ -58,7 +58,7 @@ namespace LiteDB.Studio
                     var cell = row.Cells[col.Index];
 
                     cell.Style.BackColor = Color.White;
-                    cell.SetBsonValue(doc[key]);
+                    cell.Value = value[key];
 
                     row.ReadOnly = key == "_id";
                 }
@@ -91,54 +91,6 @@ namespace LiteDB.Studio
 
             grd.ReadOnly = grd.Columns["_id"] == null;
             grd.Visible = true;
-        }
-
-        public static void SetBsonValue(this DataGridViewCell cell, BsonValue value)
-        {
-            if (value == null)
-            {
-                cell.Value = "";
-                cell.Tag = null;
-                return;
-            }
-
-            switch (value.Type)
-            {
-                case BsonType.MinValue:
-                    cell.Value = "-∞";
-                    break;
-                case BsonType.MaxValue:
-                    cell.Value = "+∞";
-                    break;
-                case BsonType.Boolean:
-                    cell.Value = value.AsBoolean.ToString().ToLower();
-                    break;
-                case BsonType.DateTime:
-                    cell.Value = value.AsDateTime.ToString();
-                    break;
-                case BsonType.Null:
-                    cell.Value = "(null)";
-                    cell.Style.ForeColor = Color.Silver;
-                    break;
-                case BsonType.Binary:
-                    cell.Value = Convert.ToBase64String(value.AsBinary);
-                    break;
-                case BsonType.Int32:
-                case BsonType.Int64:
-                case BsonType.Double:
-                case BsonType.Decimal:
-                case BsonType.String:
-                case BsonType.ObjectId:
-                case BsonType.Guid:
-                    cell.Value = value.ToString();
-                    break;
-                default:
-                    cell.Value = JsonSerializer.Serialize(value);
-                    break;
-            }
-
-            cell.ToolTipText = value.Type.ToString();
-            cell.Tag = value;
         }
 
         public static void DoubleBuffered(this DataGridView dgv, bool setting)

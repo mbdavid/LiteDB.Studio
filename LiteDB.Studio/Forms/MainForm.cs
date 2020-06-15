@@ -438,7 +438,7 @@ namespace LiteDB.Studio
                 cell.Style.BackColor = Color.LightGreen;
             }
 
-            cell.SetBsonValue(value);
+            cell.Value = value;
         }
 
         private void GrdResult_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
@@ -690,5 +690,60 @@ namespace LiteDB.Studio
 
         #endregion
 
+        private void grdResult_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
+        {
+            var value1 = e.CellValue1 as BsonValue ?? BsonValue.Null;
+            var value2 = e.CellValue2 as BsonValue ?? BsonValue.Null;
+            e.SortResult = value1.CompareTo(value2);
+            e.Handled = true;
+        }
+
+        private void grdResult_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            var value = e.Value as BsonValue;
+
+            if (value == null)
+            {
+                e.Value = "";
+                return;
+            }
+
+            switch (value.Type)
+            {
+                case BsonType.MinValue:
+                    e.Value = "-∞";
+                    break;
+                case BsonType.MaxValue:
+                    e.Value = "+∞";
+                    break;
+                case BsonType.Boolean:
+                    e.Value = value.AsBoolean.ToString().ToLower();
+                    break;
+                case BsonType.DateTime:
+                    e.Value = value.AsDateTime.ToString();
+                    break;
+                case BsonType.Null:
+                    e.Value = "(null)";
+                    e.CellStyle.ForeColor = Color.Silver;
+                    break;
+                case BsonType.Binary:
+                    e.Value = Convert.ToBase64String(value.AsBinary);
+                    break;
+                case BsonType.Int32:
+                case BsonType.Int64:
+                case BsonType.Double:
+                case BsonType.Decimal:
+                    e.Value = value.RawValue.ToString();
+                    break;
+                case BsonType.String:
+                case BsonType.ObjectId:
+                case BsonType.Guid:
+                    e.Value = value.ToString();
+                    break;
+                default:
+                    e.Value = JsonSerializer.Serialize(value);
+                    break;
+            }
+        }
     }
 }
