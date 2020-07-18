@@ -39,6 +39,17 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Util
             );
         }
 
+        public static ConnectionString GetLastDbConnectionString()
+        {
+            return new ConnectionString
+            {
+                Filename = Properties.Settings.Default.LastDbPath,
+                Password = Properties.Settings.Default.LastDbPassword,
+                ReadOnly = Properties.Settings.Default.LastDbReadOnly,
+                Connection = Properties.Settings.Default.LastDbConnectionType
+            };
+        }
+
         public static bool IsLastDbExist()
         {
             var ldb = Properties.Settings.Default.LastDbPath;
