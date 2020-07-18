@@ -19,9 +19,12 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Util
             Properties.Settings.Default.Save();
         }
 
-        public static void SetLastDbPath(string path)
+        public static void SetLastDb(string path, bool readOnly, string password, ConnectionType connectionType)
         {
             Properties.Settings.Default.LastDbPath = path;
+            Properties.Settings.Default.LastDbReadOnly = readOnly;
+            Properties.Settings.Default.LastDbPassword = password;
+            Properties.Settings.Default.LastDbConnectionType = connectionType;
             Properties.Settings.Default.Save();
         }
     }

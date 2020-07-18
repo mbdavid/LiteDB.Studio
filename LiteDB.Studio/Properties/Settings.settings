@@ -8,5 +8,14 @@
     <Setting Name="LastDbPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="LastDbReadOnly" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="LastDbPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="LastDbConnectionType" Type="LiteDB.ConnectionType" Scope="User">
+      <Value Profile="(Default)">Direct</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
