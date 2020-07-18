@@ -43,10 +43,13 @@ namespace ICSharpCode.TextEditor.Util
 
         public static ConnectionString GetLastDbConnectionString()
         {
+            // we must do this, because if we even pass "" as an empty password: this will thrown an exception
+            var password = string.IsNullOrEmpty(Settings.Default.LastDbPassword) ? null : Settings.Default.LastDbPassword;
+
             return new ConnectionString
             {
                 Filename = Settings.Default.LastDbPath,
-                Password = Settings.Default.LastDbPassword,
+                Password = password,
                 ReadOnly = Settings.Default.LastDbReadOnly,
                 Connection = Settings.Default.LastDbConnectionType
             };
