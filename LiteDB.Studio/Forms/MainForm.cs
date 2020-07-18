@@ -763,5 +763,17 @@ namespace LiteDB.Studio
         {
             AppSettingsManager.SetLoadLastDb(load_last_db.Checked);
         }
+
+        private void load_last_db_now_Click(object sender, EventArgs e)
+        {
+            if (AppSettingsManager.IsLastDbExist())
+            {
+                if (this._db != null)
+                {
+                    this.Disconnect();
+                }
+                this.Connect(AppSettingsManager.GetLastDbConnectionString());
+            }
+        }
     }
 }
