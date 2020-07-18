@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LiteDB.Studio.ICSharpCode.TextEditor.Util;
 
 namespace LiteDB.Studio
 {
@@ -67,6 +68,13 @@ namespace LiteDB.Studio
 
             // set assembly version on window title
             this.Text += $" (v{typeof(MainForm).Assembly.GetName().Version.ToString()})";
+
+            // load last db
+
+            if (AppSettingsManager.IsLoadLastDbEnabled() && AppSettingsManager.IsLastDbExist())
+            {
+                this.Connect(AppSettingsManager.GetLastDbConnectionString());
+            }
         }
 
         private async Task<LiteDatabase> AsyncConnect(ConnectionString connectionString)
