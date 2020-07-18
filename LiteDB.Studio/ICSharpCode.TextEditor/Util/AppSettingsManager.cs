@@ -27,5 +27,15 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Util
             Properties.Settings.Default.LastDbConnectionType = connectionType;
             Properties.Settings.Default.Save();
         }
+
+        public static (string path, bool readOnly, string password, ConnectionType connectionType) GetLastDb()
+        {
+            return (
+                Properties.Settings.Default.LastDbPath,
+                Properties.Settings.Default.LastDbReadOnly,
+                Properties.Settings.Default.LastDbPassword,
+                Properties.Settings.Default.LastDbConnectionType
+            );
+        }
     }
 }
