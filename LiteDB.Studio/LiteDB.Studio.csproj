@@ -200,6 +200,7 @@
     <Compile Include="ICSharpCode.TextEditor\Undo\UndoableReplace.cs" />
     <Compile Include="ICSharpCode.TextEditor\Undo\UndoQueue.cs" />
     <Compile Include="ICSharpCode.TextEditor\Undo\UndoStack.cs" />
+    <Compile Include="ICSharpCode.TextEditor\Util\AppSettingsManager.cs" />
     <Compile Include="ICSharpCode.TextEditor\Util\AugmentableRedBlackTree.cs" />
     <Compile Include="ICSharpCode.TextEditor\Util\CheckedList.cs" />
     <Compile Include="ICSharpCode.TextEditor\Util\FileReader.cs" />
