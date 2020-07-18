@@ -75,6 +75,11 @@ namespace LiteDB.Studio
             {
                 this.Connect(AppSettingsManager.GetLastDbConnectionString());
             }
+            
+            // set load last db status to checkbox
+
+            load_last_db.Checked = AppSettingsManager.IsLoadLastDbEnabled();
+            
         }
 
         private async Task<LiteDatabase> AsyncConnect(ConnectionString connectionString)
