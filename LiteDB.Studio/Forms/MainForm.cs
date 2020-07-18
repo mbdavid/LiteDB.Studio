@@ -753,5 +753,10 @@ namespace LiteDB.Studio
                     break;
             }
         }
+
+        private void load_last_db_CheckedChanged(object sender, EventArgs e)
+        {
+            AppSettingsManager.SetLoadLastDb(load_last_db.Checked);
+        }
     }
 }

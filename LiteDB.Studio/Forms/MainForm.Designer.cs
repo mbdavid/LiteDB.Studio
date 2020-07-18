@@ -569,6 +569,7 @@
             this.load_last_db.TabIndex = 13;
             this.load_last_db.Text = "Load Last Db";
             this.load_last_db.UseVisualStyleBackColor = true;
+            this.load_last_db.CheckedChanged += new System.EventHandler(this.load_last_db_CheckedChanged);
             // 
             // txtSql
             // 
@@ -681,7 +682,6 @@
         private System.Windows.Forms.ImageList imgList;
         private System.Windows.Forms.ContextMenuStrip ctxMenu;
         private System.Windows.Forms.ToolStripMenuItem mnuIndexes;
-        private ICSharpCode.TextEditor.TextEditorControl txtSql;
         private System.Windows.Forms.TabControl tabSql;
         private System.Windows.Forms.ToolStripMenuItem mnuDropCollection;
         private System.Windows.Forms.ToolStripMenuItem mnuAnalyze;
@@ -701,8 +701,6 @@
         private System.Windows.Forms.ToolStripMenuItem mnuExport;
         private System.Windows.Forms.ToolStripMenuItem mnuQueryCount;
         private System.Windows.Forms.ToolStripMenuItem mnuImport;
-        private ICSharpCode.TextEditor.TextEditorControl txtResult;
-        private ICSharpCode.TextEditor.TextEditorControl txtParameters;
         private System.Windows.Forms.ImageList imgCodeCompletion;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton btnCheckpoint;
@@ -711,6 +709,9 @@
         private System.Windows.Forms.ToolStripButton btnDebug;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.CheckBox load_last_db;
+        private ICSharpCode.TextEditor.TextEditorControl txtSql;
+        private ICSharpCode.TextEditor.TextEditorControl txtResult;
+        private ICSharpCode.TextEditor.TextEditorControl txtParameters;
     }
 }
 
