@@ -4,38 +4,40 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LiteDB;
+using LiteDB.Studio.Properties;
 
-namespace LiteDB.Studio.ICSharpCode.TextEditor.Util
+namespace ICSharpCode.TextEditor.Util
 {
     public static class AppSettingsManager
     {
         public static bool IsLoadLastDbEnabled()
         {
-            return Properties.Settings.Default.LoadLastDb;
+            return Settings.Default.LoadLastDb;
         }
 
         public static void SetLoadLastDb(bool enable)
         {
-            Properties.Settings.Default.LoadLastDb = enable;
-            Properties.Settings.Default.Save();
+            Settings.Default.LoadLastDb = enable;
+            Settings.Default.Save();
         }
 
         public static void SetLastDb(string path, bool readOnly, string password, ConnectionType connectionType)
         {
-            Properties.Settings.Default.LastDbPath = path;
-            Properties.Settings.Default.LastDbReadOnly = readOnly;
-            Properties.Settings.Default.LastDbPassword = password;
-            Properties.Settings.Default.LastDbConnectionType = connectionType;
-            Properties.Settings.Default.Save();
+            Settings.Default.LastDbPath = path;
+            Settings.Default.LastDbReadOnly = readOnly;
+            Settings.Default.LastDbPassword = password;
+            Settings.Default.LastDbConnectionType = connectionType;
+            Settings.Default.Save();
         }
 
         public static (string path, bool readOnly, string password, ConnectionType connectionType) GetLastDb()
         {
             return (
-                Properties.Settings.Default.LastDbPath,
-                Properties.Settings.Default.LastDbReadOnly,
-                Properties.Settings.Default.LastDbPassword,
-                Properties.Settings.Default.LastDbConnectionType
+                Settings.Default.LastDbPath,
+                Settings.Default.LastDbReadOnly,
+                Settings.Default.LastDbPassword,
+                Settings.Default.LastDbConnectionType
             );
         }
 
@@ -43,16 +45,16 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Util
         {
             return new ConnectionString
             {
-                Filename = Properties.Settings.Default.LastDbPath,
-                Password = Properties.Settings.Default.LastDbPassword,
-                ReadOnly = Properties.Settings.Default.LastDbReadOnly,
-                Connection = Properties.Settings.Default.LastDbConnectionType
+                Filename = Settings.Default.LastDbPath,
+                Password = Settings.Default.LastDbPassword,
+                ReadOnly = Settings.Default.LastDbReadOnly,
+                Connection = Settings.Default.LastDbConnectionType
             };
         }
 
         public static bool IsLastDbExist()
         {
-            var ldb = Properties.Settings.Default.LastDbPath;
+            var ldb = Settings.Default.LastDbPath;
             return !string.IsNullOrEmpty(ldb) && File.Exists(ldb);
         }
     }
