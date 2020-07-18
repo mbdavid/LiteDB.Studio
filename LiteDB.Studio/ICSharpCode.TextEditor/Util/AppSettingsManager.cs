@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +37,12 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Util
                 Properties.Settings.Default.LastDbPassword,
                 Properties.Settings.Default.LastDbConnectionType
             );
+        }
+
+        public static bool IsLastDbExist()
+        {
+            var ldb = Properties.Settings.Default.LastDbPath;
+            return !string.IsNullOrEmpty(ldb) && File.Exists(ldb);
         }
     }
 }
