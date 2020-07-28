@@ -78,7 +78,7 @@ namespace LiteDB.Studio.Forms
             }
 
             this.DialogResult = DialogResult.OK;
-            AppSettingsManager.SetLastDb(this.ConnectionString);
+            AppSettingsManager.ApplicationSettings.LastConnectionStrings = this.ConnectionString;
             this.Close();
         }
 
