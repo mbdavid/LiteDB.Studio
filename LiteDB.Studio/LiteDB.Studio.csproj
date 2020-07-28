@@ -196,6 +196,7 @@
     </Compile>
     <Compile Include="ICSharpCode.TextEditor\Gui\TextView.cs" />
     <Compile Include="ICSharpCode.TextEditor\Gui\ToolTipRequestEventArgs.cs" />
+    <Compile Include="ICSharpCode.TextEditor\Model\ApplicationSettings.cs" />
     <Compile Include="ICSharpCode.TextEditor\Properties\Resources.Designer.cs" />
     <Compile Include="ICSharpCode.TextEditor\Undo\IUndoableOperation.cs" />
     <Compile Include="ICSharpCode.TextEditor\Undo\UndoableDelete.cs" />
@@ -349,6 +350,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="ILMerge.MSBuild.Tasks.ILMerge" AssemblyFile="$(SolutionDir)\packages\ILMerge.MSBuild.Tasks.1.0.0.3\tools\ILMerge.MSBuild.Tasks.dll" />
   <Target Name="AfterBuild">
