@@ -4,61 +4,83 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ICSharpCode.TextEditor.Util.Model;
 using LiteDB;
 using LiteDB.Studio.Properties;
+using Newtonsoft.Json;
 
 namespace ICSharpCode.TextEditor.Util
 {
     public static class AppSettingsManager
     {
+        private static ApplicationSettings ApplicationSettings { get; set; }
+        static AppSettingsManager()
+        {
+            if (string.IsNullOrEmpty(Settings.Default.ApplicationSettings))
+            {
+                ApplicationSettings = new ApplicationSettings();
+                ReplaceApplicationSettings(ApplicationSettings);
+            }
+            else
+            {
+                ApplicationSettings =
+                    JsonConvert.DeserializeObject<ApplicationSettings>(Settings.Default.ApplicationSettings);
+            }
+        }
+
+        private static void ReplaceApplicationSettings(ApplicationSettings applicationSettings = null)
+        {
+            if (applicationSettings == null)
+            {
+                Settings.Default.ApplicationSettings = JsonConvert.SerializeObject(ApplicationSettings);
+                Settings.Default.Save();
+            }
+            else
+            {
+                Settings.Default.ApplicationSettings = JsonConvert.SerializeObject(applicationSettings);
+                Settings.Default.Save();
+                ApplicationSettings = applicationSettings;
+            }
+        }
+
+        public static void SetApplicationSettings(ApplicationSettings applicationSettings)
+        {
+            ReplaceApplicationSettings(applicationSettings);
+        }
+
         public static bool IsLoadLastDbEnabled()
         {
-            return Settings.Default.LoadLastDb;
+            return ApplicationSettings.LoadLastDbOnStartup;
         }
 
         public static void SetLoadLastDb(bool enable)
         {
-            Settings.Default.LoadLastDb = enable;
-            Settings.Default.Save();
+            ApplicationSettings.LoadLastDbOnStartup = enable;
         }
 
-        public static void SetLastDb(string path, bool readOnly, string password, ConnectionType connectionType)
+        public static void SetLastDb(ConnectionString connectionString)
         {
-            Settings.Default.LastDbPath = path;
-            Settings.Default.LastDbReadOnly = readOnly;
-            Settings.Default.LastDbPassword = password;
-            Settings.Default.LastDbConnectionType = connectionType;
-            Settings.Default.Save();
-        }
-
-        public static (string path, bool readOnly, string password, ConnectionType connectionType) GetLastDb()
-        {
-            return (
-                Settings.Default.LastDbPath,
-                Settings.Default.LastDbReadOnly,
-                Settings.Default.LastDbPassword,
-                Settings.Default.LastDbConnectionType
-            );
+            ApplicationSettings.LastConnectionStrings = connectionString;
         }
 
         public static ConnectionString GetLastDbConnectionString()
         {
-            // we must do this, because if we even pass "" as an empty password: this will thrown an exception
-            var password = string.IsNullOrEmpty(Settings.Default.LastDbPassword) ? null : Settings.Default.LastDbPassword;
-
-            return new ConnectionString
-            {
-                Filename = Settings.Default.LastDbPath,
-                Password = password,
-                ReadOnly = Settings.Default.LastDbReadOnly,
-                Connection = Settings.Default.LastDbConnectionType
-            };
+            return ApplicationSettings.LastConnectionStrings;
         }
 
         public static bool IsLastDbExist()
         {
-            var ldb = Settings.Default.LastDbPath;
+            if (ApplicationSettings.LastConnectionStrings == null)
+            {
+                return false;
+            }
+            var ldb = ApplicationSettings.LastConnectionStrings.Filename;
             return !string.IsNullOrEmpty(ldb) && File.Exists(ldb);
+        }
+
+        public static void PersistData()
+        {
+            ReplaceApplicationSettings();
         }
     }
 }
