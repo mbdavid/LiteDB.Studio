@@ -71,14 +71,14 @@ namespace LiteDB.Studio
 
             // load last db
 
-            if (AppSettingsManager.IsLoadLastDbEnabled() && AppSettingsManager.IsLastDbExist())
+            if (AppSettingsManager.ApplicationSettings.LoadLastDbOnStartup && AppSettingsManager.IsLastDbExist())
             {
-                this.Connect(AppSettingsManager.GetLastDbConnectionString());
+                this.Connect(AppSettingsManager.ApplicationSettings.LastConnectionStrings);
             }
             
             // set load last db status to checkbox
 
-            loadLastDb.Checked = AppSettingsManager.IsLoadLastDbEnabled();
+            loadLastDb.Checked = AppSettingsManager.ApplicationSettings.LoadLastDbOnStartup;
             
         }
 
@@ -761,7 +761,7 @@ namespace LiteDB.Studio
 
         private void loadLastDbChecked_Changed(object sender, EventArgs e)
         {
-            AppSettingsManager.SetLoadLastDb(loadLastDb.Checked);
+            AppSettingsManager.ApplicationSettings.LoadLastDbOnStartup = loadLastDb.Checked;
         }
 
         private void loadLastDbNow_Click(object sender, EventArgs e)
@@ -772,7 +772,7 @@ namespace LiteDB.Studio
                 {
                     this.Disconnect();
                 }
-                this.Connect(AppSettingsManager.GetLastDbConnectionString());
+                this.Connect(AppSettingsManager.ApplicationSettings.LastConnectionStrings);
             }
         }
     }
