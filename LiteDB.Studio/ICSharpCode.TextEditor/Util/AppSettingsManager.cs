@@ -13,7 +13,7 @@ namespace ICSharpCode.TextEditor.Util
 {
     public static class AppSettingsManager
     {
-        private static ApplicationSettings ApplicationSettings { get; set; }
+        public static ApplicationSettings ApplicationSettings { get; set; }
         static AppSettingsManager()
         {
             if (string.IsNullOrEmpty(Settings.Default.ApplicationSettings))
@@ -41,31 +41,6 @@ namespace ICSharpCode.TextEditor.Util
                 Settings.Default.Save();
                 ApplicationSettings = applicationSettings;
             }
-        }
-
-        public static void SetApplicationSettings(ApplicationSettings applicationSettings)
-        {
-            ReplaceApplicationSettings(applicationSettings);
-        }
-
-        public static bool IsLoadLastDbEnabled()
-        {
-            return ApplicationSettings.LoadLastDbOnStartup;
-        }
-
-        public static void SetLoadLastDb(bool enable)
-        {
-            ApplicationSettings.LoadLastDbOnStartup = enable;
-        }
-
-        public static void SetLastDb(ConnectionString connectionString)
-        {
-            ApplicationSettings.LastConnectionStrings = connectionString;
-        }
-
-        public static ConnectionString GetLastDbConnectionString()
-        {
-            return ApplicationSettings.LastConnectionStrings;
         }
 
         public static bool IsLastDbExist()
