@@ -78,12 +78,7 @@ namespace LiteDB.Studio.Forms
             }
 
             this.DialogResult = DialogResult.OK;
-            AppSettingsManager.SetLastDb(
-                this.ConnectionString.Filename,
-                this.ConnectionString.ReadOnly,
-                this.ConnectionString.Password,
-                this.ConnectionString.Connection
-                );
+            AppSettingsManager.SetLastDb(this.ConnectionString);
             this.Close();
         }
 
