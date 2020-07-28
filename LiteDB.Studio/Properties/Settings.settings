@@ -2,20 +2,8 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="LiteDB.Studio.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="LoadLastDb" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="LastDbPath" Type="System.String" Scope="User">
+    <Setting Name="ApplicationSettings" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="LastDbReadOnly" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="LastDbPassword" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="LastDbConnectionType" Type="LiteDB.ConnectionType" Scope="User">
-      <Value Profile="(Default)">Direct</Value>
     </Setting>
   </Settings>
 </SettingsFile>

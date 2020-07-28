@@ -25,61 +25,13 @@ namespace LiteDB.Studio.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool LoadLastDb {
-            get {
-                return ((bool)(this["LoadLastDb"]));
-            }
-            set {
-                this["LoadLastDb"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string LastDbPath {
+        public string ApplicationSettings {
             get {
-                return ((string)(this["LastDbPath"]));
+                return ((string)(this["ApplicationSettings"]));
             }
             set {
-                this["LastDbPath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool LastDbReadOnly {
-            get {
-                return ((bool)(this["LastDbReadOnly"]));
-            }
-            set {
-                this["LastDbReadOnly"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string LastDbPassword {
-            get {
-                return ((string)(this["LastDbPassword"]));
-            }
-            set {
-                this["LastDbPassword"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Direct")]
-        public global::LiteDB.ConnectionType LastDbConnectionType {
-            get {
-                return ((global::LiteDB.ConnectionType)(this["LastDbConnectionType"]));
-            }
-            set {
-                this["LastDbConnectionType"] = value;
+                this["ApplicationSettings"] = value;
             }
         }
     }
