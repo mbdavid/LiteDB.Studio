@@ -58,7 +58,7 @@
             this.ctxMenuRoot = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.imgCodeCompletion = new System.Windows.Forms.ImageList(this.components);
-            this.load_last_db = new System.Windows.Forms.CheckBox();
+            this.loadLastDb = new System.Windows.Forms.CheckBox();
             this.btnConnect = new System.Windows.Forms.ToolStripButton();
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.btnRun = new System.Windows.Forms.ToolStripButton();
@@ -398,16 +398,16 @@
             this.imgCodeCompletion.Images.SetKeyName(4, "SYSTEM");
             this.imgCodeCompletion.Images.SetKeyName(5, "SYSTEM_FN");
             // 
-            // load_last_db
+            // loadLastDb
             // 
-            this.load_last_db.AutoSize = true;
-            this.load_last_db.Location = new System.Drawing.Point(642, 8);
-            this.load_last_db.Name = "load_last_db";
-            this.load_last_db.Size = new System.Drawing.Size(154, 19);
-            this.load_last_db.TabIndex = 13;
-            this.load_last_db.Text = "Load Last Db On Startup";
-            this.load_last_db.UseVisualStyleBackColor = true;
-            this.load_last_db.CheckedChanged += new System.EventHandler(this.load_last_db_CheckedChanged);
+            this.loadLastDb.AutoSize = true;
+            this.loadLastDb.Location = new System.Drawing.Point(642, 8);
+            this.loadLastDb.Name = "loadLastDb";
+            this.loadLastDb.Size = new System.Drawing.Size(154, 19);
+            this.loadLastDb.TabIndex = 13;
+            this.loadLastDb.Text = "Load Last Db On Startup";
+            this.loadLastDb.UseVisualStyleBackColor = true;
+            this.loadLastDb.CheckedChanged += new System.EventHandler(this.loadLastDbChecked_Changed);
             // 
             // btnConnect
             // 
@@ -494,7 +494,7 @@
             this.load_last_db_now.Size = new System.Drawing.Size(23, 26);
             this.load_last_db_now.Text = "toolStripButton1";
             this.load_last_db_now.ToolTipText = "Load Last Db";
-            this.load_last_db_now.Click += new System.EventHandler(this.load_last_db_now_Click);
+            this.load_last_db_now.Click += new System.EventHandler(this.loadLastDbNow_Click);
             // 
             // mnuQueryAll
             // 
@@ -637,7 +637,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1090, 660);
-            this.Controls.Add(this.load_last_db);
+            this.Controls.Add(this.loadLastDb);
             this.Controls.Add(this.tlbMain);
             this.Controls.Add(this.stbStatus);
             this.Controls.Add(this.splitMain);
@@ -721,7 +721,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripButton btnDebug;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private System.Windows.Forms.CheckBox load_last_db;
+        private System.Windows.Forms.CheckBox loadLastDb;
         private ICSharpCode.TextEditor.TextEditorControl txtSql;
         private ICSharpCode.TextEditor.TextEditorControl txtResult;
         private ICSharpCode.TextEditor.TextEditorControl txtParameters;
