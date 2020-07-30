@@ -69,9 +69,15 @@ namespace ICSharpCode.TextEditor.Util
             var connection = ApplicationSettings.RecentConnectionStrings.FirstOrDefault(cs => cs.Filename == connectionString.Filename);
             if (connection != null)
             {
-                // remove old
+                // remove the old item
                 ApplicationSettings.RecentConnectionStrings.Remove(connection);
           
+            }
+
+            if (ApplicationSettings.RecentConnectionStrings.Count + 1 > ApplicationSettings.MaxRecentListItems)
+            {
+                // remove last item in the list
+                ApplicationSettings.RecentConnectionStrings.RemoveAt(ApplicationSettings.RecentConnectionStrings.Count - 1);
             }
 
             // add new to the top
