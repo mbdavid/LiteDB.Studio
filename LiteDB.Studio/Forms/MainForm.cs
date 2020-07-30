@@ -463,13 +463,29 @@ namespace LiteDB.Studio
                 this.Connect(db);
             }
 
+            // clear the old list to prevent memory leaks
+
+            var oldLength = this.recentDBsDropDownButton.DropDownItems.Count;
+
+            for (var i = 0; i < oldLength - 1; i++)
+            {
+                // unsubscribe
+                if (recentDBsDropDownButton.DropDownItems[1] is ToolStripMenuItem item)
+                {
+                    item.Click -= HandleClick;
+                }
+                recentDBsDropDownButton.DropDownItems.RemoveAt(1);
+            }
+
+            // populate the list again
             for (var i = 0; i < length; i++)
             {
                 var db = dbs[i];
-                var t = new ToolStripMenuItem(BalanceString(db.Filename), null, HandleClick, i.ToString())
+                var t = new ToolStripMenuItem(BalanceString(db.Filename), null, null, i.ToString())
                 {
                     ToolTipText = db.Filename,
                 };
+                t.Click += HandleClick;
                 bts[i] = t;
             }
 
@@ -604,6 +620,8 @@ namespace LiteDB.Studio
                 if (dialog.DialogResult != DialogResult.OK) return;
 
                 this.Connect(dialog.ConnectionString);
+                // re populate the list
+                PopulateRecentList();
             }
             else
             {
