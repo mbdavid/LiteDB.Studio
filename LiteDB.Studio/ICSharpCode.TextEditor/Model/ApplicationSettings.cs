@@ -11,6 +11,7 @@ namespace ICSharpCode.TextEditor.Util.Model
     public class ApplicationSettings
     {
         public ConnectionString LastConnectionStrings { get; set; }
+        public List<ConnectionString> RecentConnectionStrings { get; set; }
         public bool LoadLastDbOnStartup { get; set; }
 
         public ApplicationSettings()
