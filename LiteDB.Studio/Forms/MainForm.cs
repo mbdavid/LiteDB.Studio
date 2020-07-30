@@ -79,7 +79,12 @@ namespace LiteDB.Studio
             // set load last db status to checkbox
 
             loadLastDb.Checked = AppSettingsManager.ApplicationSettings.LoadLastDbOnStartup;
-            
+
+            // populate recent db list
+
+            PopulateRecentList();
+
+
         }
 
         private async Task<LiteDatabase> AsyncConnect(ConnectionString connectionString)
@@ -424,6 +429,35 @@ namespace LiteDB.Studio
             {
                 AddNewTab(sql.Replace("\\n", "\n"));
             }
+        }
+
+        private void PopulateRecentList()
+        {
+            var dbs = AppSettingsManager.ApplicationSettings.RecentConnectionStrings;
+
+            var length = dbs.Count;
+            ToolStripItem[] bts = new ToolStripItem[length];
+
+            void HandleClick(object sender, EventArgs eventArgs)
+            {
+                var but = sender as ToolStripButton;
+                var index = int.Parse(but.Name);
+                var db = dbs[index];
+                this.Disconnect();
+                if (AppSettingsManager.IsDbExist(db.Filename))
+                {
+                    this.Disconnect();
+                    this.Connect(db);
+                }
+            }
+
+            for (int i = 0; i < length; i++)
+            {
+                var db = dbs[i];
+                bts[i] = new ToolStripButton(db.Filename, null, HandleClick, i.ToString());
+            }
+
+            this.recentDBsDropDownButton.DropDownItems.AddRange(bts);
         }
 
         #region Grid Edit
@@ -774,6 +808,11 @@ namespace LiteDB.Studio
                 }
                 this.Connect(AppSettingsManager.ApplicationSettings.LastConnectionStrings);
             }
+        }
+
+        private void clearAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
