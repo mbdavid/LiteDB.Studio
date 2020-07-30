@@ -13,7 +13,6 @@ namespace ICSharpCode.TextEditor.Util.Model
         public ConnectionString LastConnectionStrings { get; set; }
         public List<ConnectionString> RecentConnectionStrings { get; set; }
         
-        // TODO: resolve this from application config when we implement custom settings window
         public int MaxRecentListItems { get; set; } = 10;
         public bool LoadLastDbOnStartup { get; set; }
 

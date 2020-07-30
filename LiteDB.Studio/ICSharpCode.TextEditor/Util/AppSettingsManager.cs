@@ -88,7 +88,7 @@ namespace ICSharpCode.TextEditor.Util
         /// <summary>
         /// Remove any item from recent list if it does not exist
         /// </summary>
-        public static void ValidateRecentList()
+        public static void ValidateRecentList(bool removeOverflowedItems = true)
         {
             var toRemove = ApplicationSettings.RecentConnectionStrings.Where(connectionString => !IsDbExist(connectionString.Filename)).ToList();
 
@@ -96,6 +96,11 @@ namespace ICSharpCode.TextEditor.Util
             {
                 ApplicationSettings.RecentConnectionStrings.Remove(connectionString);
             }
+
+            var diff = ApplicationSettings.RecentConnectionStrings.Count - ApplicationSettings.MaxRecentListItems;
+            if (diff <= 0) return;
+            var startIndex = ApplicationSettings.RecentConnectionStrings.Count - diff;
+            ApplicationSettings.RecentConnectionStrings.RemoveRange(startIndex, diff);
         }
 
         public static void ClearRecentList()
