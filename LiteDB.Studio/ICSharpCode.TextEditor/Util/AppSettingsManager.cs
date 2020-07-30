@@ -92,5 +92,10 @@ namespace ICSharpCode.TextEditor.Util
             }
         }
 
+        public static void ClearRecentList()
+        {
+            ApplicationSettings.RecentConnectionStrings.Clear();
+        }
+
     }
 }
