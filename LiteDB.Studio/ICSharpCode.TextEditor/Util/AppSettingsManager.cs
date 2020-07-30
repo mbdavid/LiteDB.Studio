@@ -80,6 +80,17 @@ namespace ICSharpCode.TextEditor.Util
                 ApplicationSettings.RecentConnectionStrings.Add(connectionString);
             }
         }
+        
+        /// <summary>
+        /// Remove any item from recent list if it does not exist
+        /// </summary>
+        public static void ValidateRecentList()
+        {
+            foreach (var connectionString in ApplicationSettings.RecentConnectionStrings.Where(connectionString => !IsDbExist(connectionString.Filename)))
+            {
+                File.Delete(connectionString.Filename);
+            }
+        }
 
     }
 }
