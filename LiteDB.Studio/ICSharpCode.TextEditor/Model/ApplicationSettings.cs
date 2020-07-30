@@ -16,6 +16,7 @@ namespace ICSharpCode.TextEditor.Util.Model
 
         public ApplicationSettings()
         {
+            RecentConnectionStrings = new List<ConnectionString>();
         }
     }
 }
