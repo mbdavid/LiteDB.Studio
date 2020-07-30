@@ -53,6 +53,11 @@ namespace ICSharpCode.TextEditor.Util
             return !string.IsNullOrEmpty(ldb) && File.Exists(ldb);
         }
 
+        public static bool IsDbExist(string db)
+        {
+            return !string.IsNullOrEmpty(db) && File.Exists(db);
+        }
+
         public static void PersistData()
         {
             ReplaceApplicationSettings();
