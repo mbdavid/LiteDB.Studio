@@ -442,7 +442,7 @@ namespace LiteDB.Studio
         {
             var fileName = Path.GetFileName(path);
             var direName = Directory.GetParent(path).FullName;
-            return startCounter > direName.Length + 3 ? path : $@"{direName.Substring(0, startCounter)}...\${fileName}";
+            return startCounter > direName.Length + 3 ? path : $@"{direName.Substring(0, startCounter)}...\{fileName}";
         }
 
         private void PopulateRecentList()
