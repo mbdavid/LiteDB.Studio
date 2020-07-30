@@ -431,6 +431,20 @@ namespace LiteDB.Studio
             }
         }
 
+
+        /// <summary>
+        /// Return string as c:\windows.....\fileName.ext
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="startCounter"></param>
+        /// <returns></returns>
+        private string BalanceString(string path, int startCounter = 20)
+        {
+            var fileName = Path.GetFileName(path);
+            var direName = Directory.GetParent(path).FullName;
+            return startCounter > direName.Length + 3 ? path : $@"{direName.Substring(0, startCounter)}...\${fileName}";
+        }
+
         private void PopulateRecentList()
         {
             var dbs = AppSettingsManager.ApplicationSettings.RecentConnectionStrings;
@@ -440,21 +454,23 @@ namespace LiteDB.Studio
 
             void HandleClick(object sender, EventArgs eventArgs)
             {
-                var but = sender as ToolStripButton;
+                if (!(sender is ToolStripMenuItem but)) return;
                 var index = int.Parse(but.Name);
                 var db = dbs[index];
                 this.Disconnect();
-                if (AppSettingsManager.IsDbExist(db.Filename))
-                {
-                    this.Disconnect();
-                    this.Connect(db);
-                }
+                if (!AppSettingsManager.IsDbExist(db.Filename)) return;
+                this.Disconnect();
+                this.Connect(db);
             }
 
-            for (int i = 0; i < length; i++)
+            for (var i = 0; i < length; i++)
             {
                 var db = dbs[i];
-                bts[i] = new ToolStripButton(db.Filename, null, HandleClick, i.ToString());
+                var t = new ToolStripMenuItem(BalanceString(db.Filename), null, HandleClick, i.ToString())
+                {
+                    ToolTipText = db.Filename,
+                };
+                bts[i] = t;
             }
 
             this.recentDBsDropDownButton.DropDownItems.AddRange(bts);
