@@ -79,9 +79,11 @@ namespace LiteDB.Studio
             // set load last db status to checkbox
 
             loadLastDb.Checked = AppSettingsManager.ApplicationSettings.LoadLastDbOnStartup;
+            maxRecentListItems.Value = AppSettingsManager.ApplicationSettings.MaxRecentListItems;
 
+            // validate recent list
+            AppSettingsManager.ValidateRecentList();
             // populate recent db list
-
             PopulateRecentList();
 
 
@@ -860,6 +862,17 @@ namespace LiteDB.Studio
         {
             AppSettingsManager.ValidateRecentList();
             PopulateRecentList();
+        }
+
+        private void maxRecentListItems_ValueChanged(object sender, EventArgs e)
+        {
+            var num = sender as NumericUpDown;
+            if (num == null)
+            {
+                return;
+            }
+
+            AppSettingsManager.ApplicationSettings.MaxRecentListItems = (int)num.Value;
         }
     }
 }
