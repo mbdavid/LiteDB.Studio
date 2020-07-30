@@ -855,5 +855,11 @@ namespace LiteDB.Studio
             // clear the list
             AppSettingsManager.ClearRecentList();
         }
+
+        private void validateRecentListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AppSettingsManager.ValidateRecentList();
+            PopulateRecentList();
+        }
     }
 }

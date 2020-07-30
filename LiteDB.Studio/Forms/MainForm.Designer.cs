@@ -34,11 +34,14 @@
             this.tvwDatabase = new System.Windows.Forms.TreeView();
             this.imgList = new System.Windows.Forms.ImageList(this.components);
             this.splitRight = new System.Windows.Forms.SplitContainer();
+            this.txtSql = new ICSharpCode.TextEditor.TextEditorControl();
             this.tabResult = new System.Windows.Forms.TabControl();
             this.tabGrid = new System.Windows.Forms.TabPage();
             this.grdResult = new System.Windows.Forms.DataGridView();
             this.tabText = new System.Windows.Forms.TabPage();
+            this.txtResult = new ICSharpCode.TextEditor.TextEditorControl();
             this.tabParameters = new System.Windows.Forms.TabPage();
+            this.txtParameters = new ICSharpCode.TextEditor.TextEditorControl();
             this.tabSql = new System.Windows.Forms.TabControl();
             this.stbStatus = new System.Windows.Forms.StatusStrip();
             this.lblCursor = new System.Windows.Forms.ToolStripStatusLabel();
@@ -47,7 +50,10 @@
             this.lblElapsed = new System.Windows.Forms.ToolStripStatusLabel();
             this.tlbMain = new System.Windows.Forms.ToolStrip();
             this.recentDBsDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
-            this.clearAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.recentListSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearRecentListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.validateRecentListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.btnConnect = new System.Windows.Forms.ToolStripButton();
             this.tlbSep1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
@@ -81,9 +87,6 @@
             this.mnuRebuild = new System.Windows.Forms.ToolStripMenuItem();
             this.imgCodeCompletion = new System.Windows.Forms.ImageList(this.components);
             this.loadLastDb = new System.Windows.Forms.CheckBox();
-            this.txtSql = new ICSharpCode.TextEditor.TextEditorControl();
-            this.txtResult = new ICSharpCode.TextEditor.TextEditorControl();
-            this.txtParameters = new ICSharpCode.TextEditor.TextEditorControl();
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).BeginInit();
             this.splitMain.Panel1.SuspendLayout();
             this.splitMain.Panel2.SuspendLayout();
@@ -170,6 +173,22 @@
             this.splitRight.SplitterDistance = 174;
             this.splitRight.TabIndex = 8;
             // 
+            // txtSql
+            // 
+            this.txtSql.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSql.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSql.ConvertTabsToSpaces = true;
+            this.txtSql.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSql.Highlighting = "SQL";
+            this.txtSql.Location = new System.Drawing.Point(0, 0);
+            this.txtSql.Name = "txtSql";
+            this.txtSql.ShowLineNumbers = false;
+            this.txtSql.ShowVRuler = false;
+            this.txtSql.Size = new System.Drawing.Size(828, 171);
+            this.txtSql.TabIndex = 2;
+            // 
             // tabResult
             // 
             this.tabResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -218,24 +237,56 @@
             // tabText
             // 
             this.tabText.Controls.Add(this.txtResult);
-            this.tabText.Location = new System.Drawing.Point(4, 24);
+            this.tabText.Location = new System.Drawing.Point(4, 22);
             this.tabText.Name = "tabText";
             this.tabText.Padding = new System.Windows.Forms.Padding(3);
-            this.tabText.Size = new System.Drawing.Size(824, 361);
+            this.tabText.Size = new System.Drawing.Size(824, 363);
             this.tabText.TabIndex = 3;
             this.tabText.Text = "Text";
             this.tabText.UseVisualStyleBackColor = true;
             // 
+            // txtResult
+            // 
+            this.txtResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtResult.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtResult.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtResult.Highlighting = "JSON";
+            this.txtResult.Location = new System.Drawing.Point(5, 4);
+            this.txtResult.Name = "txtResult";
+            this.txtResult.ReadOnly = true;
+            this.txtResult.ShowLineNumbers = false;
+            this.txtResult.ShowVRuler = false;
+            this.txtResult.Size = new System.Drawing.Size(812, 353);
+            this.txtResult.TabIndex = 1;
+            // 
             // tabParameters
             // 
             this.tabParameters.Controls.Add(this.txtParameters);
-            this.tabParameters.Location = new System.Drawing.Point(4, 24);
+            this.tabParameters.Location = new System.Drawing.Point(4, 22);
             this.tabParameters.Name = "tabParameters";
             this.tabParameters.Padding = new System.Windows.Forms.Padding(3);
-            this.tabParameters.Size = new System.Drawing.Size(824, 361);
+            this.tabParameters.Size = new System.Drawing.Size(824, 363);
             this.tabParameters.TabIndex = 5;
             this.tabParameters.Text = "Parameters";
             this.tabParameters.UseVisualStyleBackColor = true;
+            // 
+            // txtParameters
+            // 
+            this.txtParameters.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtParameters.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtParameters.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtParameters.Highlighting = "JSON";
+            this.txtParameters.Location = new System.Drawing.Point(6, 5);
+            this.txtParameters.Name = "txtParameters";
+            this.txtParameters.ReadOnly = true;
+            this.txtParameters.ShowLineNumbers = false;
+            this.txtParameters.ShowVRuler = false;
+            this.txtParameters.Size = new System.Drawing.Size(811, 352);
+            this.txtParameters.TabIndex = 2;
             // 
             // tabSql
             // 
@@ -322,7 +373,8 @@
             this.recentDBsDropDownButton.AutoToolTip = false;
             this.recentDBsDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.recentDBsDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.clearAllToolStripMenuItem});
+            this.recentListSettings,
+            this.toolStripSeparator6});
             this.recentDBsDropDownButton.Image = ((System.Drawing.Image)(resources.GetObject("recentDBsDropDownButton.Image")));
             this.recentDBsDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.recentDBsDropDownButton.Name = "recentDBsDropDownButton";
@@ -330,12 +382,34 @@
             this.recentDBsDropDownButton.Text = "recentDBsDropDownButton";
             this.recentDBsDropDownButton.ToolTipText = "Recent Databases";
             // 
-            // clearAllToolStripMenuItem
+            // recentListSettings
             // 
-            this.clearAllToolStripMenuItem.Name = "clearAllToolStripMenuItem";
-            this.clearAllToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
-            this.clearAllToolStripMenuItem.Text = "Clear All";
-            this.clearAllToolStripMenuItem.Click += new System.EventHandler(this.clearAllToolStripMenuItem_Click);
+            this.recentListSettings.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clearRecentListToolStripMenuItem,
+            this.validateRecentListToolStripMenuItem});
+            this.recentListSettings.Name = "recentListSettings";
+            this.recentListSettings.Size = new System.Drawing.Size(180, 22);
+            this.recentListSettings.Text = "Settings";
+            // 
+            // clearRecentListToolStripMenuItem
+            // 
+            this.clearRecentListToolStripMenuItem.Name = "clearRecentListToolStripMenuItem";
+            this.clearRecentListToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearRecentListToolStripMenuItem.Text = "Clear Recent List";
+            this.clearRecentListToolStripMenuItem.Click += new System.EventHandler(this.clearAllToolStripMenuItem_Click);
+            // 
+            // validateRecentListToolStripMenuItem
+            // 
+            this.validateRecentListToolStripMenuItem.Name = "validateRecentListToolStripMenuItem";
+            this.validateRecentListToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.validateRecentListToolStripMenuItem.Text = "Validate Recent List";
+            this.validateRecentListToolStripMenuItem.ToolTipText = "Remove Any Not Existed Database";
+            this.validateRecentListToolStripMenuItem.Click += new System.EventHandler(this.validateRecentListToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(177, 6);
             // 
             // btnConnect
             // 
@@ -607,54 +681,6 @@
             this.loadLastDb.UseVisualStyleBackColor = true;
             this.loadLastDb.CheckedChanged += new System.EventHandler(this.loadLastDbChecked_Changed);
             // 
-            // txtSql
-            // 
-            this.txtSql.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSql.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSql.ConvertTabsToSpaces = true;
-            this.txtSql.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSql.Highlighting = "SQL";
-            this.txtSql.Location = new System.Drawing.Point(0, 0);
-            this.txtSql.Name = "txtSql";
-            this.txtSql.ShowLineNumbers = false;
-            this.txtSql.ShowVRuler = false;
-            this.txtSql.Size = new System.Drawing.Size(828, 171);
-            this.txtSql.TabIndex = 2;
-            // 
-            // txtResult
-            // 
-            this.txtResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtResult.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtResult.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtResult.Highlighting = "JSON";
-            this.txtResult.Location = new System.Drawing.Point(5, 4);
-            this.txtResult.Name = "txtResult";
-            this.txtResult.ReadOnly = true;
-            this.txtResult.ShowLineNumbers = false;
-            this.txtResult.ShowVRuler = false;
-            this.txtResult.Size = new System.Drawing.Size(812, 353);
-            this.txtResult.TabIndex = 1;
-            // 
-            // txtParameters
-            // 
-            this.txtParameters.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtParameters.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtParameters.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtParameters.Highlighting = "JSON";
-            this.txtParameters.Location = new System.Drawing.Point(6, 5);
-            this.txtParameters.Name = "txtParameters";
-            this.txtParameters.ReadOnly = true;
-            this.txtParameters.ShowLineNumbers = false;
-            this.txtParameters.ShowVRuler = false;
-            this.txtParameters.Size = new System.Drawing.Size(811, 352);
-            this.txtParameters.TabIndex = 2;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -704,7 +730,7 @@
         private System.Windows.Forms.ToolStripButton btnRefresh;
         private System.Windows.Forms.ToolStripButton btnRollback;
         private System.Windows.Forms.ToolStripButton btnRun;
-        private System.Windows.Forms.ToolStripMenuItem clearAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem recentListSettings;
         private System.Windows.Forms.ContextMenuStrip ctxMenu;
         private System.Windows.Forms.ContextMenuStrip ctxMenuRoot;
         private System.Windows.Forms.DataGridView grdResult;
@@ -752,6 +778,10 @@
         private ICSharpCode.TextEditor.TextEditorControl txtSql;
 
         #endregion
+
+        private System.Windows.Forms.ToolStripMenuItem clearRecentListToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem validateRecentListToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
     }
 }
 
