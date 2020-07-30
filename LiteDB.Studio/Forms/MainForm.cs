@@ -812,7 +812,14 @@ namespace LiteDB.Studio
 
         private void clearAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            // clear UI
+            var count = recentDBsDropDownButton.DropDownItems.Count;
+            for (int i = 1; i < count; i++)
+            {
+                recentDBsDropDownButton.DropDownItems.RemoveAt(1);
+            }
+            // clear the list
+            AppSettingsManager.ClearRecentList();
         }
     }
 }
