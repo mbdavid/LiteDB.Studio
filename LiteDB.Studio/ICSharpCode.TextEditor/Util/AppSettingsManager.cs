@@ -62,5 +62,24 @@ namespace ICSharpCode.TextEditor.Util
         {
             ReplaceApplicationSettings();
         }
+
+        public static void AddToRecentList(ConnectionString connectionString)
+        {
+            // check duplication
+            var connection = ApplicationSettings.RecentConnectionStrings.FirstOrDefault(cs => cs.Filename == connectionString.Filename);
+            if (connection != null)
+            {
+                // remove old
+                ApplicationSettings.RecentConnectionStrings.Remove(connection);
+                // add new to the top
+                ApplicationSettings.RecentConnectionStrings = 
+                    new List<ConnectionString>(ApplicationSettings.RecentConnectionStrings.Prepend(connectionString));
+            }
+            else
+            {
+                ApplicationSettings.RecentConnectionStrings.Add(connectionString);
+            }
+        }
+
     }
 }
