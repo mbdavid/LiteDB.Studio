@@ -90,9 +90,11 @@ namespace ICSharpCode.TextEditor.Util
         /// </summary>
         public static void ValidateRecentList()
         {
-            foreach (var connectionString in ApplicationSettings.RecentConnectionStrings.Where(connectionString => !IsDbExist(connectionString.Filename)))
+            var toRemove = ApplicationSettings.RecentConnectionStrings.Where(connectionString => !IsDbExist(connectionString.Filename)).ToList();
+
+            foreach (var connectionString in toRemove)
             {
-                File.Delete(connectionString.Filename);
+                ApplicationSettings.RecentConnectionStrings.Remove(connectionString);
             }
         }
 
