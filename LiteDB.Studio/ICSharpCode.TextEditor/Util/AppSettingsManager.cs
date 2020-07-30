@@ -71,14 +71,12 @@ namespace ICSharpCode.TextEditor.Util
             {
                 // remove old
                 ApplicationSettings.RecentConnectionStrings.Remove(connection);
-                // add new to the top
-                ApplicationSettings.RecentConnectionStrings = 
-                    new List<ConnectionString>(ApplicationSettings.RecentConnectionStrings.Prepend(connectionString));
+          
             }
-            else
-            {
-                ApplicationSettings.RecentConnectionStrings.Add(connectionString);
-            }
+
+            // add new to the top
+            ApplicationSettings.RecentConnectionStrings =
+                new List<ConnectionString>(ApplicationSettings.RecentConnectionStrings.Prepend(connectionString));
         }
         
         /// <summary>
