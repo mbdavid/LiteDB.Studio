@@ -46,6 +46,8 @@
             this.prgRunning = new System.Windows.Forms.ToolStripProgressBar();
             this.lblElapsed = new System.Windows.Forms.ToolStripStatusLabel();
             this.tlbMain = new System.Windows.Forms.ToolStrip();
+            this.recentDBsDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.clearAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnConnect = new System.Windows.Forms.ToolStripButton();
             this.tlbSep1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
@@ -79,8 +81,6 @@
             this.mnuRebuild = new System.Windows.Forms.ToolStripMenuItem();
             this.imgCodeCompletion = new System.Windows.Forms.ImageList(this.components);
             this.loadLastDb = new System.Windows.Forms.CheckBox();
-            this.recentDBsDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
-            this.clearAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.txtSql = new ICSharpCode.TextEditor.TextEditorControl();
             this.txtResult = new ICSharpCode.TextEditor.TextEditorControl();
             this.txtParameters = new ICSharpCode.TextEditor.TextEditorControl();
@@ -316,6 +316,25 @@
             this.tlbMain.Size = new System.Drawing.Size(1090, 33);
             this.tlbMain.TabIndex = 12;
             this.tlbMain.Text = "toolStrip";
+            // 
+            // recentDBsDropDownButton
+            // 
+            this.recentDBsDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.recentDBsDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clearAllToolStripMenuItem});
+            this.recentDBsDropDownButton.Image = ((System.Drawing.Image)(resources.GetObject("recentDBsDropDownButton.Image")));
+            this.recentDBsDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.recentDBsDropDownButton.Name = "recentDBsDropDownButton";
+            this.recentDBsDropDownButton.Size = new System.Drawing.Size(29, 26);
+            this.recentDBsDropDownButton.Text = "recentDBsDropDownButton";
+            this.recentDBsDropDownButton.ToolTipText = "Recent Databases";
+            // 
+            // clearAllToolStripMenuItem
+            // 
+            this.clearAllToolStripMenuItem.Name = "clearAllToolStripMenuItem";
+            this.clearAllToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.clearAllToolStripMenuItem.Text = "Clear All";
+            this.clearAllToolStripMenuItem.Click += new System.EventHandler(this.clearAllToolStripMenuItem_Click);
             // 
             // btnConnect
             // 
@@ -579,32 +598,13 @@
             // loadLastDb
             // 
             this.loadLastDb.AutoSize = true;
-            this.loadLastDb.Location = new System.Drawing.Point(642, 8);
+            this.loadLastDb.Location = new System.Drawing.Point(657, 8);
             this.loadLastDb.Name = "loadLastDb";
             this.loadLastDb.Size = new System.Drawing.Size(154, 19);
             this.loadLastDb.TabIndex = 13;
             this.loadLastDb.Text = "Load Last Db On Startup";
             this.loadLastDb.UseVisualStyleBackColor = true;
             this.loadLastDb.CheckedChanged += new System.EventHandler(this.loadLastDbChecked_Changed);
-            // 
-            // recentDBsDropDownButton
-            // 
-            this.recentDBsDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.recentDBsDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.clearAllToolStripMenuItem});
-            this.recentDBsDropDownButton.Image = ((System.Drawing.Image)(resources.GetObject("recentDBsDropDownButton.Image")));
-            this.recentDBsDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.recentDBsDropDownButton.Name = "recentDBsDropDownButton";
-            this.recentDBsDropDownButton.Size = new System.Drawing.Size(29, 26);
-            this.recentDBsDropDownButton.Text = "recentDBsDropDownButton";
-            this.recentDBsDropDownButton.ToolTipText = "Recent Databases";
-            // 
-            // clearAllToolStripMenuItem
-            // 
-            this.clearAllToolStripMenuItem.Name = "clearAllToolStripMenuItem";
-            this.clearAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.clearAllToolStripMenuItem.Text = "Clear All";
-            this.clearAllToolStripMenuItem.Click += new System.EventHandler(this.clearAllToolStripMenuItem_Click);
             // 
             // txtSql
             // 
@@ -635,7 +635,7 @@
             this.txtResult.ReadOnly = true;
             this.txtResult.ShowLineNumbers = false;
             this.txtResult.ShowVRuler = false;
-            this.txtResult.Size = new System.Drawing.Size(812, 351);
+            this.txtResult.Size = new System.Drawing.Size(812, 353);
             this.txtResult.TabIndex = 1;
             // 
             // txtParameters
@@ -651,7 +651,7 @@
             this.txtParameters.ReadOnly = true;
             this.txtParameters.ShowLineNumbers = false;
             this.txtParameters.ShowVRuler = false;
-            this.txtParameters.Size = new System.Drawing.Size(811, 350);
+            this.txtParameters.Size = new System.Drawing.Size(811, 352);
             this.txtParameters.TabIndex = 2;
             // 
             // MainForm
@@ -695,61 +695,62 @@
 
         }
 
-        #endregion
-        private System.Windows.Forms.SplitContainer splitMain;
-        private System.Windows.Forms.TreeView tvwDatabase;
-        private System.Windows.Forms.StatusStrip stbStatus;
-        private System.Windows.Forms.SplitContainer splitRight;
-        private System.Windows.Forms.ToolStripStatusLabel lblElapsed;
-        private System.Windows.Forms.TabControl tabResult;
-        private System.Windows.Forms.TabPage tabGrid;
-        private System.Windows.Forms.DataGridView grdResult;
-        private System.Windows.Forms.TabPage tabText;
-        private System.Windows.Forms.ToolStripStatusLabel lblResultCount;
-        private System.Windows.Forms.ToolStrip tlbMain;
-        private System.Windows.Forms.ToolStripButton btnConnect;
-        private System.Windows.Forms.ToolStripButton btnRun;
-        private System.Windows.Forms.ToolStripSeparator tlbSep1;
-        private System.Windows.Forms.ToolStripButton btnRefresh;
-        private System.Windows.Forms.ToolStripSeparator tlbSep2;
-        private System.Windows.Forms.ToolStripStatusLabel lblCursor;
-        private System.Windows.Forms.ToolStripProgressBar prgRunning;
-        private System.Windows.Forms.ImageList imgList;
-        private System.Windows.Forms.ContextMenuStrip ctxMenu;
-        private System.Windows.Forms.ToolStripMenuItem mnuIndexes;
-        private System.Windows.Forms.TabControl tabSql;
-        private System.Windows.Forms.ToolStripMenuItem mnuDropCollection;
-        private System.Windows.Forms.ToolStripMenuItem mnuAnalyze;
-        private System.Windows.Forms.ToolStripSeparator mnuSep1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton btnBegin;
-        private System.Windows.Forms.ToolStripButton btnCommit;
-        private System.Windows.Forms.ToolStripButton btnRollback;
-        private System.Windows.Forms.ToolStripMenuItem mnuQueryAll;
-        private System.Windows.Forms.ToolStripSeparator mnuSep2;
-        private System.Windows.Forms.TabPage tabParameters;
-        private System.Windows.Forms.ToolStripMenuItem mnuExplanPlan;
-        private System.Windows.Forms.ContextMenuStrip ctxMenuRoot;
-        private System.Windows.Forms.ToolStripMenuItem mnuInfo;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripMenuItem mnuRename;
-        private System.Windows.Forms.ToolStripMenuItem mnuExport;
-        private System.Windows.Forms.ToolStripMenuItem mnuQueryCount;
-        private System.Windows.Forms.ToolStripMenuItem mnuImport;
-        private System.Windows.Forms.ImageList imgCodeCompletion;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton btnCheckpoint;
-        private System.Windows.Forms.ToolStripMenuItem mnuRebuild;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripButton btnCommit;
+        private System.Windows.Forms.ToolStripButton btnConnect;
         private System.Windows.Forms.ToolStripButton btnDebug;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private System.Windows.Forms.CheckBox loadLastDb;
-        private ICSharpCode.TextEditor.TextEditorControl txtSql;
-        private ICSharpCode.TextEditor.TextEditorControl txtResult;
-        private ICSharpCode.TextEditor.TextEditorControl txtParameters;
-        private System.Windows.Forms.ToolStripButton load_last_db_now;
-        private System.Windows.Forms.ToolStripDropDownButton recentDBsDropDownButton;
+        private System.Windows.Forms.ToolStripButton btnRefresh;
+        private System.Windows.Forms.ToolStripButton btnRollback;
+        private System.Windows.Forms.ToolStripButton btnRun;
         private System.Windows.Forms.ToolStripMenuItem clearAllToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip ctxMenu;
+        private System.Windows.Forms.ContextMenuStrip ctxMenuRoot;
+        private System.Windows.Forms.DataGridView grdResult;
+        private System.Windows.Forms.ImageList imgCodeCompletion;
+        private System.Windows.Forms.ImageList imgList;
+        private System.Windows.Forms.ToolStripStatusLabel lblCursor;
+        private System.Windows.Forms.ToolStripStatusLabel lblElapsed;
+        private System.Windows.Forms.ToolStripStatusLabel lblResultCount;
+        private System.Windows.Forms.ToolStripButton load_last_db_now;
+        private System.Windows.Forms.CheckBox loadLastDb;
+        private System.Windows.Forms.ToolStripMenuItem mnuAnalyze;
+        private System.Windows.Forms.ToolStripMenuItem mnuDropCollection;
+        private System.Windows.Forms.ToolStripMenuItem mnuExplanPlan;
+        private System.Windows.Forms.ToolStripMenuItem mnuExport;
+        private System.Windows.Forms.ToolStripMenuItem mnuImport;
+        private System.Windows.Forms.ToolStripMenuItem mnuIndexes;
+        private System.Windows.Forms.ToolStripMenuItem mnuInfo;
+        private System.Windows.Forms.ToolStripMenuItem mnuQueryAll;
+        private System.Windows.Forms.ToolStripMenuItem mnuQueryCount;
+        private System.Windows.Forms.ToolStripMenuItem mnuRebuild;
+        private System.Windows.Forms.ToolStripMenuItem mnuRename;
+        private System.Windows.Forms.ToolStripSeparator mnuSep1;
+        private System.Windows.Forms.ToolStripSeparator mnuSep2;
+        private System.Windows.Forms.ToolStripProgressBar prgRunning;
+        private System.Windows.Forms.ToolStripDropDownButton recentDBsDropDownButton;
+        private System.Windows.Forms.SplitContainer splitMain;
+        private System.Windows.Forms.SplitContainer splitRight;
+        private System.Windows.Forms.StatusStrip stbStatus;
+        private System.Windows.Forms.TabPage tabGrid;
+        private System.Windows.Forms.TabPage tabParameters;
+        private System.Windows.Forms.TabControl tabResult;
+        private System.Windows.Forms.TabControl tabSql;
+        private System.Windows.Forms.TabPage tabText;
+        private System.Windows.Forms.ToolStrip tlbMain;
+        private System.Windows.Forms.ToolStripSeparator tlbSep1;
+        private System.Windows.Forms.ToolStripSeparator tlbSep2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.TreeView tvwDatabase;
+        private ICSharpCode.TextEditor.TextEditorControl txtParameters;
+        private ICSharpCode.TextEditor.TextEditorControl txtResult;
+        private ICSharpCode.TextEditor.TextEditorControl txtSql;
+
+        #endregion
     }
 }
 
