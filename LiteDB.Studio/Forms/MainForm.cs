@@ -83,6 +83,10 @@ namespace LiteDB.Studio
 
             // validate recent list
             AppSettingsManager.ValidateRecentList();
+            
+            // add tooltip to Max Recent List Items UpDown Counter
+            maxRecentItemsTooltip.SetToolTip(maxRecentListItems, "Max Recent Items, (Apply After Restart)");
+            
             // populate recent db list
             PopulateRecentList();
 
