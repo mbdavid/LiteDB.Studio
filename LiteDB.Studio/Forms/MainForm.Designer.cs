@@ -46,6 +46,11 @@
             this.prgRunning = new System.Windows.Forms.ToolStripProgressBar();
             this.lblElapsed = new System.Windows.Forms.ToolStripStatusLabel();
             this.tlbMain = new System.Windows.Forms.ToolStrip();
+            this.recentDBsDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.recentListSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearRecentListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.validateRecentListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.btnConnect = new System.Windows.Forms.ToolStripButton();
             this.tlbSep1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
@@ -59,6 +64,8 @@
             this.btnCheckpoint = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnDebug = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.load_last_db_now = new System.Windows.Forms.ToolStripButton();
             this.ctxMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mnuQueryAll = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuQueryCount = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,9 +83,12 @@
             this.mnuImport = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuRebuild = new System.Windows.Forms.ToolStripMenuItem();
             this.imgCodeCompletion = new System.Windows.Forms.ImageList(this.components);
+            this.loadLastDb = new System.Windows.Forms.CheckBox();
+            this.maxRecentListItems = new System.Windows.Forms.NumericUpDown();
             this.txtSql = new ICSharpCode.TextEditor.TextEditorControl();
             this.txtResult = new ICSharpCode.TextEditor.TextEditorControl();
             this.txtParameters = new ICSharpCode.TextEditor.TextEditorControl();
+            this.maxRecentItemsTooltip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).BeginInit();
             this.splitMain.Panel1.SuspendLayout();
             this.splitMain.Panel2.SuspendLayout();
@@ -96,6 +106,7 @@
             this.tlbMain.SuspendLayout();
             this.ctxMenu.SuspendLayout();
             this.ctxMenuRoot.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.maxRecentListItems)).BeginInit();
             this.SuspendLayout();
             // 
             // splitMain
@@ -202,7 +213,7 @@
             this.grdResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdResult.Location = new System.Drawing.Point(6, 5);
             this.grdResult.Name = "grdResult";
-            this.grdResult.Size = new System.Drawing.Size(811, 326);
+            this.grdResult.Size = new System.Drawing.Size(811, 232);
             this.grdResult.TabIndex = 0;
             this.grdResult.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.GrdResult_CellBeginEdit);
             this.grdResult.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrdResult_CellEndEdit);
@@ -289,6 +300,7 @@
             // 
             this.tlbMain.GripMargin = new System.Windows.Forms.Padding(3);
             this.tlbMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.recentDBsDropDownButton,
             this.btnConnect,
             this.tlbSep1,
             this.btnRefresh,
@@ -301,13 +313,58 @@
             this.toolStripSeparator2,
             this.btnCheckpoint,
             this.toolStripSeparator4,
-            this.btnDebug});
+            this.btnDebug,
+            this.toolStripSeparator5,
+            this.load_last_db_now});
             this.tlbMain.Location = new System.Drawing.Point(0, 0);
             this.tlbMain.Name = "tlbMain";
             this.tlbMain.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
             this.tlbMain.Size = new System.Drawing.Size(1090, 33);
             this.tlbMain.TabIndex = 12;
             this.tlbMain.Text = "toolStrip";
+            // 
+            // recentDBsDropDownButton
+            // 
+            this.recentDBsDropDownButton.AutoToolTip = false;
+            this.recentDBsDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.recentDBsDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.recentListSettings,
+            this.toolStripSeparator6});
+            this.recentDBsDropDownButton.Image = ((System.Drawing.Image)(resources.GetObject("recentDBsDropDownButton.Image")));
+            this.recentDBsDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.recentDBsDropDownButton.Name = "recentDBsDropDownButton";
+            this.recentDBsDropDownButton.Size = new System.Drawing.Size(29, 26);
+            this.recentDBsDropDownButton.Text = "recentDBsDropDownButton";
+            this.recentDBsDropDownButton.ToolTipText = "Recent Databases";
+            // 
+            // recentListSettings
+            // 
+            this.recentListSettings.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clearRecentListToolStripMenuItem,
+            this.validateRecentListToolStripMenuItem});
+            this.recentListSettings.Name = "recentListSettings";
+            this.recentListSettings.Size = new System.Drawing.Size(116, 22);
+            this.recentListSettings.Text = "Settings";
+            // 
+            // clearRecentListToolStripMenuItem
+            // 
+            this.clearRecentListToolStripMenuItem.Name = "clearRecentListToolStripMenuItem";
+            this.clearRecentListToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.clearRecentListToolStripMenuItem.Text = "Clear Recent List";
+            this.clearRecentListToolStripMenuItem.Click += new System.EventHandler(this.clearAllToolStripMenuItem_Click);
+            // 
+            // validateRecentListToolStripMenuItem
+            // 
+            this.validateRecentListToolStripMenuItem.Name = "validateRecentListToolStripMenuItem";
+            this.validateRecentListToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.validateRecentListToolStripMenuItem.Text = "Validate Recent List";
+            this.validateRecentListToolStripMenuItem.ToolTipText = "Remove Any Not Existed Database";
+            this.validateRecentListToolStripMenuItem.Click += new System.EventHandler(this.validateRecentListToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(113, 6);
             // 
             // btnConnect
             // 
@@ -409,6 +466,22 @@
             this.btnDebug.Size = new System.Drawing.Size(62, 26);
             this.btnDebug.Text = "Debug";
             this.btnDebug.Click += new System.EventHandler(this.btnDebug_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 29);
+            // 
+            // load_last_db_now
+            // 
+            this.load_last_db_now.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.load_last_db_now.Image = global::LiteDB.Studio.Properties.Resources.load_last_db;
+            this.load_last_db_now.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.load_last_db_now.Name = "load_last_db_now";
+            this.load_last_db_now.Size = new System.Drawing.Size(23, 26);
+            this.load_last_db_now.Text = "toolStripButton1";
+            this.load_last_db_now.ToolTipText = "Load Last Db";
+            this.load_last_db_now.Click += new System.EventHandler(this.loadLastDbNow_Click);
             // 
             // ctxMenu
             // 
@@ -552,6 +625,40 @@
             this.imgCodeCompletion.Images.SetKeyName(4, "SYSTEM");
             this.imgCodeCompletion.Images.SetKeyName(5, "SYSTEM_FN");
             // 
+            // loadLastDb
+            // 
+            this.loadLastDb.AutoSize = true;
+            this.loadLastDb.Location = new System.Drawing.Point(672, 8);
+            this.loadLastDb.Name = "loadLastDb";
+            this.loadLastDb.Size = new System.Drawing.Size(154, 19);
+            this.loadLastDb.TabIndex = 13;
+            this.loadLastDb.Text = "Load Last Db On Startup";
+            this.loadLastDb.UseVisualStyleBackColor = true;
+            this.loadLastDb.CheckedChanged += new System.EventHandler(this.loadLastDbChecked_Changed);
+            // 
+            // maxRecentListItems
+            // 
+            this.maxRecentListItems.Location = new System.Drawing.Point(841, 7);
+            this.maxRecentListItems.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.maxRecentListItems.Minimum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.maxRecentListItems.Name = "maxRecentListItems";
+            this.maxRecentListItems.Size = new System.Drawing.Size(89, 23);
+            this.maxRecentListItems.TabIndex = 14;
+            this.maxRecentListItems.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.maxRecentListItems.ValueChanged += new System.EventHandler(this.maxRecentListItems_ValueChanged);
+            // 
             // txtSql
             // 
             this.txtSql.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -581,7 +688,7 @@
             this.txtResult.ReadOnly = true;
             this.txtResult.ShowLineNumbers = false;
             this.txtResult.ShowVRuler = false;
-            this.txtResult.Size = new System.Drawing.Size(812, 351);
+            this.txtResult.Size = new System.Drawing.Size(812, 353);
             this.txtResult.TabIndex = 1;
             // 
             // txtParameters
@@ -597,7 +704,7 @@
             this.txtParameters.ReadOnly = true;
             this.txtParameters.ShowLineNumbers = false;
             this.txtParameters.ShowVRuler = false;
-            this.txtParameters.Size = new System.Drawing.Size(811, 350);
+            this.txtParameters.Size = new System.Drawing.Size(811, 352);
             this.txtParameters.TabIndex = 2;
             // 
             // MainForm
@@ -605,6 +712,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1090, 660);
+            this.Controls.Add(this.maxRecentListItems);
+            this.Controls.Add(this.loadLastDb);
             this.Controls.Add(this.tlbMain);
             this.Controls.Add(this.stbStatus);
             this.Controls.Add(this.splitMain);
@@ -635,61 +744,74 @@
             this.tlbMain.PerformLayout();
             this.ctxMenu.ResumeLayout(false);
             this.ctxMenuRoot.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.maxRecentListItems)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
-        #endregion
-        private System.Windows.Forms.SplitContainer splitMain;
-        private System.Windows.Forms.TreeView tvwDatabase;
-        private System.Windows.Forms.StatusStrip stbStatus;
-        private System.Windows.Forms.SplitContainer splitRight;
-        private System.Windows.Forms.ToolStripStatusLabel lblElapsed;
-        private System.Windows.Forms.TabControl tabResult;
-        private System.Windows.Forms.TabPage tabGrid;
-        private System.Windows.Forms.DataGridView grdResult;
-        private System.Windows.Forms.TabPage tabText;
-        private System.Windows.Forms.ToolStripStatusLabel lblResultCount;
-        private System.Windows.Forms.ToolStrip tlbMain;
-        private System.Windows.Forms.ToolStripButton btnConnect;
-        private System.Windows.Forms.ToolStripButton btnRun;
-        private System.Windows.Forms.ToolStripSeparator tlbSep1;
-        private System.Windows.Forms.ToolStripButton btnRefresh;
-        private System.Windows.Forms.ToolStripSeparator tlbSep2;
-        private System.Windows.Forms.ToolStripStatusLabel lblCursor;
-        private System.Windows.Forms.ToolStripProgressBar prgRunning;
-        private System.Windows.Forms.ImageList imgList;
-        private System.Windows.Forms.ContextMenuStrip ctxMenu;
-        private System.Windows.Forms.ToolStripMenuItem mnuIndexes;
-        private ICSharpCode.TextEditor.TextEditorControl txtSql;
-        private System.Windows.Forms.TabControl tabSql;
-        private System.Windows.Forms.ToolStripMenuItem mnuDropCollection;
-        private System.Windows.Forms.ToolStripMenuItem mnuAnalyze;
-        private System.Windows.Forms.ToolStripSeparator mnuSep1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton btnBegin;
-        private System.Windows.Forms.ToolStripButton btnCommit;
-        private System.Windows.Forms.ToolStripButton btnRollback;
-        private System.Windows.Forms.ToolStripMenuItem mnuQueryAll;
-        private System.Windows.Forms.ToolStripSeparator mnuSep2;
-        private System.Windows.Forms.TabPage tabParameters;
-        private System.Windows.Forms.ToolStripMenuItem mnuExplanPlan;
-        private System.Windows.Forms.ContextMenuStrip ctxMenuRoot;
-        private System.Windows.Forms.ToolStripMenuItem mnuInfo;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripMenuItem mnuRename;
-        private System.Windows.Forms.ToolStripMenuItem mnuExport;
-        private System.Windows.Forms.ToolStripMenuItem mnuQueryCount;
-        private System.Windows.Forms.ToolStripMenuItem mnuImport;
-        private ICSharpCode.TextEditor.TextEditorControl txtResult;
-        private ICSharpCode.TextEditor.TextEditorControl txtParameters;
-        private System.Windows.Forms.ImageList imgCodeCompletion;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton btnCheckpoint;
-        private System.Windows.Forms.ToolStripMenuItem mnuRebuild;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripButton btnCommit;
+        private System.Windows.Forms.ToolStripButton btnConnect;
         private System.Windows.Forms.ToolStripButton btnDebug;
+        private System.Windows.Forms.ToolStripButton btnRefresh;
+        private System.Windows.Forms.ToolStripButton btnRollback;
+        private System.Windows.Forms.ToolStripButton btnRun;
+        private System.Windows.Forms.ToolStripMenuItem recentListSettings;
+        private System.Windows.Forms.ContextMenuStrip ctxMenu;
+        private System.Windows.Forms.ContextMenuStrip ctxMenuRoot;
+        private System.Windows.Forms.DataGridView grdResult;
+        private System.Windows.Forms.ImageList imgCodeCompletion;
+        private System.Windows.Forms.ImageList imgList;
+        private System.Windows.Forms.ToolStripStatusLabel lblCursor;
+        private System.Windows.Forms.ToolStripStatusLabel lblElapsed;
+        private System.Windows.Forms.ToolStripStatusLabel lblResultCount;
+        private System.Windows.Forms.ToolStripButton load_last_db_now;
+        private System.Windows.Forms.CheckBox loadLastDb;
+        private System.Windows.Forms.ToolStripMenuItem mnuAnalyze;
+        private System.Windows.Forms.ToolStripMenuItem mnuDropCollection;
+        private System.Windows.Forms.ToolStripMenuItem mnuExplanPlan;
+        private System.Windows.Forms.ToolStripMenuItem mnuExport;
+        private System.Windows.Forms.ToolStripMenuItem mnuImport;
+        private System.Windows.Forms.ToolStripMenuItem mnuIndexes;
+        private System.Windows.Forms.ToolStripMenuItem mnuInfo;
+        private System.Windows.Forms.ToolStripMenuItem mnuQueryAll;
+        private System.Windows.Forms.ToolStripMenuItem mnuQueryCount;
+        private System.Windows.Forms.ToolStripMenuItem mnuRebuild;
+        private System.Windows.Forms.ToolStripMenuItem mnuRename;
+        private System.Windows.Forms.ToolStripSeparator mnuSep1;
+        private System.Windows.Forms.ToolStripSeparator mnuSep2;
+        private System.Windows.Forms.ToolStripProgressBar prgRunning;
+        private System.Windows.Forms.ToolStripDropDownButton recentDBsDropDownButton;
+        private System.Windows.Forms.SplitContainer splitMain;
+        private System.Windows.Forms.SplitContainer splitRight;
+        private System.Windows.Forms.StatusStrip stbStatus;
+        private System.Windows.Forms.TabPage tabGrid;
+        private System.Windows.Forms.TabPage tabParameters;
+        private System.Windows.Forms.TabControl tabResult;
+        private System.Windows.Forms.TabControl tabSql;
+        private System.Windows.Forms.TabPage tabText;
+        private System.Windows.Forms.ToolStrip tlbMain;
+        private System.Windows.Forms.ToolStripSeparator tlbSep1;
+        private System.Windows.Forms.ToolStripSeparator tlbSep2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.TreeView tvwDatabase;
+        private ICSharpCode.TextEditor.TextEditorControl txtParameters;
+        private ICSharpCode.TextEditor.TextEditorControl txtResult;
+        private ICSharpCode.TextEditor.TextEditorControl txtSql;
+
+        #endregion
+
+        private System.Windows.Forms.ToolStripMenuItem clearRecentListToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem validateRecentListToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.NumericUpDown maxRecentListItems;
+        private System.Windows.Forms.ToolTip maxRecentItemsTooltip;
     }
 }
 

@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ICSharpCode.TextEditor.Util;
 
 namespace LiteDB.Studio
 {
@@ -67,6 +68,29 @@ namespace LiteDB.Studio
 
             // set assembly version on window title
             this.Text += $" (v{typeof(MainForm).Assembly.GetName().Version.ToString()})";
+
+            // load last db
+
+            if (AppSettingsManager.ApplicationSettings.LoadLastDbOnStartup && AppSettingsManager.IsLastDbExist())
+            {
+                this.Connect(AppSettingsManager.ApplicationSettings.LastConnectionStrings);
+            }
+            
+            // set load last db status to checkbox
+
+            loadLastDb.Checked = AppSettingsManager.ApplicationSettings.LoadLastDbOnStartup;
+            maxRecentListItems.Value = AppSettingsManager.ApplicationSettings.MaxRecentListItems;
+
+            // validate recent list
+            AppSettingsManager.ValidateRecentList();
+            
+            // add tooltip to Max Recent List Items UpDown Counter
+            maxRecentItemsTooltip.SetToolTip(maxRecentListItems, "Max Recent Items, (Apply After Restart)");
+            
+            // populate recent db list
+            PopulateRecentList();
+
+
         }
 
         private async Task<LiteDatabase> AsyncConnect(ConnectionString connectionString)
@@ -413,6 +437,67 @@ namespace LiteDB.Studio
             }
         }
 
+
+        /// <summary>
+        /// Return string as c:\windows.....\fileName.ext
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="startCounter"></param>
+        /// <returns></returns>
+        private string BalanceString(string path, int startCounter = 20)
+        {
+            var fileName = Path.GetFileName(path);
+            var direName = Directory.GetParent(path).FullName;
+            return startCounter > direName.Length + 3 ? path : $@"{direName.Substring(0, startCounter)}...\{fileName}";
+        }
+
+        private void PopulateRecentList()
+        {
+            var dbs = AppSettingsManager.ApplicationSettings.RecentConnectionStrings;
+
+            var length = dbs.Count;
+            ToolStripItem[] bts = new ToolStripItem[length];
+
+            void HandleClick(object sender, EventArgs eventArgs)
+            {
+                if (!(sender is ToolStripMenuItem but)) return;
+                var index = int.Parse(but.Name);
+                var db = dbs[index];
+                this.Disconnect();
+                if (!AppSettingsManager.IsDbExist(db.Filename)) return;
+                this.Disconnect();
+                this.Connect(db);
+            }
+
+            // clear the old list to prevent memory leaks
+
+            var oldLength = this.recentDBsDropDownButton.DropDownItems.Count;
+
+            for (var i = 0; i < oldLength - 1; i++)
+            {
+                // unsubscribe
+                if (recentDBsDropDownButton.DropDownItems[1] is ToolStripMenuItem item)
+                {
+                    item.Click -= HandleClick;
+                }
+                recentDBsDropDownButton.DropDownItems.RemoveAt(1);
+            }
+
+            // populate the list again
+            for (var i = 0; i < length; i++)
+            {
+                var db = dbs[i];
+                var t = new ToolStripMenuItem(BalanceString(db.Filename), null, null, i.ToString())
+                {
+                    ToolTipText = db.Filename,
+                };
+                t.Click += HandleClick;
+                bts[i] = t;
+            }
+
+            this.recentDBsDropDownButton.DropDownItems.AddRange(bts);
+        }
+
         #region Grid Edit
 
         private void GrdResult_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
@@ -541,6 +626,8 @@ namespace LiteDB.Studio
                 if (dialog.DialogResult != DialogResult.OK) return;
 
                 this.Connect(dialog.ConnectionString);
+                // re populate the list
+                PopulateRecentList();
             }
             else
             {
@@ -744,6 +831,52 @@ namespace LiteDB.Studio
                     e.Value = JsonSerializer.Serialize(value);
                     break;
             }
+        }
+
+        private void loadLastDbChecked_Changed(object sender, EventArgs e)
+        {
+            AppSettingsManager.ApplicationSettings.LoadLastDbOnStartup = loadLastDb.Checked;
+        }
+
+        private void loadLastDbNow_Click(object sender, EventArgs e)
+        {
+            if (AppSettingsManager.IsLastDbExist())
+            {
+                if (this._db != null)
+                {
+                    this.Disconnect();
+                }
+                this.Connect(AppSettingsManager.ApplicationSettings.LastConnectionStrings);
+            }
+        }
+
+        private void clearAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // clear UI
+            var count = recentDBsDropDownButton.DropDownItems.Count;
+            for (int i = 1; i < count; i++)
+            {
+                recentDBsDropDownButton.DropDownItems.RemoveAt(1);
+            }
+            // clear the list
+            AppSettingsManager.ClearRecentList();
+        }
+
+        private void validateRecentListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AppSettingsManager.ValidateRecentList();
+            PopulateRecentList();
+        }
+
+        private void maxRecentListItems_ValueChanged(object sender, EventArgs e)
+        {
+            var num = sender as NumericUpDown;
+            if (num == null)
+            {
+                return;
+            }
+
+            AppSettingsManager.ApplicationSettings.MaxRecentListItems = (int)num.Value;
         }
     }
 }
