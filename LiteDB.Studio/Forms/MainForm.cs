@@ -228,7 +228,7 @@ namespace LiteDB.Studio
 
             task.Id = task.Thread.ManagedThreadId;
 
-            tab.Text = tab.Name = task.Id.ToString();
+            tab.Text = tab.Name = tabSql.TabPages.Count.ToString();
             tab.Tag = task;
 
             if (tabSql.SelectedTab != tab)
