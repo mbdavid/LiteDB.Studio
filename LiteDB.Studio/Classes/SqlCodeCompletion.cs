@@ -1,32 +1,26 @@
 ﻿// This code was based on the CSharp Editor Example with Code Completion created by Daniel Grunwald
-using System;
-using System.IO;
-using System.Text;
-using System.Xml;
-using System.Windows.Forms;
-using System.Collections;
-using System.Collections.Generic;
-using ICSharpCode.TextEditor;
-using ICSharpCode.TextEditor.Gui.CompletionWindow;
-using System.Linq;
-using System.Diagnostics;
-using ICSharpCode.TextEditor.Document;
 
-namespace LiteDB.Studio
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+using System.Xml;
+using LiteDB.Studio.ICSharpCode.TextEditor.Gui;
+using LiteDB.Studio.ICSharpCode.TextEditor.Gui.CompletionWindow;
+
+namespace LiteDB.Studio.Classes
 {
     public class SqlCodeCompletion : ICompletionDataProvider
     {
         private readonly TextEditorControl _editor;
-        private readonly ImageList _imageList;
-
-        private ICompletionDataProvider _completionDataProvider { get; set; }
-        private CodeCompletionWindow _codeCompletionWindow = null;
         private List<ICompletionData> _codeCompletionData = new List<ICompletionData>();
+        private CodeCompletionWindow _codeCompletionWindow;
 
         public SqlCodeCompletion(TextEditorControl control, ImageList imageList)
         {
             _editor = control;
-            _imageList = imageList;
+            ImageList = imageList;
 
             control.ActiveTextAreaControl.TextArea.KeyDown += (o, s) =>
             {
@@ -34,49 +28,68 @@ namespace LiteDB.Studio
                 if (s.Control && s.KeyCode == Keys.Space)
                 {
                     s.SuppressKeyPress = true;
-                    this.ShowCodeCompleteWindow('\0');
+                    ShowCodeCompleteWindow('\0');
                 }
             };
 
-            control.ActiveTextAreaControl.TextArea.KeyEventHandler += (key) =>
+            control.ActiveTextAreaControl.TextArea.KeyEventHandler += key =>
             {
                 if (_codeCompletionWindow != null)
-                {
-                    if (_codeCompletionWindow.ProcessKeyEvent(key)) return true;
-                }
+                    if (_codeCompletionWindow.ProcessKeyEvent(key))
+                        return true;
 
                 return false;
             };
 
-            control.Disposed += this.CloseCodeCompletionWindow;  // When the editor is disposed, close the code completion window
+            control.Disposed +=
+                CloseCodeCompletionWindow; // When the editor is disposed, close the code completion window
 
-            this.UpdateCodeCompletion(null);
+            UpdateCodeCompletion(null);
         }
 
-        public ImageList ImageList => _imageList;
+        private ICompletionDataProvider CompletionDataProvider { get; set; }
 
-        public string PreSelection => this.FindExpression();
+        public ImageList ImageList { get; }
+
+        public string PreSelection => FindExpression();
 
         public int DefaultIndex => -1;
+
+        public ICompletionData[] GenerateCompletionData(string fileName, TextArea textArea, char charTyped)
+        {
+            return _codeCompletionData.ToArray();
+        }
+
+        public bool InsertAction(ICompletionData data, TextArea textArea, int insertionOffset, char key)
+        {
+            textArea.Caret.Position = textArea.Document.OffsetToPosition(insertionOffset);
+
+            return data.InsertAction(textArea, key);
+        }
+
+        public CompletionDataProviderKeyResult ProcessKey(char key)
+        {
+            if (char.IsLetterOrDigit(key) || key == '_') return CompletionDataProviderKeyResult.NormalKey;
+
+            // key triggers insertion of selected items
+            return CompletionDataProviderKeyResult.InsertionKey;
+        }
 
         private void ShowCodeCompleteWindow(char key)
         {
             try
             {
-                _completionDataProvider = this;
+                CompletionDataProvider = this;
 
                 _codeCompletionWindow = CodeCompletionWindow.ShowCompletionWindow(
                     _editor.ParentForm,
                     _editor,
                     "file.sql",
-                    _completionDataProvider,
+                    CompletionDataProvider,
                     key
                 );
 
-                if (_codeCompletionWindow != null)
-                {
-                    _codeCompletionWindow.Closed += CloseCodeCompletionWindow;
-                }
+                if (_codeCompletionWindow != null) _codeCompletionWindow.Closed += CloseCodeCompletionWindow;
             }
             catch (Exception)
             {
@@ -92,7 +105,7 @@ namespace LiteDB.Studio
                 _codeCompletionWindow = null;
             }
         }
-        
+
         private string FindExpression()
         {
             var textArea = _editor.ActiveTextAreaControl.TextArea;
@@ -114,8 +127,10 @@ namespace LiteDB.Studio
         {
             _codeCompletionData = new List<ICompletionData>();
 
-            var item = new DefaultCompletionData(DateTime.Now.Second.ToString(), "segundos", 4);
-            item.Priority = double.MaxValue;
+            var item = new DefaultCompletionData(DateTime.Now.Second.ToString(), "segundos", 4)
+            {
+                Priority = double.MaxValue
+            };
 
             _codeCompletionData.Add(item);
 
@@ -133,7 +148,9 @@ namespace LiteDB.Studio
             // get all keywords
             var words = new List<string>();
 
-            using (var stream = typeof(SqlCodeCompletion).Assembly.GetManifestResourceStream("LiteDB.Studio.ICSharpCode.TextEditor.Resources.SQL-Mode.xshd"))
+            using (var stream =
+                typeof(SqlCodeCompletion).Assembly.GetManifestResourceStream(
+                    "LiteDB.Studio.ICSharpCode.TextEditor.Resources.SQL-Mode.xshd"))
             {
                 using (var reader = new StreamReader(stream))
                 {
@@ -141,7 +158,8 @@ namespace LiteDB.Studio
                     var xml = new XmlDocument();
                     xml.LoadXml(content);
 
-                    var nodes = xml.DocumentElement.SelectNodes("/SyntaxDefinition/RuleSets/RuleSet/KeyWords[@name=\"SqlKeywordsNormal\"]/Key");
+                    var nodes = xml.DocumentElement.SelectNodes(
+                        "/SyntaxDefinition/RuleSets/RuleSet/KeyWords[@name=\"SqlKeywordsNormal\"]/Key");
 
                     words.AddRange(nodes.Cast<XmlNode>().Select(x => x.Attributes["word"].Value));
                 }
@@ -154,35 +172,11 @@ namespace LiteDB.Studio
             // collections
             var cols = db.GetCollection("$cols").Query().ToArray();
 
-            _codeCompletionData.AddRange(cols.Select(x => new DefaultCompletionData(x["name"].AsString, 
+            _codeCompletionData.AddRange(cols.Select(x => new DefaultCompletionData(x["name"].AsString,
                 (x["type"] == "user" ? "User collection:\n-   " : "System collection:\n-   ") +
-                x["name"].AsString, 
+                x["name"].AsString,
                 x["type"] == "user" ? 1 :
                 x["type"] == "system" ? 5 : 4)));
-
-        }
-
-        public ICompletionData[] GenerateCompletionData(string fileName, TextArea textArea, char charTyped)
-        {
-            return _codeCompletionData.ToArray();
-        }
-
-        public bool InsertAction(ICompletionData data, TextArea textArea, int insertionOffset, char key)
-        {
-            textArea.Caret.Position = textArea.Document.OffsetToPosition(insertionOffset);
-
-            return data.InsertAction(textArea, key);
-        }
-
-        public CompletionDataProviderKeyResult ProcessKey(char key)
-        {
-            if (char.IsLetterOrDigit(key) || key == '_')
-            {
-                return CompletionDataProviderKeyResult.NormalKey;
-            }
-
-            // key triggers insertion of selected items
-            return CompletionDataProviderKeyResult.InsertionKey;
         }
     }
 }

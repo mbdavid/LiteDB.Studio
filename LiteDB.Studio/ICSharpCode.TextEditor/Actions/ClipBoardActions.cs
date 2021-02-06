@@ -5,38 +5,34 @@
 //     <version>$Revision$</version>
 // </file>
 
-using System;
+using LiteDB.Studio.ICSharpCode.TextEditor.Gui;
 
-namespace ICSharpCode.TextEditor.Actions 
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Actions
 {
-	public class Cut : AbstractEditAction
-	{
-		public override void Execute(TextArea textArea)
-		{
-			if (textArea.Document.ReadOnly) {
-				return;
-			}
-			textArea.ClipboardHandler.Cut(null, null);
-		}
-	}
-	
-	public class Copy : AbstractEditAction
-	{
-		public override void Execute(TextArea textArea)
-		{
-			textArea.AutoClearSelection = false;
-			textArea.ClipboardHandler.Copy(null, null);
-		}
-	}
+    public class Cut : AbstractEditAction
+    {
+        public override void Execute(TextArea textArea)
+        {
+            if (textArea.Document.ReadOnly) return;
+            textArea.ClipboardHandler.Cut(null, null);
+        }
+    }
 
-	public class Paste : AbstractEditAction
-	{
-		public override void Execute(TextArea textArea)
-		{
-			if (textArea.Document.ReadOnly) {
-				return;
-			}
-			textArea.ClipboardHandler.Paste(null, null);
-		}
-	}
+    public class Copy : AbstractEditAction
+    {
+        public override void Execute(TextArea textArea)
+        {
+            textArea.AutoClearSelection = false;
+            textArea.ClipboardHandler.Copy(null, null);
+        }
+    }
+
+    public class Paste : AbstractEditAction
+    {
+        public override void Execute(TextArea textArea)
+        {
+            if (textArea.Document.ReadOnly) return;
+            textArea.ClipboardHandler.Paste(null, null);
+        }
+    }
 }

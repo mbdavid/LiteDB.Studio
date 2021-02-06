@@ -2,4 +2,4 @@
 
 A GUI tool for viewing and editing documents for LiteDB v5
 
-![LiteDB Studio](https://pbs.twimg.com/media/D_142rzWwAECJDd?format=jpg&name=900x900)
+![LiteDB Studio](https://www.stephanys.de/serendipity/uploads/_divpics/LiteDbSpy.png)

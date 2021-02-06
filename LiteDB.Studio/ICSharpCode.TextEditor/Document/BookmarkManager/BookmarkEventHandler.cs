@@ -7,26 +7,20 @@
 
 using System;
 
-namespace ICSharpCode.TextEditor.Document
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.BookmarkManager
 {
-	public delegate void BookmarkEventHandler(object sender, BookmarkEventArgs e);
-	
-	/// <summary>
-	/// Description of BookmarkEventHandler.
-	/// </summary>
-	public class BookmarkEventArgs : EventArgs
-	{
-		Bookmark bookmark;
-		
-		public Bookmark Bookmark {
-			get {
-				return bookmark;
-			}
-		}
-		
-		public BookmarkEventArgs(Bookmark bookmark)
-		{
-			this.bookmark = bookmark;
-		}
-	}
+    public delegate void BookmarkEventHandler(object sender, BookmarkEventArgs e);
+
+    /// <summary>
+    ///     Description of BookmarkEventHandler.
+    /// </summary>
+    public class BookmarkEventArgs : EventArgs
+    {
+        public BookmarkEventArgs(Bookmark bookmark)
+        {
+            Bookmark = bookmark;
+        }
+
+        public Bookmark Bookmark { get; }
+    }
 }

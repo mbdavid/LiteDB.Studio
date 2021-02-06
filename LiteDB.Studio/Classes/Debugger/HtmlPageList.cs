@@ -1,19 +1,7 @@
-﻿using LiteDB;
-using LiteDB.Engine;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.Contracts;
-using System.IO;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Net;
-using System.Reflection;
+﻿using System.Collections.Generic;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace LiteDB.Studio
+namespace LiteDB.Studio.Classes.Debugger
 {
     public class HtmlPageList
     {
@@ -27,9 +15,9 @@ namespace LiteDB.Studio
 
         public string Render()
         {
-            this.RenderHeader();
-            this.RenderInfo();
-            this.RenderFooter();
+            RenderHeader();
+            RenderInfo();
+            RenderFooter();
 
             return _writer.ToString();
         }
@@ -70,7 +58,8 @@ namespace LiteDB.Studio
             foreach (var page in _pages)
             {
                 _writer.AppendLine("<tr>");
-                _writer.AppendLine($"<td style='text-align: center'><a target='_top' href='/{page["pageID"].AsInt32}'>{page["pageID"].AsInt32}</a></td>");
+                _writer.AppendLine(
+                    $"<td style='text-align: center'><a target='_top' href='/{page["pageID"].AsInt32}'>{page["pageID"].AsInt32}</a></td>");
                 _writer.AppendLine($"<td style='text-align: center'>{page["pageType"].AsString}</td>");
                 _writer.AppendLine($"<td style='text-align: center'>{page["slot"].AsInt32}</td>");
                 //_writer.AppendLine($"<td>{page["collection"].AsString}</td>");

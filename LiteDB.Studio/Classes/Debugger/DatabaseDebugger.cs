@@ -1,34 +1,24 @@
-﻿using LiteDB;
-using LiteDB.Engine;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.Contracts;
+﻿using System;
 using System.IO;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Net;
-using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
 
-namespace LiteDB.Studio
+namespace LiteDB.Studio.Classes.Debugger
 {
     public class DatabaseDebugger : IDisposable
     {
-        private LiteDatabase _db;
+        private readonly LiteDatabase _db;
         private HttpListener _listener;
-        private readonly int _port;
 
         public DatabaseDebugger(LiteDatabase db, int port)
         {
             _db = db;
-            _port = port;
+            Port = port;
         }
 
-        public int Port => _port;
+        public int Port { get; }
 
         public void Dispose()
         {
@@ -41,14 +31,13 @@ namespace LiteDB.Studio
             {
                 _listener = new HttpListener();
 
-                _listener.Prefixes.Add($"http://localhost:{_port}/");
+                _listener.Prefixes.Add($"http://localhost:{Port}/");
 
                 _listener.Start();
 
-                Console.WriteLine("Start debbugger listen: " + _port);
+                Console.WriteLine("Start debbugger listen: " + Port);
 
                 while (true)
-                {
                     try
                     {
                         var context = _listener.GetContext();
@@ -60,11 +49,13 @@ namespace LiteDB.Studio
 
                             if (Regex.IsMatch(context.Request.RawUrl, @"^\/(\d+)?$"))
                             {
-                                var pageID = context.Request.RawUrl == "/" ? 0 : int.Parse(context.Request.RawUrl.Substring(1));
+                                var pageID = context.Request.RawUrl == "/"
+                                    ? 0
+                                    : int.Parse(context.Request.RawUrl.Substring(1));
 
-                                var page = context.Request.HttpMethod == "GET" ?
-                                    _db.GetCollection($"$dump({pageID})").Query().FirstOrDefault() :
-                                    GetPost(context.Request.InputStream);
+                                var page = context.Request.HttpMethod == "GET"
+                                    ? _db.GetCollection($"$dump({pageID})").Query().FirstOrDefault()
+                                    : GetPost(context.Request.InputStream);
 
                                 if (page == null)
                                 {
@@ -80,7 +71,8 @@ namespace LiteDB.Studio
                             else if (Regex.IsMatch(context.Request.RawUrl, @"^\/list/(\d+)$"))
                             {
                                 var pageID = int.Parse(context.Request.RawUrl.Substring(6));
-                                var exp = new HtmlPageList(_db.GetCollection($"$page_list({pageID})").Query().Limit(1000).ToEnumerable());
+                                var exp = new HtmlPageList(_db.GetCollection($"$page_list({pageID})").Query()
+                                    .Limit(1000).ToEnumerable());
 
                                 body = exp.Render();
                             }
@@ -101,7 +93,6 @@ namespace LiteDB.Studio
                     catch (Exception)
                     {
                     }
-                }
             });
         }
 
@@ -111,12 +102,9 @@ namespace LiteDB.Studio
             var bytes = text.Trim().Split(' ');
             var buffer = new byte[bytes.Length];
 
-            for(var i = 0; i < bytes.Length; i++)
-            {
-                buffer[i] = Convert.ToByte(bytes[i].Trim(), 16);
-            }
+            for (var i = 0; i < bytes.Length; i++) buffer[i] = Convert.ToByte(bytes[i].Trim(), 16);
 
-            return new BsonDocument { ["buffer"] = buffer };
+            return new BsonDocument {["buffer"] = buffer};
         }
     }
 }

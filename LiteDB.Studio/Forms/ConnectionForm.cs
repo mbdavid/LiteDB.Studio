@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using ICSharpCode.TextEditor.Util;
+using LiteDB.Studio.ICSharpCode.TextEditor.Util;
 
 namespace LiteDB.Studio.Forms
 {
@@ -28,17 +23,16 @@ namespace LiteDB.Studio.Forms
 
             chkUpgrade.Checked = cs.Upgrade;
 
-            cmbCulture.DataSource = 
+            cmbCulture.DataSource =
                 CultureInfo.GetCultures(CultureTypes.AllCultures)
-                .Select(x => x.LCID)
-                .Distinct()
-                .Where(x => x != 4096)
-                .Select(x => CultureInfo.GetCultureInfo(x).Name)
-                .ToList();
+                    .Select(x => x.LCID)
+                    .Distinct()
+                    .Where(x => x != 4096)
+                    .Select(x => CultureInfo.GetCultureInfo(x).Name)
+                    .ToList();
 
-            var sort = new List<string>();
-            sort.Add("");
-            sort.AddRange(Enum.GetNames(typeof(CompareOptions)).Cast<string>());
+            var sort = new List<string> {""};
+            sort.AddRange(Enum.GetNames(typeof(CompareOptions)));
 
             cmbSort.DataSource = sort;
 
@@ -51,38 +45,32 @@ namespace LiteDB.Studio.Forms
 
         private void BtnConnect_Click(object sender, EventArgs e)
         {
-            this.ConnectionString.Connection =
+            ConnectionString.Connection =
                 radModeDirect.Checked ? ConnectionType.Direct :
                 radModeShared.Checked ? ConnectionType.Shared : ConnectionType.Direct;
 
-            this.ConnectionString.Filename = txtFilename.Text;
-            this.ConnectionString.ReadOnly = chkReadonly.Checked;
-            this.ConnectionString.Upgrade = chkUpgrade.Checked;
-            this.ConnectionString.Password = txtPassword.Text.Trim().Length > 0 ? txtPassword.Text.Trim() : null;
+            ConnectionString.Filename = txtFilename.Text;
+            ConnectionString.ReadOnly = chkReadonly.Checked;
+            ConnectionString.Upgrade = chkUpgrade.Checked;
+            ConnectionString.Password = txtPassword.Text.Trim().Length > 0 ? txtPassword.Text.Trim() : null;
 
-            if (int.TryParse(txtInitialSize.Text, out var initialSize))
-            {
-                this.ConnectionString.InitialSize = initialSize * MB;
-            }
+            if (int.TryParse(txtInitialSize.Text, out var initialSize)) ConnectionString.InitialSize = initialSize * MB;
 
             if (cmbCulture.SelectedIndex > 0)
             {
                 var collation = cmbCulture.SelectedItem.ToString();
 
-                if (cmbSort.SelectedIndex > 0)
-                {
-                    collation += "/" + cmbSort.SelectedItem.ToString();
-                }
+                if (cmbSort.SelectedIndex > 0) collation += "/" + cmbSort.SelectedItem;
 
-                this.ConnectionString.Collation = new Collation(collation);
+                ConnectionString.Collation = new Collation(collation);
             }
 
-            this.DialogResult = DialogResult.OK;
+            DialogResult = DialogResult.OK;
             // make it last db
-            AppSettingsManager.ApplicationSettings.LastConnectionStrings = this.ConnectionString;
+            AppSettingsManager.ApplicationSettings.LastConnectionStrings = ConnectionString;
             // add to recent list
-            AppSettingsManager.AddToRecentList(this.ConnectionString);
-            this.Close();
+            AppSettingsManager.AddToRecentList(ConnectionString);
+            Close();
         }
 
         private void BtnOpen_Click(object sender, EventArgs e)
@@ -91,13 +79,10 @@ namespace LiteDB.Studio.Forms
 
             openFileDialog.CheckFileExists = false;
 
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                txtFilename.Text = openFileDialog.FileName;
-            }
+            if (openFileDialog.ShowDialog() == DialogResult.OK) txtFilename.Text = openFileDialog.FileName;
         }
 
-        private void chkReadonly_CheckedChanged(object sender, EventArgs e)
+        private void ChkReadonly_CheckedChanged(object sender, EventArgs e)
         {
             if (chkReadonly.Checked)
             {

@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteDB.Studio", "LiteDB.Studio\LiteDB.Studio.csproj", "{0002E0FF-C91F-4B8B-B29B-2A477E184408}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteDb.Studio.IntegrationTest", "LiteDb.Studio.IntegrationTest\LiteDb.Studio.IntegrationTest.csproj", "{470C04A1-2F06-49DB-8B31-830BEC37E8E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{0002E0FF-C91F-4B8B-B29B-2A477E184408}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0002E0FF-C91F-4B8B-B29B-2A477E184408}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0002E0FF-C91F-4B8B-B29B-2A477E184408}.Release|Any CPU.Build.0 = Release|Any CPU
+		{470C04A1-2F06-49DB-8B31-830BEC37E8E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{470C04A1-2F06-49DB-8B31-830BEC37E8E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{470C04A1-2F06-49DB-8B31-830BEC37E8E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{470C04A1-2F06-49DB-8B31-830BEC37E8E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
