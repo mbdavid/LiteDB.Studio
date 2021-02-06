@@ -4,9 +4,14 @@ using System.Threading;
 
 namespace LiteDB.Studio.Classes
 {
-    class TaskData
+    internal class TaskData
     {
         public const int RESULT_LIMIT = 1000;
+
+        public bool IsGridLoaded = false;
+        public bool IsParametersLoaded = false;
+        public bool IsTextLoaded = false;
+        public ManualResetEventSlim WaitHandle = new ManualResetEventSlim(false);
 
         public int Id { get; set; }
         public bool Executing { get; set; } = false;
@@ -17,26 +22,21 @@ namespace LiteDB.Studio.Classes
 
         public string Sql { get; set; } = "";
         public string Collection { get; set; } = "";
-        public List<BsonValue> Result { get; set; } = null;
+        public List<BsonValue> Result { get; set; }
         public BsonDocument Parameters { get; set; } = new BsonDocument();
 
         public bool LimitExceeded { get; set; }
         public Exception Exception { get; set; } = null;
         public TimeSpan Elapsed { get; set; } = TimeSpan.Zero;
 
-        public bool IsGridLoaded = false;
-        public bool IsTextLoaded = false;
-        public bool IsParametersLoaded = false;
-
         public Thread Thread { get; set; }
         public bool ThreadRunning { get; set; } = true;
-        public ManualResetEventSlim WaitHandle = new ManualResetEventSlim(false);
 
         public void ReadResult(IBsonDataReader reader)
         {
-            this.Result = new List<BsonValue>();
-            this.LimitExceeded = false;
-            this.Collection = reader.Collection;
+            Result = new List<BsonValue>();
+            LimitExceeded = false;
+            Collection = reader.Collection;
 
             var index = 0;
 
@@ -44,11 +44,11 @@ namespace LiteDB.Studio.Classes
             {
                 if (index++ >= RESULT_LIMIT)
                 {
-                    this.LimitExceeded = true;
+                    LimitExceeded = true;
                     break;
                 }
 
-                this.Result.Add(reader.Current);
+                Result.Add(reader.Current);
             }
         }
     }

@@ -10,13 +10,11 @@ using System.Xml;
 
 namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.HighlightingStrategy.SyntaxModes
 {
-	public interface ISyntaxModeFileProvider
-	{
-		ICollection<SyntaxMode> SyntaxModes {
-			get;
-		}
-		
-		XmlTextReader GetSyntaxModeFile(SyntaxMode syntaxMode);
-		void UpdateSyntaxModeList();
-	}
+    public interface ISyntaxModeFileProvider
+    {
+        ICollection<SyntaxMode> SyntaxModes { get; }
+
+        XmlTextReader GetSyntaxModeFile(SyntaxMode syntaxMode);
+        void UpdateSyntaxModeList();
+    }
 }

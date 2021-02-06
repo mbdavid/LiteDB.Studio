@@ -7,17 +7,17 @@
 
 namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.HighlightingStrategy
 {
-	public class HighlightInfo
-	{
-		public bool BlockSpanOn = false;
-		public bool Span        = false;
-		public Span CurSpan     = null;
-		
-		public HighlightInfo(Span curSpan, bool span, bool blockSpanOn)
-		{
-			this.CurSpan     = curSpan;
-			this.Span        = span;
-			this.BlockSpanOn = blockSpanOn;
-		}
-	}
+    public class HighlightInfo
+    {
+        public bool BlockSpanOn;
+        public Span CurSpan;
+        public bool Span;
+
+        public HighlightInfo(Span curSpan, bool span, bool blockSpanOn)
+        {
+            CurSpan = curSpan;
+            Span = span;
+            BlockSpanOn = blockSpanOn;
+        }
+    }
 }

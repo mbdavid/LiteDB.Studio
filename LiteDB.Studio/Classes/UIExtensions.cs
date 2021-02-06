@@ -4,10 +4,11 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
+using LiteDB.Studio.ICSharpCode.TextEditor.Gui;
 
 namespace LiteDB.Studio.Classes
 {
-    static class UIExtensions
+    internal static class UIExtensions
     {
         public static void BindBsonData(this DataGridView grd, TaskData data)
         {
@@ -19,9 +20,7 @@ namespace LiteDB.Studio.Classes
             {
                 var row = new DataGridViewRow();
 
-                var doc = value.IsDocument ?
-                    value.AsDocument :
-                    new BsonDocument { ["[value]"] = value };
+                var doc = value.IsDocument ? value.AsDocument : new BsonDocument {["[value]"] = value};
 
                 if (doc.Keys.Count == 0) doc["[root]"] = "{}";
 
@@ -68,17 +67,14 @@ namespace LiteDB.Studio.Classes
                 grd.Rows.Add(limitRow);
             }
 
-            for (int i = 0; i <= grd.Columns.Count - 1; i++)
+            for (var i = 0; i <= grd.Columns.Count - 1; i++)
             {
                 var colw = grd.Columns[i].Width;
                 grd.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 grd.Columns[i].Width = Math.Min(colw, 400);
             }
 
-            if (grd.Rows.Count == 0)
-            {
-                grd.Columns.Add("no-data", "[no result]");
-            }
+            if (grd.Rows.Count == 0) grd.Columns.Add("no-data", "[no result]");
 
             grd.ReadOnly = grd.Columns["_id"] == null;
             grd.Visible = true;
@@ -97,7 +93,7 @@ namespace LiteDB.Studio.Classes
             grd.DataSource = null;
         }
 
-        public static void BindBsonData(this global::LiteDB.Studio.ICSharpCode.TextEditor.Gui.TextEditorControl txt, TaskData data)
+        public static void BindBsonData(this TextEditorControl txt, TaskData data)
         {
             var index = 0;
             var sb = new StringBuilder();
@@ -114,10 +110,7 @@ namespace LiteDB.Studio.Classes
                 {
                     foreach (var value in data.Result)
                     {
-                        if (data.Result?.Count > 1)
-                        {
-                            sb.AppendLine($"/* {index++ + 1} */");
-                        }
+                        if (data.Result?.Count > 1) sb.AppendLine($"/* {index++ + 1} */");
 
                         json.Serialize(value);
                         sb.AppendLine();
@@ -147,7 +140,7 @@ namespace LiteDB.Studio.Classes
             grid.Rows.Add(ex.Message);
         }
 
-        public static void BindErrorMessage(this global::LiteDB.Studio.ICSharpCode.TextEditor.Gui.TextEditorControl txt, string sql, Exception ex)
+        public static void BindErrorMessage(this TextEditorControl txt, string sql, Exception ex)
         {
             var sb = new StringBuilder();
 
@@ -164,8 +157,8 @@ namespace LiteDB.Studio.Classes
 
                 if (lex.ErrorCode == LiteException.UNEXPECTED_TOKEN && sql != null)
                 {
-                    var p = (int)lex.Position;
-                    var start = (int)Math.Max(p - 30, 1) - 1;
+                    var p = (int) lex.Position;
+                    var start = Math.Max(p - 30, 1) - 1;
                     var end = Math.Min(p + 15, sql.Length);
                     var length = end - start;
 
@@ -183,7 +176,7 @@ namespace LiteDB.Studio.Classes
             txt.Text = sb.ToString();
         }
 
-        public static void BindParameter(this global::LiteDB.Studio.ICSharpCode.TextEditor.Gui.TextEditorControl txt, TaskData data)
+        public static void BindParameter(this TextEditorControl txt, TaskData data)
         {
             txt.SuspendLayout();
             txt.Clear();

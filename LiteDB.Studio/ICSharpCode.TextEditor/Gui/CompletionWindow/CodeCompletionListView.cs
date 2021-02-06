@@ -14,22 +14,25 @@ using System.Windows.Forms;
 namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui.CompletionWindow
 {
     /// <summary>
-    /// Description of CodeCompletionListView.
+    ///     Description of CodeCompletionListView.
     /// </summary>
-    public class CodeCompletionListView : System.Windows.Forms.UserControl
+    public class CodeCompletionListView : UserControl
     {
-        ICompletionData[] _fullItems;
-        ICompletionData[] _filteredItems;
+        private ICompletionData[] _filteredItems;
 
-        int _firstItem = 0;
-        int _selectedItem = -1;
-        ImageList _imageList;
+        private int _firstItem;
+        private readonly ICompletionData[] _fullItems;
+        private int _selectedItem = -1;
 
-        public ImageList ImageList
+        public CodeCompletionListView(ICompletionData[] completionData)
         {
-            get => _imageList;
-            set => _imageList = value;
+            Array.Sort(completionData, DefaultCompletionData.Compare);
+
+            _fullItems = completionData;
+            _filteredItems = new List<ICompletionData>(completionData).ToArray();
         }
+
+        public ImageList ImageList { get; set; }
 
         public int FirstItem
         {
@@ -48,37 +51,20 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui.CompletionWindow
         {
             get
             {
-                if (_selectedItem < 0 || _filteredItems.Length == 0)
-                {
-                    return null;
-                }
+                if (_selectedItem < 0 || _filteredItems.Length == 0) return null;
 
                 return _filteredItems[_selectedItem];
             }
         }
 
-        public int ItemHeight => Math.Max(_imageList.ImageSize.Height, (int)(this.Font.Height * 1.25));
+        public int ItemHeight => Math.Max(ImageList.ImageSize.Height, (int) (Font.Height * 1.25));
 
-        public int MaxVisibleItem => this.Height / this.ItemHeight;
-
-        public CodeCompletionListView(ICompletionData[] completionData)
-        {
-            Array.Sort(completionData, DefaultCompletionData.Compare);
-
-            _fullItems = completionData;
-            _filteredItems = new List<ICompletionData>(completionData).ToArray();
-        }
+        public int MaxVisibleItem => Height / ItemHeight;
 
         public void Close()
         {
-            if (_fullItems != null)
-            {
-                Array.Clear(_fullItems, 0, _fullItems.Length);
-            }
-            if (_filteredItems != null)
-            {
-                Array.Clear(_filteredItems, 0, _filteredItems.Length);
-            }
+            if (_fullItems != null) Array.Clear(_fullItems, 0, _fullItems.Length);
+            if (_filteredItems != null) Array.Clear(_filteredItems, 0, _filteredItems.Length);
             base.Dispose();
         }
 
@@ -90,28 +76,22 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui.CompletionWindow
             index = Math.Max(0, index);
             _selectedItem = Math.Max(0, Math.Min(_filteredItems.Length - 1, index));
 
-            if (_selectedItem < _firstItem)
-            {
-                this.FirstItem = _selectedItem;
-            }
-            if (_firstItem + this.MaxVisibleItem <= _selectedItem)
-            {
-                this.FirstItem = _selectedItem - this.MaxVisibleItem + 1;
-            }
+            if (_selectedItem < _firstItem) FirstItem = _selectedItem;
+            if (_firstItem + MaxVisibleItem <= _selectedItem) FirstItem = _selectedItem - MaxVisibleItem + 1;
             if (oldSelectedItem != _selectedItem)
             {
                 if (_firstItem != oldFirstItem)
                 {
-                    this.Invalidate();
+                    Invalidate();
                 }
                 else
                 {
                     var min = Math.Min(_selectedItem, oldSelectedItem) - _firstItem;
                     var max = Math.Max(_selectedItem, oldSelectedItem) - _firstItem;
-                    this.Invalidate(new Rectangle(0, 1 + min * ItemHeight, Width, (max - min + 1) * ItemHeight));
+                    Invalidate(new Rectangle(0, 1 + min * ItemHeight, Width, (max - min + 1) * ItemHeight));
                 }
 
-                this.OnSelectedItemChanged(EventArgs.Empty);
+                OnSelectedItemChanged(EventArgs.Empty);
             }
         }
 
@@ -123,29 +103,29 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui.CompletionWindow
 
             _selectedItem = -1;
 
-            this.Invalidate(new Rectangle(0, itemNum * this.ItemHeight, this.Width, (itemNum + 1) * this.ItemHeight + 1));
-            this.Update();
-            this.OnSelectedItemChanged(EventArgs.Empty);
+            Invalidate(new Rectangle(0, itemNum * ItemHeight, Width, (itemNum + 1) * ItemHeight + 1));
+            Update();
+            OnSelectedItemChanged(EventArgs.Empty);
         }
 
         public void PageDown()
         {
-            this.SelectIndex(_selectedItem + this.MaxVisibleItem);
+            SelectIndex(_selectedItem + MaxVisibleItem);
         }
 
         public void PageUp()
         {
-            this.SelectIndex(_selectedItem - this.MaxVisibleItem);
+            SelectIndex(_selectedItem - MaxVisibleItem);
         }
 
         public void SelectNextItem()
         {
-            this.SelectIndex(_selectedItem + 1);
+            SelectIndex(_selectedItem + 1);
         }
 
         public void SelectPrevItem()
         {
-            this.SelectIndex(_selectedItem - 1);
+            SelectIndex(_selectedItem - 1);
         }
 
         public void SelectItemWithStart(string startText)
@@ -158,19 +138,19 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui.CompletionWindow
 
             if (_filteredItems.Length == 0)
             {
-                (this.Parent as Form).Close();
+                (Parent as Form).Close();
             }
             else
             {
-                var height = this.ItemHeight * Math.Min(10, _filteredItems.Length);
-                var scroll = (VScrollBar)this.Parent.Controls.Find("scroll", true).First();
+                var height = ItemHeight * Math.Min(10, _filteredItems.Length);
+                var scroll = (VScrollBar) Parent.Controls.Find("scroll", true).First();
 
                 scroll.Visible = _filteredItems.Length > 10;
                 scroll.Maximum = _filteredItems.Length - 1;
 
-                this.Parent.Height = height;
-                this.Invalidate();
-                this.SelectIndex(0);
+                Parent.Height = height;
+                Invalidate();
+                SelectIndex(0);
             }
         }
 
@@ -180,10 +160,10 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui.CompletionWindow
             float itemHeight = ItemHeight;
 
             // Maintain aspect ratio
-            int imageWidth = (int)(itemHeight * _imageList.ImageSize.Width / _imageList.ImageSize.Height);
+            var imageWidth = (int) (itemHeight * ImageList.ImageSize.Width / ImageList.ImageSize.Height);
 
-            int curItem = _firstItem;
-            Graphics g = pe.Graphics;
+            var curItem = _firstItem;
+            var g = pe.Graphics;
             while (curItem < _filteredItems.Length && yPos < Height)
             {
                 var drawingBackground = new RectangleF(1, yPos, Width - 2, itemHeight);
@@ -192,31 +172,25 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui.CompletionWindow
                 {
                     // draw Background
                     if (curItem == _selectedItem)
-                    {
                         g.FillRectangle(SystemBrushes.Highlight, drawingBackground);
-                    }
                     else
-                    {
                         g.FillRectangle(SystemBrushes.Window, drawingBackground);
-                    }
 
                     // draw Icon
-                    int xPos = 0;
-                    if (_imageList != null && _filteredItems[curItem].ImageIndex < _imageList.Images.Count)
+                    var xPos = 0;
+                    if (ImageList != null && _filteredItems[curItem].ImageIndex < ImageList.Images.Count)
                     {
-                        g.DrawImage(_imageList.Images[_filteredItems[curItem].ImageIndex], new RectangleF(1, yPos, imageWidth, itemHeight));
+                        g.DrawImage(ImageList.Images[_filteredItems[curItem].ImageIndex],
+                            new RectangleF(1, yPos, imageWidth, itemHeight));
                         xPos = imageWidth;
                     }
 
                     // draw text
                     if (curItem == _selectedItem)
-                    {
-                        g.DrawString(_filteredItems[curItem].Text, Font, SystemBrushes.HighlightText, xPos + 3, yPos + 3);
-                    }
+                        g.DrawString(_filteredItems[curItem].Text, Font, SystemBrushes.HighlightText, xPos + 3,
+                            yPos + 3);
                     else
-                    {
                         g.DrawString(_filteredItems[curItem].Text, Font, SystemBrushes.WindowText, xPos + 3, yPos + 3);
-                    }
                 }
 
                 yPos += itemHeight;
@@ -226,10 +200,10 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui.CompletionWindow
             g.DrawRectangle(SystemPens.Control, new Rectangle(0, 0, Width - 1, Height - 1));
         }
 
-        protected override void OnMouseDown(System.Windows.Forms.MouseEventArgs e)
+        protected override void OnMouseDown(MouseEventArgs e)
         {
             float yPos = 1;
-            int curItem = _firstItem;
+            var curItem = _firstItem;
             float itemHeight = ItemHeight;
 
             while (curItem < _filteredItems.Length && yPos < Height)
@@ -238,9 +212,10 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui.CompletionWindow
 
                 if (drawingBackground.Contains(e.X, e.Y))
                 {
-                    this.SelectIndex(curItem);
+                    SelectIndex(curItem);
                     break;
                 }
+
                 yPos += itemHeight;
                 ++curItem;
             }

@@ -15,9 +15,9 @@ namespace LiteDB.Studio.Classes.Debugger
 
         public string Render()
         {
-            this.RenderHeader();
-            this.RenderInfo();
-            this.RenderFooter();
+            RenderHeader();
+            RenderInfo();
+            RenderFooter();
 
             return _writer.ToString();
         }
@@ -58,7 +58,8 @@ namespace LiteDB.Studio.Classes.Debugger
             foreach (var page in _pages)
             {
                 _writer.AppendLine("<tr>");
-                _writer.AppendLine($"<td style='text-align: center'><a target='_top' href='/{page["pageID"].AsInt32}'>{page["pageID"].AsInt32}</a></td>");
+                _writer.AppendLine(
+                    $"<td style='text-align: center'><a target='_top' href='/{page["pageID"].AsInt32}'>{page["pageID"].AsInt32}</a></td>");
                 _writer.AppendLine($"<td style='text-align: center'>{page["pageType"].AsString}</td>");
                 _writer.AppendLine($"<td style='text-align: center'>{page["slot"].AsInt32}</td>");
                 //_writer.AppendLine($"<td>{page["collection"].AsString}</td>");

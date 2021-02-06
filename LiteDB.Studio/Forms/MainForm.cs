@@ -15,11 +15,11 @@ namespace LiteDB.Studio.Forms
     public partial class MainForm : Form
     {
         private readonly SynchronizationContext _synchronizationContext;
+        private readonly SqlCodeCompletion _codeCompletion;
+        private ConnectionString _connectionString;
 
-        private LiteDatabase _db = null;
-        private DatabaseDebugger _debugger = null;
-        private ConnectionString _connectionString = null;
-        private SqlCodeCompletion _codeCompletion;
+        private LiteDatabase _db;
+        private DatabaseDebugger _debugger;
 
         public MainForm(string filename)
         {
@@ -33,61 +33,51 @@ namespace LiteDB.Studio.Forms
             _codeCompletion = new SqlCodeCompletion(txtSql, imgCodeCompletion);
 
             if (string.IsNullOrWhiteSpace(filename))
-            {
-                this.Disconnect();
-            }
+                Disconnect();
             else
-            {
-                this.Connect(new ConnectionString(filename));
-            }
+                Connect(new ConnectionString(filename));
 
             txtSql.ActiveTextAreaControl.TextArea.Caret.PositionChanged += (s, e) =>
             {
-                if (this.ActiveTask == null) return;
+                if (ActiveTask == null) return;
 
-                this.ActiveTask.EditorContent = txtSql.Text;
-                this.ActiveTask.SelectedTab = tabResult.SelectedTab.Name;
-                this.ActiveTask.Position = new Tuple<int, int>(txtSql.ActiveTextAreaControl.TextArea.Caret.Line, txtSql.ActiveTextAreaControl.TextArea.Caret.Column);
+                ActiveTask.EditorContent = txtSql.Text;
+                ActiveTask.SelectedTab = tabResult.SelectedTab.Name;
+                ActiveTask.Position = new Tuple<int, int>(txtSql.ActiveTextAreaControl.TextArea.Caret.Line,
+                    txtSql.ActiveTextAreaControl.TextArea.Caret.Column);
 
-                lblCursor.Text = $"Line: {(txtSql.ActiveTextAreaControl.Caret.Line + 1)} - Column: {(txtSql.ActiveTextAreaControl.Caret.Column + 1)}";
+                lblCursor.Text =
+                    $"Line: {txtSql.ActiveTextAreaControl.Caret.Line + 1} - Column: {txtSql.ActiveTextAreaControl.Caret.Column + 1}";
             };
 
             // stop all threads
-            this.FormClosing += (s, e) =>
+            FormClosing += (s, e) =>
             {
-                if(_db != null)
-                {
-                    this.Disconnect();
-                }
+                if (_db != null) Disconnect();
             };
 
             // set assembly version on window title
-            this.Text += $" (v{typeof(MainForm).Assembly.GetName().Version.ToString()})";
+            Text += $" (v{typeof(MainForm).Assembly.GetName().Version})";
 
             // load last db
 
             if (AppSettingsManager.ApplicationSettings.LoadLastDbOnStartup && AppSettingsManager.IsLastDbExist())
-            {
-                this.Connect(AppSettingsManager.ApplicationSettings.LastConnectionStrings);
-            }
-            
+                Connect(AppSettingsManager.ApplicationSettings.LastConnectionStrings);
+
 
             // validate recent list
             AppSettingsManager.ValidateRecentList();
 
-            
+
             // populate recent db list
             PopulateRecentList();
-
-
         }
+
+        private TaskData ActiveTask => tabSql.SelectedTab?.Tag as TaskData;
 
         private async Task<LiteDatabase> AsyncConnect(ConnectionString connectionString)
         {
-            return await Task.Run(() =>
-            {
-                return new LiteDatabase(connectionString);
-            });
+            return await Task.Run(() => { return new LiteDatabase(connectionString); });
         }
 
         public async void Connect(ConnectionString connectionString)
@@ -99,7 +89,7 @@ namespace LiteDB.Studio.Forms
 
             try
             {
-                _db = await this.AsyncConnect(connectionString);
+                _db = await AsyncConnect(connectionString);
 
                 // force open database
                 var uv = _db.UserVersion;
@@ -131,11 +121,11 @@ namespace LiteDB.Studio.Forms
 
             btnConnect.Text = "Disconnect";
 
-            this.UIState(true);
+            UIState(true);
 
             tabSql.TabPages.Add("+", "+");
-            this.LoadTreeView();
-            this.AddNewTab("");
+            LoadTreeView();
+            AddNewTab("");
 
             txtSql.Focus();
         }
@@ -161,7 +151,7 @@ namespace LiteDB.Studio.Forms
 
             btnConnect.Text = "Connect";
 
-            this.UIState(false);
+            UIState(false);
 
             tvwDatabase.Focus();
 
@@ -202,8 +192,6 @@ namespace LiteDB.Studio.Forms
             btnDebug.Enabled = enabled;
         }
 
-        private TaskData ActiveTask => tabSql.SelectedTab?.Tag as TaskData;
-
         private void AddNewTab(string content)
         {
             // find + tab
@@ -212,7 +200,7 @@ namespace LiteDB.Studio.Forms
             var task = new TaskData();
 
             task.EditorContent = content;
-            task.Thread = new Thread(new ThreadStart(() => CreateThread(task)));
+            task.Thread = new Thread(() => CreateThread(task));
             task.Thread.Start();
 
             task.Id = task.Thread.ManagedThreadId;
@@ -220,10 +208,7 @@ namespace LiteDB.Studio.Forms
             tab.Text = tab.Name = task.Id.ToString();
             tab.Tag = task;
 
-            if (tabSql.SelectedTab != tab)
-            {
-                tabSql.SelectTab(tab);
-            }
+            if (tabSql.SelectedTab != tab) tabSql.SelectTab(tab);
 
             // adding new + tab at end
             tabSql.TabPages.Add("+", "+");
@@ -233,10 +218,10 @@ namespace LiteDB.Studio.Forms
 
         private void ExecuteSql(string sql)
         {
-            if (this.ActiveTask?.Executing == false)
+            if (ActiveTask?.Executing == false)
             {
-                this.ActiveTask.Sql = sql;
-                this.ActiveTask.WaitHandle.Set();
+                ActiveTask.Sql = sql;
+                ActiveTask.WaitHandle.Set();
             }
         }
 
@@ -299,38 +284,29 @@ namespace LiteDB.Studio.Forms
                     task.Executing = true;
                     task.IsGridLoaded = task.IsTextLoaded = task.IsParametersLoaded = false;
 
-                    _synchronizationContext.Post(new SendOrPostCallback(o =>
-                    {
-                        this.LoadResult(task);
-                    }), task);
+                    _synchronizationContext.Post(o => { LoadResult(task); }, task);
 
                     task.Parameters = new BsonDocument();
 
                     var sql = new StringReader(task.Sql.Trim());
 
-                    while(sql.Peek() >= 0 && _db != null)
-                    {
+                    while (sql.Peek() >= 0 && _db != null)
                         using (var reader = _db.Execute(sql, task.Parameters))
                         {
                             task.ReadResult(reader);
                         }
-                    }
 
                     task.Elapsed = sw.Elapsed;
                     task.Exception = null;
                     task.Executing = false;
 
                     // update form button selected
-                    _synchronizationContext.Post(new SendOrPostCallback(o =>
+                    _synchronizationContext.Post(o =>
                     {
                         var t = o as TaskData;
 
-                        if (this.ActiveTask?.Id == t.Id)
-                        {
-                            this.LoadResult(o as TaskData);
-                        }
-
-                    }), task);
+                        if (ActiveTask?.Id == t.Id) LoadResult(o as TaskData);
+                    }, task);
                 }
                 catch (Exception ex)
                 {
@@ -339,17 +315,16 @@ namespace LiteDB.Studio.Forms
                     task.Elapsed = sw.Elapsed;
                     task.Exception = ex;
 
-                    _synchronizationContext.Post(new SendOrPostCallback(o =>
+                    _synchronizationContext.Post(o =>
                     {
                         var t = o as TaskData;
 
-                        if (this.ActiveTask?.Id == t.Id)
+                        if (ActiveTask?.Id == t.Id)
                         {
                             tabResult.SelectedTab = tabText;
-                            this.LoadResult(o as TaskData);
+                            LoadResult(o as TaskData);
                         }
-
-                    }), task);
+                    }, task);
                 }
 
                 // put thread in wait mode
@@ -381,10 +356,10 @@ namespace LiteDB.Studio.Forms
                 lblResultCount.Visible = true;
                 lblElapsed.Text = data.Elapsed.ToString();
                 prgRunning.Style = ProgressBarStyle.Blocks;
-                lblResultCount.Text = 
+                lblResultCount.Text =
                     data.Result == null ? "" :
                     data.Result.Count == 0 ? "no documents" :
-                    data.Result.Count  == 1 ? "1 document" : 
+                    data.Result.Count == 1 ? "1 document" :
                     data.Result.Count + (data.LimitExceeded ? "+" : "") + " documents";
 
                 if (data.Exception != null)
@@ -393,19 +368,19 @@ namespace LiteDB.Studio.Forms
                     txtParameters.BindErrorMessage(data.Sql, data.Exception);
                     grdResult.BindErrorMessage(data.Sql, data.Exception);
                 }
-                else if(data.Result != null)
+                else if (data.Result != null)
                 {
                     if (tabResult.SelectedTab == tabGrid && data.IsGridLoaded == false)
                     {
                         grdResult.BindBsonData(data);
                         data.IsGridLoaded = true;
                     }
-                    else if(tabResult.SelectedTab == tabText && data.IsTextLoaded == false)
+                    else if (tabResult.SelectedTab == tabText && data.IsTextLoaded == false)
                     {
                         txtResult.BindBsonData(data);
                         data.IsTextLoaded = true;
                     }
-                    else if(tabResult.SelectedTab == tabParameters && data.IsParametersLoaded == false)
+                    else if (tabResult.SelectedTab == tabParameters && data.IsParametersLoaded == false)
                     {
                         txtParameters.BindParameter(data);
                         data.IsParametersLoaded = true;
@@ -417,18 +392,14 @@ namespace LiteDB.Studio.Forms
         private void AddSqlSnippet(string sql)
         {
             if (txtSql.Text.Trim().Length == 0)
-            {
                 txtSql.Text = sql.Replace("\\n", "\n");
-            }
             else
-            {
                 AddNewTab(sql.Replace("\\n", "\n"));
-            }
         }
 
 
         /// <summary>
-        /// Return string as c:\windows.....\fileName.ext
+        ///     Return string as c:\windows.....\fileName.ext
         /// </summary>
         /// <param name="path"></param>
         /// <param name="startCounter"></param>
@@ -445,30 +416,27 @@ namespace LiteDB.Studio.Forms
             var dbs = AppSettingsManager.ApplicationSettings.RecentConnectionStrings;
 
             var length = dbs.Count;
-            ToolStripItem[] bts = new ToolStripItem[length];
+            var bts = new ToolStripItem[length];
 
             void HandleClick(object sender, EventArgs eventArgs)
             {
                 if (!(sender is ToolStripMenuItem but)) return;
                 var index = int.Parse(but.Name);
                 var db = dbs[index];
-                this.Disconnect();
+                Disconnect();
                 if (!AppSettingsManager.IsDbExist(db.Filename)) return;
-                this.Disconnect();
-                this.Connect(db);
+                Disconnect();
+                Connect(db);
             }
 
             // clear the old list to prevent memory leaks
 
-            var oldLength = this.recentDBsDropDownButton.DropDownItems.Count;
+            var oldLength = recentDBsDropDownButton.DropDownItems.Count;
 
             for (var i = 0; i < oldLength - 1; i++)
             {
                 // unsubscribe
-                if (recentDBsDropDownButton.DropDownItems[1] is ToolStripMenuItem item)
-                {
-                    item.Click -= HandleClick;
-                }
+                if (recentDBsDropDownButton.DropDownItems[1] is ToolStripMenuItem item) item.Click -= HandleClick;
                 recentDBsDropDownButton.DropDownItems.RemoveAt(1);
             }
 
@@ -478,293 +446,14 @@ namespace LiteDB.Studio.Forms
                 var db = dbs[i];
                 var t = new ToolStripMenuItem(BalanceString(db.Filename), null, null, i.ToString())
                 {
-                    ToolTipText = db.Filename,
+                    ToolTipText = db.Filename
                 };
                 t.Click += HandleClick;
                 bts[i] = t;
             }
 
-            this.recentDBsDropDownButton.DropDownItems.AddRange(bts);
+            recentDBsDropDownButton.DropDownItems.AddRange(bts);
         }
-
-        #region Grid Edit
-
-        private void GrdResult_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
-        {
-            var cell = grdResult.Rows[e.RowIndex].Cells[e.ColumnIndex];
-
-            cell.Value = JsonSerializer.Serialize(cell.Tag as BsonValue);
-        }
-
-        private void GrdResult_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            var field = grdResult.Columns[e.ColumnIndex].HeaderText;
-            var id = grdResult.Rows[e.RowIndex].Cells["_id"].Tag as BsonValue;
-            var cell = grdResult.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            var current = cell.Tag as BsonValue;
-            var text = cell.Value.ToString();
-
-            // try run update collection using current/new value
-            var value = this.UpdateCellGrid(id, field, current, text);
-
-            if (value != current)
-            {
-                cell.Style.BackColor = Color.LightGreen;
-            }
-
-            cell.Value = value;
-        }
-
-        private void GrdResult_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
-        {
-            var grid = sender as DataGridView;
-            var rowIdx = (e.RowIndex + 1).ToString();
-
-            var centerFormat = new StringFormat()
-            {
-                // right alignment might actually make more sense for numbers
-                Alignment = StringAlignment.Center,
-                LineAlignment = StringAlignment.Center
-            };
-
-            var headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
-            e.Graphics.DrawString(rowIdx, this.Font, SystemBrushes.ControlText, headerBounds, centerFormat);
-        }
-
-        public BsonValue UpdateCellGrid(BsonValue id, string field, BsonValue current, string json)
-        {
-            try
-            {
-                var value = JsonSerializer.Deserialize(json);
-
-                if (current == value) return current;
-
-                var r = _db.Execute($"UPDATE {this.ActiveTask.Collection} SET {field} = @0 WHERE _id = @1 AND {field} = @2",
-                    new BsonDocument
-                    {
-                        ["0"] = value,
-                        ["1"] = id,
-                        ["2"] = current
-                    });
-
-                if (r.Current == 1) return value;
-
-                throw new Exception("Current document was not found. Try run your query again");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Update error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return current;
-            }
-        }
-
-        #endregion
-
-        #region Toolbar
-
-        private void BtnRefresh_Click(object sender, EventArgs e)
-        {
-            this.LoadTreeView();
-        }
-
-        private void MainForm_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.F5 && btnRun.Enabled)
-            {
-                BtnRun_Click(btnRun, EventArgs.Empty);
-            }
-        }
-
-        private void BtnRun_Click(object sender, EventArgs e)
-        {
-            var sql = txtSql.ActiveTextAreaControl.SelectionManager.SelectedText.Length > 0 ?
-                txtSql.ActiveTextAreaControl.SelectionManager.SelectedText :
-                txtSql.Text;
-
-            this.ExecuteSql(sql);
-        }
-
-        private void BtnBegin_Click(object sender, EventArgs e)
-        {
-            this.ExecuteSql("BEGIN");
-        }
-
-        private void BtnCommit_Click(object sender, EventArgs e)
-        {
-            this.ExecuteSql("COMMIT");
-        }
-
-        private void BtnRollback_Click(object sender, EventArgs e)
-        {
-            this.ExecuteSql("ROLLBACK");
-        }
-
-        private void BtnCheckpoint_Click(object sender, EventArgs e)
-        {
-            this.ExecuteSql("CHECKPOINT");
-        }
-
-        private void BtnConnect_Click(object sender, EventArgs e)
-        {
-            if (_db == null)
-            {
-                var dialog = new ConnectionForm(_connectionString ?? new ConnectionString());
-
-                dialog.ShowDialog();
-
-                if (dialog.DialogResult != DialogResult.OK) return;
-
-                this.Connect(dialog.ConnectionString);
-                // re populate the list
-                PopulateRecentList();
-            }
-            else
-            {
-                this.Disconnect();
-            }
-        }
-
-        private void btnDebug_Click(object sender, EventArgs e)
-        {
-            if (_debugger == null)
-            {
-                _debugger = new DatabaseDebugger(_db, new Random().Next(8000, 9000));
-
-                _debugger.Start();
-            }
-
-            Process.Start("http://localhost:" + _debugger.Port);
-        }
-
-        #endregion
-
-        #region ContextMenu
-
-        private void CtxMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            var colname = tvwDatabase.SelectedNode.Text;
-
-            var sql = string.Format(e.ClickedItem.Tag.ToString(), colname);
-            this.AddSqlSnippet(sql);
-        }
-
-        private void CtxMenuRoot_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            var sql = e.ClickedItem.Tag.ToString();
-            this.AddSqlSnippet(sql);
-        }
-
-        #endregion
-
-        #region TreeView
-
-        private void TvwCols_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                tvwDatabase.SelectedNode = tvwDatabase.GetNodeAt(e.X, e.Y);
-            }
-        }
-
-        private void TvwCols_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            if (e.Node.Tag is string cmd)
-            {
-                this.AddSqlSnippet(cmd);
-            }
-        }
-
-        #endregion
-
-        #region Editor Tabs
-
-        private void TabResult_Selected(object sender, TabControlEventArgs e)
-        {
-            if (tabSql.TabPages.Count == 0) return;
-
-            this.LoadResult(this.ActiveTask);
-
-            // set focus to result
-            this.ActiveControl =
-                tabResult.SelectedTab == tabGrid ? (Control)grdResult :
-                tabResult.SelectedTab == tabText ? (Control)txtResult : (Control)txtParameters; 
-        }
-
-        private void TabSql_MouseClick(object sender, MouseEventArgs e)
-        {
-            var tabControl = sender as TabControl;
-            var tabs = tabControl.TabPages;
-
-            if (tabs.Count <= 1) return;
-
-            if (e.Button == MouseButtons.Middle)
-            {
-                var tab = tabs.Cast<TabPage>()
-                        .Where((t, i) => tabControl.GetTabRect(i).Contains(e.Location))
-                        .First();
-
-                if (tab.Tag is TaskData task)
-                {
-                    task.ThreadRunning = false;
-                    task.WaitHandle.Set();
-                    tabs.Remove(tab);
-                }
-            }
-        }
-
-        private void TabSql_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // this event occurs after tab already selected
-            Application.DoEvents();
-
-            txtSql.ActiveTextAreaControl.TextArea.Focus();
-        }
-
-        private void TabSql_Selected(object sender, TabControlEventArgs e)
-        {
-            if (e.TabPage == null) return;
-
-            txtSql.Clear();
-            grdResult.Clear();
-            txtResult.Clear();
-            txtParameters.Clear();
-
-            lblResultCount.Visible = false;
-            lblElapsed.Text = "";
-            prgRunning.Style = ProgressBarStyle.Blocks;
-            lblResultCount.Text = "";
-
-            Application.DoEvents();
-
-            if (e.TabPage.Name == "+")
-            {
-                this.AddNewTab("");
-            }
-            else
-            {
-                // restore data
-                this.ActiveTask.IsGridLoaded = this.ActiveTask.IsTextLoaded = this.ActiveTask.IsParametersLoaded = false;
-
-                txtSql.Text = this.ActiveTask.EditorContent;
-
-                if (this.ActiveTask.Position != null)
-                {
-                    txtSql.ActiveTextAreaControl.TextArea.Caret.Line = this.ActiveTask.Position.Item1;
-                    txtSql.ActiveTextAreaControl.TextArea.Caret.Column = this.ActiveTask.Position.Item2;
-                }
-
-                if (tabResult.SelectedTab.Name != this.ActiveTask.SelectedTab && this.ActiveTask.SelectedTab != "")
-                {
-                    tabResult.SelectTab(this.ActiveTask.SelectedTab); // fire LoadResult from TabResult_IndexChanged
-                }
-                else
-                {
-                    this.LoadResult(this.ActiveTask);
-                }
-            }
-        }
-
-        #endregion
 
         private void grdResult_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
         {
@@ -832,10 +521,7 @@ namespace LiteDB.Studio.Forms
         {
             // clear UI
             var count = recentDBsDropDownButton.DropDownItems.Count;
-            for (int i = 1; i < count; i++)
-            {
-                recentDBsDropDownButton.DropDownItems.RemoveAt(1);
-            }
+            for (var i = 1; i < count; i++) recentDBsDropDownButton.DropDownItems.RemoveAt(1);
             // clear the list
             AppSettingsManager.ClearRecentList();
         }
@@ -846,6 +532,268 @@ namespace LiteDB.Studio.Forms
             PopulateRecentList();
         }
 
-     
+        #region Grid Edit
+
+        private void GrdResult_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            var cell = grdResult.Rows[e.RowIndex].Cells[e.ColumnIndex];
+
+            cell.Value = JsonSerializer.Serialize(cell.Tag as BsonValue);
+        }
+
+        private void GrdResult_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            var field = grdResult.Columns[e.ColumnIndex].HeaderText;
+            var id = grdResult.Rows[e.RowIndex].Cells["_id"].Tag as BsonValue;
+            var cell = grdResult.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            var current = cell.Tag as BsonValue;
+            var text = cell.Value.ToString();
+
+            // try run update collection using current/new value
+            var value = UpdateCellGrid(id, field, current, text);
+
+            if (value != current) cell.Style.BackColor = Color.LightGreen;
+
+            cell.Value = value;
+        }
+
+        private void GrdResult_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            var grid = sender as DataGridView;
+            var rowIdx = (e.RowIndex + 1).ToString();
+
+            var centerFormat = new StringFormat
+            {
+                // right alignment might actually make more sense for numbers
+                Alignment = StringAlignment.Center,
+                LineAlignment = StringAlignment.Center
+            };
+
+            var headerBounds =
+                new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
+            e.Graphics.DrawString(rowIdx, Font, SystemBrushes.ControlText, headerBounds, centerFormat);
+        }
+
+        public BsonValue UpdateCellGrid(BsonValue id, string field, BsonValue current, string json)
+        {
+            try
+            {
+                var value = JsonSerializer.Deserialize(json);
+
+                if (current == value) return current;
+
+                var r = _db.Execute($"UPDATE {ActiveTask.Collection} SET {field} = @0 WHERE _id = @1 AND {field} = @2",
+                    new BsonDocument
+                    {
+                        ["0"] = value,
+                        ["1"] = id,
+                        ["2"] = current
+                    });
+
+                if (r.Current == 1) return value;
+
+                throw new Exception("Current document was not found. Try run your query again");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Update error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return current;
+            }
+        }
+
+        #endregion
+
+        #region Toolbar
+
+        private void BtnRefresh_Click(object sender, EventArgs e)
+        {
+            LoadTreeView();
+        }
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F5 && btnRun.Enabled) BtnRun_Click(btnRun, EventArgs.Empty);
+        }
+
+        private void BtnRun_Click(object sender, EventArgs e)
+        {
+            var sql = txtSql.ActiveTextAreaControl.SelectionManager.SelectedText.Length > 0
+                ? txtSql.ActiveTextAreaControl.SelectionManager.SelectedText
+                : txtSql.Text;
+
+            ExecuteSql(sql);
+        }
+
+        private void BtnBegin_Click(object sender, EventArgs e)
+        {
+            ExecuteSql("BEGIN");
+        }
+
+        private void BtnCommit_Click(object sender, EventArgs e)
+        {
+            ExecuteSql("COMMIT");
+        }
+
+        private void BtnRollback_Click(object sender, EventArgs e)
+        {
+            ExecuteSql("ROLLBACK");
+        }
+
+        private void BtnCheckpoint_Click(object sender, EventArgs e)
+        {
+            ExecuteSql("CHECKPOINT");
+        }
+
+        private void BtnConnect_Click(object sender, EventArgs e)
+        {
+            if (_db == null)
+            {
+                var dialog = new ConnectionForm(_connectionString ?? new ConnectionString());
+
+                dialog.ShowDialog();
+
+                if (dialog.DialogResult != DialogResult.OK) return;
+
+                Connect(dialog.ConnectionString);
+                // re populate the list
+                PopulateRecentList();
+            }
+            else
+            {
+                Disconnect();
+            }
+        }
+
+        private void btnDebug_Click(object sender, EventArgs e)
+        {
+            if (_debugger == null)
+            {
+                _debugger = new DatabaseDebugger(_db, new Random().Next(8000, 9000));
+
+                _debugger.Start();
+            }
+
+            Process.Start("http://localhost:" + _debugger.Port);
+        }
+
+        #endregion
+
+        #region ContextMenu
+
+        private void CtxMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            var colname = tvwDatabase.SelectedNode.Text;
+
+            var sql = string.Format(e.ClickedItem.Tag.ToString(), colname);
+            AddSqlSnippet(sql);
+        }
+
+        private void CtxMenuRoot_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            var sql = e.ClickedItem.Tag.ToString();
+            AddSqlSnippet(sql);
+        }
+
+        #endregion
+
+        #region TreeView
+
+        private void TvwCols_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right) tvwDatabase.SelectedNode = tvwDatabase.GetNodeAt(e.X, e.Y);
+        }
+
+        private void TvwCols_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Node.Tag is string cmd) AddSqlSnippet(cmd);
+        }
+
+        #endregion
+
+        #region Editor Tabs
+
+        private void TabResult_Selected(object sender, TabControlEventArgs e)
+        {
+            if (tabSql.TabPages.Count == 0) return;
+
+            LoadResult(ActiveTask);
+
+            // set focus to result
+            ActiveControl =
+                tabResult.SelectedTab == tabGrid ? grdResult :
+                tabResult.SelectedTab == tabText ? txtResult : (Control) txtParameters;
+        }
+
+        private void TabSql_MouseClick(object sender, MouseEventArgs e)
+        {
+            var tabControl = sender as TabControl;
+            var tabs = tabControl.TabPages;
+
+            if (tabs.Count <= 1) return;
+
+            if (e.Button == MouseButtons.Middle)
+            {
+                var tab = tabs.Cast<TabPage>()
+                    .Where((t, i) => tabControl.GetTabRect(i).Contains(e.Location))
+                    .First();
+
+                if (tab.Tag is TaskData task)
+                {
+                    task.ThreadRunning = false;
+                    task.WaitHandle.Set();
+                    tabs.Remove(tab);
+                }
+            }
+        }
+
+        private void TabSql_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // this event occurs after tab already selected
+            Application.DoEvents();
+
+            txtSql.ActiveTextAreaControl.TextArea.Focus();
+        }
+
+        private void TabSql_Selected(object sender, TabControlEventArgs e)
+        {
+            if (e.TabPage == null) return;
+
+            txtSql.Clear();
+            grdResult.Clear();
+            txtResult.Clear();
+            txtParameters.Clear();
+
+            lblResultCount.Visible = false;
+            lblElapsed.Text = "";
+            prgRunning.Style = ProgressBarStyle.Blocks;
+            lblResultCount.Text = "";
+
+            Application.DoEvents();
+
+            if (e.TabPage.Name == "+")
+            {
+                AddNewTab("");
+            }
+            else
+            {
+                // restore data
+                ActiveTask.IsGridLoaded = ActiveTask.IsTextLoaded = ActiveTask.IsParametersLoaded = false;
+
+                txtSql.Text = ActiveTask.EditorContent;
+
+                if (ActiveTask.Position != null)
+                {
+                    txtSql.ActiveTextAreaControl.TextArea.Caret.Line = ActiveTask.Position.Item1;
+                    txtSql.ActiveTextAreaControl.TextArea.Caret.Column = ActiveTask.Position.Item2;
+                }
+
+                if (tabResult.SelectedTab.Name != ActiveTask.SelectedTab && ActiveTask.SelectedTab != "")
+                    tabResult.SelectTab(ActiveTask.SelectedTab); // fire LoadResult from TabResult_IndexChanged
+                else
+                    LoadResult(ActiveTask);
+            }
+        }
+
+        #endregion
     }
 }
