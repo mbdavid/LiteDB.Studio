@@ -533,13 +533,6 @@ namespace LiteDB.Studio.Forms
 
         #region Grid Edit
 
-        private void GrdResult_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
-        {
-            var cell = grdResult.Rows[e.RowIndex].Cells[e.ColumnIndex];
-
-            cell.Value = JsonSerializer.Serialize(cell.Tag as BsonValue);
-        }
-
         private void GrdResult_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             var field = grdResult.Columns[e.ColumnIndex].HeaderText;
@@ -554,6 +547,7 @@ namespace LiteDB.Studio.Forms
             if (value != current) cell.Style.BackColor = Color.LightGreen;
 
             cell.Value = value;
+            cell.Tag = value;
         }
 
         private void GrdResult_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
