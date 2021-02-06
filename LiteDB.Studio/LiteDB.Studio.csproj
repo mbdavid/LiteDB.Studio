@@ -353,12 +353,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ILMerge">
-      <Version>3.0.41</Version>
-    </PackageReference>
-    <PackageReference Include="ILMerge.MSBuild.Tasks">
-      <Version>1.0.0.3</Version>
-    </PackageReference>
     <PackageReference Include="LiteDB">
       <Version>5.0.10</Version>
     </PackageReference>
@@ -367,16 +361,4 @@
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <UsingTask TaskName="ILMerge.MSBuild.Tasks.ILMerge" AssemblyFile="$(SolutionDir)\packages\ILMerge.MSBuild.Tasks.1.0.0.3\tools\ILMerge.MSBuild.Tasks.dll" />
-  <Target Name="AfterBuild">
-    <ItemGroup>
-      <MergeAsm Include="$(OutputPath)$(TargetFileName)" />
-      <MergeAsm Include="$(OutputPath)LiteDB.dll" />
-    </ItemGroup>
-    <PropertyGroup>
-      <MergedAssembly>$(ProjectDir)LiteDB.Studio.exe</MergedAssembly>
-    </PropertyGroup>
-    <Message Text="ILMerge @(MergeAsm) -&gt; $(MergedAssembly)" Importance="high" />
-    <ILMerge InputAssemblies="@(MergeAsm)" OutputFile="$(MergedAssembly)" TargetKind="SameAsPrimaryAssembly" />
-  </Target>
 </Project>
