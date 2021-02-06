@@ -23,6 +23,10 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui
     {
         private const int LineLengthCacheAdditionalSize = 100;
 
+        private readonly MouseWheelHandler mouseWheelHandler = new MouseWheelHandler();
+
+        private readonly int scrollMarginHeight = 3;
+
         private bool adjustScrollBarsOnNextUpdate;
         private bool autoHideScrollbars = true;
         private bool disposed;
@@ -31,10 +35,6 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui
 
         private int[] lineLengthCache;
         private TextEditorControl motherTextEditorControl;
-
-        private readonly MouseWheelHandler mouseWheelHandler = new MouseWheelHandler();
-
-        private readonly int scrollMarginHeight = 3;
         private Point scrollToPosOnNextUpdate;
 
         public TextAreaControl(TextEditorControl motherTextEditorControl)

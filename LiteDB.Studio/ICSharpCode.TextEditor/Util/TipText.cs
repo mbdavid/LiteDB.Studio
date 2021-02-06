@@ -13,10 +13,10 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Util
 {
     internal class CountTipText : TipText
     {
-        public Rectangle DrawingRectangle1;
-        public Rectangle DrawingRectangle2;
         private readonly float triHeight = 10;
         private readonly float triWidth = 10;
+        public Rectangle DrawingRectangle1;
+        public Rectangle DrawingRectangle2;
 
         public CountTipText(Graphics graphics, Font font, string text) : base(graphics, font, text)
         {

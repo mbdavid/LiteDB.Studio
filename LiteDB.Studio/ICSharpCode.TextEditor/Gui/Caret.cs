@@ -412,10 +412,10 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui
 
         private class ManagedCaret : CaretImplementation
         {
-            private bool blink = true;
             private readonly Caret parentCaret;
             private readonly TextArea textArea;
             private readonly Timer timer = new Timer {Interval = 300};
+            private bool blink = true;
             private bool visible;
             private int x, y, width, height;
 

@@ -14,8 +14,8 @@ namespace LiteDB.Studio.Forms
 {
     public partial class MainForm : Form
     {
-        private readonly SynchronizationContext _synchronizationContext;
         private readonly SqlCodeCompletion _codeCompletion;
+        private readonly SynchronizationContext _synchronizationContext;
         private ConnectionString _connectionString;
 
         private LiteDatabase _db;

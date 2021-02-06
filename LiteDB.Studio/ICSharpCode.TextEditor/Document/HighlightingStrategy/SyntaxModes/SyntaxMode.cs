@@ -15,16 +15,16 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.HighlightingStrategy.Syn
     {
         public SyntaxMode(string fileName, string name, string extensions)
         {
-            this.FileName = fileName;
-            this.Name = name;
-            this.Extensions = extensions.Split(';', '|', ',');
+            FileName = fileName;
+            Name = name;
+            Extensions = extensions.Split(';', '|', ',');
         }
 
         public SyntaxMode(string fileName, string name, string[] extensions)
         {
-            this.FileName = fileName;
-            this.Name = name;
-            this.Extensions = extensions;
+            FileName = fileName;
+            Name = name;
+            Extensions = extensions;
         }
 
         public string FileName { get; set; }

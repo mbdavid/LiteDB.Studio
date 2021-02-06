@@ -17,6 +17,9 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Undo
     /// </summary>
     public class UndoStack
     {
+        private readonly Stack<IUndoableOperation> redostack = new Stack<IUndoableOperation>();
+        private readonly Stack<IUndoableOperation> undostack = new Stack<IUndoableOperation>();
+
         /// <summary>
         ///     Gets/Sets if changes to the document are protocolled by the undo stack.
         ///     Used internally to disable the undo stack temporarily while undoing an action.
@@ -24,12 +27,10 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Undo
         internal bool AcceptChanges = true;
 
         private int actionCountInUndoGroup;
-        private readonly Stack<IUndoableOperation> redostack = new Stack<IUndoableOperation>();
 
         public TextEditorControlBase TextEditorControl = null;
 
         private int undoGroupDepth;
-        private readonly Stack<IUndoableOperation> undostack = new Stack<IUndoableOperation>();
 
         /// <summary>
         ///     Gets if there are actions on the undo stack.
@@ -182,8 +183,8 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Undo
         private class UndoableSetCaretPosition : IUndoableOperation
         {
             private readonly TextLocation pos;
-            private TextLocation redoPos;
             private readonly UndoStack stack;
+            private TextLocation redoPos;
 
             public UndoableSetCaretPosition(UndoStack stack, TextLocation pos)
             {

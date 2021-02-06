@@ -193,8 +193,8 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui.InsightWindow
 
         private class InsightDataProviderStackElement
         {
-            public int currentData;
             public readonly IInsightDataProvider dataProvider;
+            public int currentData;
 
             public InsightDataProviderStackElement(IInsightDataProvider dataProvider)
             {

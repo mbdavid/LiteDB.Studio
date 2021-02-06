@@ -20,6 +20,7 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui
     public class TextAreaMouseHandler
     {
         private static readonly Point nilPoint = new Point(-1, -1);
+        private readonly TextArea textArea;
 
         private MouseButtons button;
         private bool clickedOnSelectedText;
@@ -31,7 +32,6 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui
         private TextLocation maxSelection = TextLocation.Empty;
         private TextLocation minSelection = TextLocation.Empty;
         private Point mousedownpos = nilPoint;
-        private readonly TextArea textArea;
 
         public TextAreaMouseHandler(TextArea ttextArea)
         {
@@ -194,7 +194,7 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui
             }
 
             if (e.Button == MouseButtons.Left)
-                if (gotmousedown && textArea.SelectionManager.selectFrom.@where == WhereFrom.TArea)
+                if (gotmousedown && textArea.SelectionManager.selectFrom.where == WhereFrom.TArea)
                     ExtendSelectionToMouse();
         }
 

@@ -13,78 +13,25 @@ namespace LiteDb.Studio.IntegrationTest
     [TestClass]
     public class LiteDbStudioIntegrationTest
     {
-        private enum TestCode
-        {
-            One = 1,
-            Two = 2,
-        }
-
-        private class TestData
-        {
-            public TestCode TestCode { get; set; }
-            public string TestValue { get; set; }
-        }
-
         private TestData GetTestData()
         {
-            return new TestData() {TestCode = (TestCode) new Random().Next(0, 3), TestValue = GetTestValue()};
+            return new TestData {TestCode = (TestCode) new Random().Next(0, 3), TestValue = GetTestValue()};
         }
 
         private string GetTestValue()
         {
-            StringBuilder sb = new StringBuilder();
-            Random random = new Random();
+            var sb = new StringBuilder();
+            var random = new Random();
 
-            for (int i = 0; i < random.Next(10, 1000); i++)
+            for (var i = 0; i < random.Next(10, 1000); i++)
             {
-                double myFloat = random.NextDouble();
+                var myFloat = random.NextDouble();
                 var myChar = Convert.ToChar(Convert.ToInt32(Math.Floor(25 * myFloat) + 65));
                 sb.Append(myChar);
             }
 
             return sb.ToString();
         }
-
-        private class TestCommand
-        {
-            public string CommandName { get; set; }
-            public TestData TestData { get; set; }
-            public DateTime TimeStamp { get; set; }
-            [BsonId] public int DatabaseId { get; set; }
-            public int ForeignKeyIndex { get; set; }
-
-            public TestCommand()
-            {
-
-            }
-
-            public TestCommand(string commandName, TestData testData)
-            {
-                CommandName = commandName;
-                TestData = testData;
-                TimeStamp = DateTime.Now;
-            }
-        }
-
-        private class NameStorage
-        {
-            public string Data { get; set; }
-            public int ForeignKeyIndex { get; set; }
-            [BsonId] public int DatabaseId { get; set; }
-
-            public NameStorage(string data, int foreignKeyIndex)
-            {
-                Data = data;
-                ForeignKeyIndex = foreignKeyIndex;
-            }
-
-            public NameStorage()
-            {
-
-            }
-        }
-
-
 
 
         [TestMethod]
@@ -112,10 +59,8 @@ namespace LiteDb.Studio.IntegrationTest
                 new TestCommand("Command 0B", GetTestData())
             };
 
-            using (var db = new LiteDatabase($"Filename=test.db;Password=123"))
+            using (var db = new LiteDatabase("Filename=test.db;Password=123"))
             {
-
-
                 var numberOfEntries = 5;
                 var numberOfLevels3 = 10;
                 var numberOfLevels2 = 4;
@@ -127,7 +72,7 @@ namespace LiteDb.Studio.IntegrationTest
                 foreach (var level1 in Enumerable.Range(1, numberOfLevels1))
                 {
                     var level1Name = $"Level(1) {level1}";
-                    var level1Entry = new NameStorage(level1Name,-1);
+                    var level1Entry = new NameStorage(level1Name, -1);
                     db.GetCollection<NameStorage>(nameof(level1Name)).EnsureIndex(x => x.ForeignKeyIndex);
                     db.GetCollection<NameStorage>(nameof(level1Name)).EnsureIndex(x => x.Data);
                     db.GetCollection<NameStorage>(nameof(level1Name)).Insert(level1Entry);
@@ -161,20 +106,66 @@ namespace LiteDb.Studio.IntegrationTest
                                     var index = random.Next(0, testCommands.Count);
                                     var cmd = new TestCommand(testCommands[index].CommandName,
                                         testCommands[index].TestData) {ForeignKeyIndex = entryId};
-                                    db.GetCollection<TestCommand>(nameof(TestCommand)).EnsureIndex(x => x.ForeignKeyIndex);
+                                    db.GetCollection<TestCommand>(nameof(TestCommand))
+                                        .EnsureIndex(x => x.ForeignKeyIndex);
                                     db.GetCollection<TestCommand>(nameof(TestCommand)).EnsureIndex(x => x.CommandName);
                                     db.GetCollection<TestCommand>(nameof(TestCommand)).EnsureIndex(x => x.TimeStamp);
                                     db.GetCollection<TestCommand>(nameof(TestCommand)).Insert(cmd);
                                 }
-
                             }
                         }
                     }
                 }
-
             }
-
         }
 
+        private enum TestCode
+        {
+            One = 1,
+            Two = 2
+        }
+
+        private class TestData
+        {
+            public TestCode TestCode { get; set; }
+            public string TestValue { get; set; }
+        }
+
+        private class TestCommand
+        {
+            public TestCommand()
+            {
+            }
+
+            public TestCommand(string commandName, TestData testData)
+            {
+                CommandName = commandName;
+                TestData = testData;
+                TimeStamp = DateTime.Now;
+            }
+
+            public string CommandName { get; }
+            public TestData TestData { get; }
+            public DateTime TimeStamp { get; }
+            [BsonId] public int DatabaseId { get; set; }
+            public int ForeignKeyIndex { get; set; }
+        }
+
+        private class NameStorage
+        {
+            public NameStorage(string data, int foreignKeyIndex)
+            {
+                Data = data;
+                ForeignKeyIndex = foreignKeyIndex;
+            }
+
+            public NameStorage()
+            {
+            }
+
+            public string Data { get; }
+            public int ForeignKeyIndex { get; }
+            [BsonId] public int DatabaseId { get; set; }
+        }
     }
 }

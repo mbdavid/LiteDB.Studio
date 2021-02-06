@@ -190,15 +190,15 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Document
 //		/// </remarks>
 //		int GetVisibleColumn(int logicalLine, int logicalColumn);
 
-/// <remarks>
-///     Get the next visible line after lineNumber
-/// </remarks>
-int GetNextVisibleLineAbove(int lineNumber, int lineCount);
+        /// <remarks>
+        ///     Get the next visible line after lineNumber
+        /// </remarks>
+        int GetNextVisibleLineAbove(int lineNumber, int lineCount);
 
-/// <remarks>
-///     Get the next visible line below lineNumber
-/// </remarks>
-int GetNextVisibleLineBelow(int lineNumber, int lineCount);
+        /// <remarks>
+        ///     Get the next visible line below lineNumber
+        /// </remarks>
+        int GetNextVisibleLineBelow(int lineNumber, int lineCount);
 
         event EventHandler<LineLengthChangeEventArgs> LineLengthChanged;
         event EventHandler<LineCountChangeEventArgs> LineCountChanged;

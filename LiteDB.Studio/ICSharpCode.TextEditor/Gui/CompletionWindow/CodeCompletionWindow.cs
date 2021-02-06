@@ -18,21 +18,21 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui.CompletionWindow
     {
         private const int ScrollbarWidth = 16;
         private const int MaxListLength = 10;
-        private CodeCompletionListView codeCompletionListView;
         private readonly ICompletionData[] completionData;
         private readonly ICompletionDataProvider dataProvider;
-        private DeclarationViewWindow declarationViewWindow;
         private readonly IDocument document;
-        private int endOffset;
         private readonly bool fixedListViewWidth = true;
-
-        private bool inScrollUpdate;
 
         private readonly MouseWheelHandler mouseWheelHandler = new MouseWheelHandler();
         private readonly bool showDeclarationWindow = true;
+        private readonly VScrollBar vScrollBar = new VScrollBar();
+        private CodeCompletionListView codeCompletionListView;
+        private DeclarationViewWindow declarationViewWindow;
+        private int endOffset;
+
+        private bool inScrollUpdate;
 
         private int startOffset;
-        private readonly VScrollBar vScrollBar = new VScrollBar();
         private Rectangle workingScreen;
 
         private CodeCompletionWindow(ICompletionDataProvider completionDataProvider, ICompletionData[] completionData,

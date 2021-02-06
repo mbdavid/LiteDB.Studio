@@ -23,9 +23,9 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui
     [ToolboxItem(true)]
     public class TextEditorControl : TextEditorControlBase
     {
+        private readonly TextAreaControl primaryTextArea;
         private TextAreaControl activeTextAreaControl;
         private string highlighting;
-        private readonly TextAreaControl primaryTextArea;
 
         private PrintDocument printDocument;
         private TextAreaControl secondaryTextArea;

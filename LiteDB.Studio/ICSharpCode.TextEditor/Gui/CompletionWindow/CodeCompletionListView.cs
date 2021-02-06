@@ -18,10 +18,10 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui.CompletionWindow
     /// </summary>
     public class CodeCompletionListView : UserControl
     {
+        private readonly ICompletionData[] _fullItems;
         private ICompletionData[] _filteredItems;
 
         private int _firstItem;
-        private readonly ICompletionData[] _fullItems;
         private int _selectedItem = -1;
 
         public CodeCompletionListView(ICompletionData[] completionData)

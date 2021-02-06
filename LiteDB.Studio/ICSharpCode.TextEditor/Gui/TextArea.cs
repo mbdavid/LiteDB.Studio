@@ -36,14 +36,14 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui
 
         private readonly List<BracketHighlightingSheme> bracketshemes = new List<BracketHighlightingSheme>();
 
+        private readonly List<AbstractMargin> leftMargins = new List<AbstractMargin>();
+
         //public Point selectionStartPos = new Point(0,0);
 
         private bool disposed;
         private bool hiddenMouseCursor;
 
         private AbstractMargin lastMouseInMargin;
-
-        private readonly List<AbstractMargin> leftMargins = new List<AbstractMargin>();
 
         /// <summary>
         ///     The position where the mouse cursor was when it was hidden. Sometimes the text editor gets MouseMove

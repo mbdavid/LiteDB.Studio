@@ -17,9 +17,9 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui.CompletionWindow
     public abstract class AbstractCompletionWindow : Form
     {
         private static int shadowStatus;
+        private readonly Form parentForm;
         protected TextEditorControl control;
         protected Size drawingSize;
-        private readonly Form parentForm;
         private Rectangle workingScreen;
 
         protected AbstractCompletionWindow(Form parentForm, TextEditorControl control)

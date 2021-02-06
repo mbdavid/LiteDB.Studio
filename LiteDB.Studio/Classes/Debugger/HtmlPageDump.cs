@@ -9,13 +9,13 @@ namespace LiteDB.Studio.Classes.Debugger
     {
         private const int BLOCK_WIDTH = 30;
         private readonly byte[] _buffer;
+        private readonly string[] _colors = {"#B2EBF2", "#FFECB3"};
         private readonly List<PageItem> _items = new List<PageItem>();
 
         private readonly BsonDocument _page;
         private readonly uint _pageID;
         private readonly byte _pageType;
         private readonly StringBuilder _writer = new StringBuilder();
-        private readonly string[] _colors = {"#B2EBF2", "#FFECB3"};
 
         public HtmlPageDump(BsonDocument page)
         {
@@ -296,9 +296,8 @@ namespace LiteDB.Studio.Classes.Debugger
             _writer.AppendLine("<div class='rules'>");
 
             for (var i = 0; i < _items.Count; i++)
-            {
-                if (i % 32 == 0) _writer.AppendLine($"<div>{i}</div>");
-            }
+                if (i % 32 == 0)
+                    _writer.AppendLine($"<div>{i}</div>");
 
             _writer.AppendLine("</div>");
         }

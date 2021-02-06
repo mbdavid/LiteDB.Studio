@@ -22,9 +22,9 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui
         private static readonly StringFormat sf = (StringFormat) StringFormat.GenericTypographic.Clone();
         private readonly Font boldMonospacedFont;
         private readonly Font monospacedFont;
-        private SizeF spaceSize;
 
         private readonly List<SimpleTextWord> words = new List<SimpleTextWord>();
+        private SizeF spaceSize;
 
         public DrawableLine(IDocument document, LineSegment line, Font monospacedFont, Font boldMonospacedFont)
         {
@@ -181,9 +181,10 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui
             internal static readonly SimpleTextWord
                 Tab = new SimpleTextWord(TextWordType.Tab, "\t", false, Color.Black);
 
-            internal bool Bold;
             internal readonly Color Color;
             internal readonly TextWordType Type;
+
+            internal bool Bold;
             internal string Word;
 
             public SimpleTextWord(TextWordType Type, string Word, bool Bold, Color Color)

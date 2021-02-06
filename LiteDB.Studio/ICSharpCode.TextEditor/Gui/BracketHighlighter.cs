@@ -26,8 +26,8 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui
     {
         public BracketHighlightingSheme(char opentag, char closingtag)
         {
-            this.OpenTag = opentag;
-            this.ClosingTag = closingtag;
+            OpenTag = opentag;
+            ClosingTag = closingtag;
         }
 
         public char OpenTag { get; set; }

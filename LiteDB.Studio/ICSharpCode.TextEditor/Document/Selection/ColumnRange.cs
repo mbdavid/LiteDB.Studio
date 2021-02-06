@@ -14,8 +14,8 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.Selection
 
         public ColumnRange(int startColumn, int endColumn)
         {
-            this.StartColumn = startColumn;
-            this.EndColumn = endColumn;
+            StartColumn = startColumn;
+            EndColumn = endColumn;
         }
 
         public int StartColumn { get; set; }

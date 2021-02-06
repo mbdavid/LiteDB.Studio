@@ -18,12 +18,12 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.Selection
     /// </summary>
     public class SelectionManager : IDisposable
     {
+        private readonly TextArea textArea;
         private IDocument document;
         internal SelectFrom selectFrom = new SelectFrom();
 
         internal List<ISelection> selectionCollection = new List<ISelection>();
         private TextLocation selectionStart;
-        private readonly TextArea textArea;
 
         /// <summary>
         ///     Creates a new instance of <see cref="SelectionManager" />
@@ -203,13 +203,11 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.Selection
             var selection = selectionCollection[0];
 
             if (min == max)
-            {
                 //selection.StartPosition = newPosition;
                 return;
-            }
 
             // changed selection via gutter
-            if (selectFrom.@where == WhereFrom.Gutter)
+            if (selectFrom.where == WhereFrom.Gutter)
                 // selection new position is always at the left edge for gutter selections
                 newPosition.X = 0;
 
@@ -217,7 +215,7 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.Selection
             {
                 selection.StartPosition = SelectionStart;
                 // this handles last line selection
-                if (selectFrom.@where == WhereFrom.Gutter) //&& newPosition.Y != oldPosition.Y)
+                if (selectFrom.where == WhereFrom.Gutter) //&& newPosition.Y != oldPosition.Y)
                 {
                     selection.EndPosition = new TextLocation(textArea.Caret.Column, textArea.Caret.Line);
                 }
@@ -230,7 +228,7 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.Selection
             else
             {
                 // selecting back
-                if (selectFrom.@where == WhereFrom.Gutter && selectFrom.first == WhereFrom.Gutter)
+                if (selectFrom.where == WhereFrom.Gutter && selectFrom.first == WhereFrom.Gutter)
                     // gutter selection
                     selection.EndPosition = NextValidPosition(SelectionStart.Y);
                 else // internal text selection

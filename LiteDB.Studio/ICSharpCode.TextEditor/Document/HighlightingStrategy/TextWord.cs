@@ -25,10 +25,10 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.HighlightingStrategy
     /// </summary>
     public class TextWord
     {
-        private HighlightColor color;
         private readonly IDocument document;
 
         private readonly LineSegment line;
+        private HighlightColor color;
 
         protected TextWord()
         {

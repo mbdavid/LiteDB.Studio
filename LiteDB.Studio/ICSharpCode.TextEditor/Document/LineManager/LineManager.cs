@@ -18,8 +18,8 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.LineManager
         private readonly DelimiterSegment delimiterSegment = new DelimiterSegment();
 
         private readonly IDocument document;
-        private IHighlightingStrategy highlightingStrategy;
         private readonly LineSegmentTree lineCollection = new LineSegmentTree();
+        private IHighlightingStrategy highlightingStrategy;
 
         public LineManager(IDocument document, IHighlightingStrategy highlightingStrategy)
         {

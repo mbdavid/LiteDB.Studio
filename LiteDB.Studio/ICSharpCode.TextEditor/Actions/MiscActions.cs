@@ -869,7 +869,7 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Actions
                 if (nextWordStart > textArea.Caret.Offset)
                     if (!textArea.IsReadOnly(textArea.Caret.Offset, nextWordStart - textArea.Caret.Offset))
                         textArea.Document.Remove(textArea.Caret.Offset, nextWordStart - textArea.Caret.Offset);
-                    // cursor never moves with this command
+                // cursor never moves with this command
             }
 
             textArea.UpdateMatchingBracket();
