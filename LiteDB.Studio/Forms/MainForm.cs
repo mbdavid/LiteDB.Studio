@@ -539,7 +539,7 @@ namespace LiteDB.Studio.Forms
             var id = grdResult.Rows[e.RowIndex].Cells["_id"].Tag as BsonValue;
             var cell = grdResult.Rows[e.RowIndex].Cells[e.ColumnIndex];
             var current = cell.Tag as BsonValue;
-            var text = cell.Value.ToString();
+            var text = cell.Value?.ToString();
 
             // try run update collection using current/new value
             var value = UpdateCellGrid(id, field, current, text);
@@ -571,7 +571,7 @@ namespace LiteDB.Studio.Forms
         {
             try
             {
-                var value = JsonSerializer.Deserialize(json);
+                var value = json == null ? null : JsonSerializer.Deserialize(json);
 
                 if (current == value) return current;
 
