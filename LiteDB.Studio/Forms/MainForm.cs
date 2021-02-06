@@ -197,9 +197,8 @@ namespace LiteDB.Studio.Forms
             // find + tab
             var tab = tabSql.TabPages.Cast<TabPage>().Where(x => x.Text == "+").Single();
 
-            var task = new TaskData();
+            var task = new TaskData {EditorContent = content};
 
-            task.EditorContent = content;
             task.Thread = new Thread(() => CreateThread(task));
             task.Thread.Start();
 
@@ -366,7 +365,7 @@ namespace LiteDB.Studio.Forms
                 {
                     txtResult.BindErrorMessage(data.Sql, data.Exception);
                     txtParameters.BindErrorMessage(data.Sql, data.Exception);
-                    grdResult.BindErrorMessage(data.Sql, data.Exception);
+                    grdResult.BindErrorMessage(data.Exception);
                 }
                 else if (data.Result != null)
                 {
@@ -455,7 +454,7 @@ namespace LiteDB.Studio.Forms
             recentDBsDropDownButton.DropDownItems.AddRange(bts);
         }
 
-        private void grdResult_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
+        private void GrdResult_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
         {
             var value1 = e.CellValue1 as BsonValue ?? BsonValue.Null;
             var value2 = e.CellValue2 as BsonValue ?? BsonValue.Null;
@@ -463,7 +462,7 @@ namespace LiteDB.Studio.Forms
             e.Handled = true;
         }
 
-        private void grdResult_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void GrdResult_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             var value = e.Value as BsonValue;
 
@@ -512,12 +511,12 @@ namespace LiteDB.Studio.Forms
         }
 
 
-        private void settings_Click(object sender, EventArgs e)
+        private void Settings_Click(object sender, EventArgs e)
         {
             new SettingsForm(AppSettingsManager.ApplicationSettings).ShowDialog();
         }
 
-        private void clearAllToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ClearAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // clear UI
             var count = recentDBsDropDownButton.DropDownItems.Count;
@@ -526,7 +525,7 @@ namespace LiteDB.Studio.Forms
             AppSettingsManager.ClearRecentList();
         }
 
-        private void validateRecentListToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ValidateRecentListToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AppSettingsManager.ValidateRecentList();
             PopulateRecentList();
@@ -664,7 +663,7 @@ namespace LiteDB.Studio.Forms
             }
         }
 
-        private void btnDebug_Click(object sender, EventArgs e)
+        private void BtnDebug_Click(object sender, EventArgs e)
         {
             if (_debugger == null)
             {

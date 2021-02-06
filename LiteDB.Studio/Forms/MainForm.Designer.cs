@@ -232,9 +232,9 @@
             this.grdResult.TabIndex = 0;
             this.grdResult.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.GrdResult_CellBeginEdit);
             this.grdResult.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrdResult_CellEndEdit);
-            this.grdResult.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.grdResult_CellFormatting);
+            this.grdResult.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.GrdResult_CellFormatting);
             this.grdResult.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.GrdResult_RowPostPaint);
-            this.grdResult.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.grdResult_SortCompare);
+            this.grdResult.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.GrdResult_SortCompare);
             // 
             // tabText
             // 
@@ -400,7 +400,7 @@
             this.clearRecentListToolStripMenuItem.Name = "clearRecentListToolStripMenuItem";
             this.clearRecentListToolStripMenuItem.Size = new System.Drawing.Size(221, 26);
             this.clearRecentListToolStripMenuItem.Text = "Clear Recent List";
-            this.clearRecentListToolStripMenuItem.Click += new System.EventHandler(this.clearAllToolStripMenuItem_Click);
+            this.clearRecentListToolStripMenuItem.Click += new System.EventHandler(this.ClearAllToolStripMenuItem_Click);
             // 
             // validateRecentListToolStripMenuItem
             // 
@@ -408,7 +408,7 @@
             this.validateRecentListToolStripMenuItem.Size = new System.Drawing.Size(221, 26);
             this.validateRecentListToolStripMenuItem.Text = "Validate Recent List";
             this.validateRecentListToolStripMenuItem.ToolTipText = "Remove Any Not Existed Database";
-            this.validateRecentListToolStripMenuItem.Click += new System.EventHandler(this.validateRecentListToolStripMenuItem_Click);
+            this.validateRecentListToolStripMenuItem.Click += new System.EventHandler(this.ValidateRecentListToolStripMenuItem_Click);
             // 
             // toolStripSeparator6
             // 
@@ -514,7 +514,7 @@
             this.btnDebug.Name = "btnDebug";
             this.btnDebug.Size = new System.Drawing.Size(78, 30);
             this.btnDebug.Text = "Debug";
-            this.btnDebug.Click += new System.EventHandler(this.btnDebug_Click);
+            this.btnDebug.Click += new System.EventHandler(this.BtnDebug_Click);
             // 
             // toolStripSeparator5
             // 
@@ -529,7 +529,7 @@
             this.tBtnSettings.Size = new System.Drawing.Size(86, 30);
             this.tBtnSettings.Text = "Settings";
             this.tBtnSettings.ToolTipText = "Settings";
-            this.tBtnSettings.Click += new System.EventHandler(this.settings_Click);
+            this.tBtnSettings.Click += new System.EventHandler(this.Settings_Click);
             // 
             // ctxMenu
             // 

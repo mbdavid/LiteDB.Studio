@@ -47,7 +47,7 @@ namespace LiteDB.Studio.Classes
             UpdateCodeCompletion(null);
         }
 
-        private ICompletionDataProvider _completionDataProvider { get; set; }
+        private ICompletionDataProvider CompletionDataProvider { get; set; }
 
         public ImageList ImageList { get; }
 
@@ -79,13 +79,13 @@ namespace LiteDB.Studio.Classes
         {
             try
             {
-                _completionDataProvider = this;
+                CompletionDataProvider = this;
 
                 _codeCompletionWindow = CodeCompletionWindow.ShowCompletionWindow(
                     _editor.ParentForm,
                     _editor,
                     "file.sql",
-                    _completionDataProvider,
+                    CompletionDataProvider,
                     key
                 );
 
@@ -127,8 +127,10 @@ namespace LiteDB.Studio.Classes
         {
             _codeCompletionData = new List<ICompletionData>();
 
-            var item = new DefaultCompletionData(DateTime.Now.Second.ToString(), "segundos", 4);
-            item.Priority = double.MaxValue;
+            var item = new DefaultCompletionData(DateTime.Now.Second.ToString(), "segundos", 4)
+            {
+                Priority = double.MaxValue
+            };
 
             _codeCompletionData.Add(item);
 

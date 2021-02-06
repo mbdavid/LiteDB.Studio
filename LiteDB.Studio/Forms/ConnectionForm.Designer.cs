@@ -223,7 +223,7 @@
             this.chkReadonly.TabIndex = 27;
             this.chkReadonly.Text = "Read only";
             this.chkReadonly.UseVisualStyleBackColor = true;
-            this.chkReadonly.CheckedChanged += new System.EventHandler(this.chkReadonly_CheckedChanged);
+            this.chkReadonly.CheckedChanged += new System.EventHandler(this.ChkReadonly_CheckedChanged);
             // 
             // label3
             // 

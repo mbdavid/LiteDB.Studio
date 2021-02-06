@@ -233,7 +233,7 @@ namespace LiteDB.Studio.Classes.Debugger
         {
             _writer.AppendLine("<html>");
             _writer.AppendLine("<head>");
-            _writer.AppendLine($"<title>LiteDB Debugger: #{_pageID.ToString("0000")} - {_pageType}</title>");
+            _writer.AppendLine($"<title>LiteDB Debugger: #{_pageID:0000} - {_pageType}</title>");
             _writer.AppendLine("<style>");
             _writer.AppendLine("* { box-sizing: border-box; }");
             _writer.AppendLine("body { font-family: monospace; }");
@@ -257,7 +257,7 @@ namespace LiteDB.Studio.Classes.Debugger
             _writer.AppendLine("</style>");
             _writer.AppendLine("</head>");
             _writer.AppendLine("<body>");
-            _writer.AppendLine($"<h1>#{_pageID.ToString("0000")} :: {_pageType} Page</h1>");
+            _writer.AppendLine($"<h1>#{_pageID:0000} :: {_pageType} Page</h1>");
         }
 
         private void RenderInfo()
@@ -297,8 +297,6 @@ namespace LiteDB.Studio.Classes.Debugger
 
             for (var i = 0; i < _items.Count; i++)
             {
-                var item = _items[i];
-
                 if (i % 32 == 0) _writer.AppendLine($"<div>{i}</div>");
             }
 

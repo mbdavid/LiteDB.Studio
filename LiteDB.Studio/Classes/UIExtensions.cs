@@ -132,7 +132,7 @@ namespace LiteDB.Studio.Classes
             txt.Text = sb.ToString();
         }
 
-        public static void BindErrorMessage(this DataGridView grid, string sql, Exception ex)
+        public static void BindErrorMessage(this DataGridView grid, Exception ex)
         {
             grid.Clear();
             grid.Columns.Add("err", "Error");

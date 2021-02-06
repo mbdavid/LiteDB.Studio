@@ -80,7 +80,7 @@ namespace LiteDB.Studio.ICSharpCode.TextEditor.Util
         /// <summary>
         ///     Remove any item from recent list if it does not exist
         /// </summary>
-        public static void ValidateRecentList(bool removeOverflowedItems = true)
+        public static void ValidateRecentList()
         {
             var toRemove = ApplicationSettings.RecentConnectionStrings
                 .Where(connectionString => !IsDbExist(connectionString.Filename)).ToList();

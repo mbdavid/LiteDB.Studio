@@ -31,8 +31,7 @@ namespace LiteDB.Studio.Forms
                     .Select(x => CultureInfo.GetCultureInfo(x).Name)
                     .ToList();
 
-            var sort = new List<string>();
-            sort.Add("");
+            var sort = new List<string> {""};
             sort.AddRange(Enum.GetNames(typeof(CompareOptions)));
 
             cmbSort.DataSource = sort;
@@ -83,7 +82,7 @@ namespace LiteDB.Studio.Forms
             if (openFileDialog.ShowDialog() == DialogResult.OK) txtFilename.Text = openFileDialog.FileName;
         }
 
-        private void chkReadonly_CheckedChanged(object sender, EventArgs e)
+        private void ChkReadonly_CheckedChanged(object sender, EventArgs e)
         {
             if (chkReadonly.Checked)
             {
