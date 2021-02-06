@@ -8,10 +8,11 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.HighlightingStrategy;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.LineManager;
 
-using ICSharpCode.TextEditor.Document;
-
-namespace ICSharpCode.TextEditor
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui
 {
 	/// <summary>
 	/// A class that is able to draw a line on any control (outside the text editor)

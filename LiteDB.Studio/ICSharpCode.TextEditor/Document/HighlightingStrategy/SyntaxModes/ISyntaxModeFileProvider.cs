@@ -5,11 +5,10 @@
 //     <version>$Revision$</version>
 // </file>
 
-using System;
 using System.Collections.Generic;
 using System.Xml;
 
-namespace ICSharpCode.TextEditor.Document
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.HighlightingStrategy.SyntaxModes
 {
 	public interface ISyntaxModeFileProvider
 	{

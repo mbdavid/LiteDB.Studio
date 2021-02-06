@@ -1,13 +1,9 @@
-﻿using ICSharpCode.TextEditor.Actions;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+using LiteDB.Studio.ICSharpCode.TextEditor.Actions;
 
-namespace ICSharpCode.TextEditor {
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui {
     public partial class ContextMenu : ContextMenuStrip {
         TextAreaControl parent;
         public ContextMenu(TextAreaControl parent) {

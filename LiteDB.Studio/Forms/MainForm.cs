@@ -1,21 +1,16 @@
-﻿using ICSharpCode.TextEditor;
-using LiteDB.Engine;
-using LiteDB.Studio.Forms;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ICSharpCode.TextEditor.Util;
+using LiteDB.Studio.Classes;
+using LiteDB.Studio.Classes.Debugger;
+using LiteDB.Studio.ICSharpCode.TextEditor.Util;
 
-namespace LiteDB.Studio
+namespace LiteDB.Studio.Forms
 {
     public partial class MainForm : Form
     {
@@ -76,16 +71,10 @@ namespace LiteDB.Studio
                 this.Connect(AppSettingsManager.ApplicationSettings.LastConnectionStrings);
             }
             
-            // set load last db status to checkbox
-
-            loadLastDb.Checked = AppSettingsManager.ApplicationSettings.LoadLastDbOnStartup;
-            maxRecentListItems.Value = AppSettingsManager.ApplicationSettings.MaxRecentListItems;
 
             // validate recent list
             AppSettingsManager.ValidateRecentList();
-            
-            // add tooltip to Max Recent List Items UpDown Counter
-            maxRecentItemsTooltip.SetToolTip(maxRecentListItems, "Max Recent Items, (Apply After Restart)");
+
             
             // populate recent db list
             PopulateRecentList();
@@ -833,21 +822,10 @@ namespace LiteDB.Studio
             }
         }
 
-        private void loadLastDbChecked_Changed(object sender, EventArgs e)
-        {
-            AppSettingsManager.ApplicationSettings.LoadLastDbOnStartup = loadLastDb.Checked;
-        }
 
-        private void loadLastDbNow_Click(object sender, EventArgs e)
+        private void settings_Click(object sender, EventArgs e)
         {
-            if (AppSettingsManager.IsLastDbExist())
-            {
-                if (this._db != null)
-                {
-                    this.Disconnect();
-                }
-                this.Connect(AppSettingsManager.ApplicationSettings.LastConnectionStrings);
-            }
+            new SettingsForm(AppSettingsManager.ApplicationSettings).ShowDialog();
         }
 
         private void clearAllToolStripMenuItem_Click(object sender, EventArgs e)
@@ -868,15 +846,6 @@ namespace LiteDB.Studio
             PopulateRecentList();
         }
 
-        private void maxRecentListItems_ValueChanged(object sender, EventArgs e)
-        {
-            var num = sender as NumericUpDown;
-            if (num == null)
-            {
-                return;
-            }
-
-            AppSettingsManager.ApplicationSettings.MaxRecentListItems = (int)num.Value;
-        }
+     
     }
 }

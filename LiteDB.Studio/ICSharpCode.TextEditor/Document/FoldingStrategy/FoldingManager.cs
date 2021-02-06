@@ -9,8 +9,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
+using LiteDB.Studio.ICSharpCode.TextEditor.Gui;
 
-namespace ICSharpCode.TextEditor.Document
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.FoldingStrategy
 {
 	public class FoldingManager
 	{
@@ -34,7 +35,7 @@ namespace ICSharpCode.TextEditor.Document
 			}
 		}
 		
-		internal FoldingManager(IDocument document, LineManager lineTracker)
+		internal FoldingManager(IDocument document, LineManager.LineManager lineTracker)
 		{
 			this.document = document;
 			document.DocumentChanged += new DocumentEventHandler(DocumentChanged);

@@ -8,8 +8,10 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.FoldingStrategy;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.HighlightingStrategy;
 
-namespace ICSharpCode.TextEditor.Document
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.LineManager
 {
 	internal sealed class LineManager
 	{

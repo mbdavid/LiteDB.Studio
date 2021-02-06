@@ -7,12 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace ICSharpCode.TextEditor.Gui.CompletionWindow
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui.CompletionWindow
 {
     /// <summary>
     /// Description of CodeCompletionListView.

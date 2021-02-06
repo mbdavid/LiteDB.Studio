@@ -1,11 +1,8 @@
-﻿using ICSharpCode.TextEditor.Document;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.HighlightingStrategy;
 
-namespace ICSharpCode.TextEditor {
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui {
 
     public class HighlightStringConverter : StringConverter {
         public override Boolean GetStandardValuesSupported(ITypeDescriptorContext context) {

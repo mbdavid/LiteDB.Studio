@@ -5,11 +5,10 @@
 //     <version>$Revision$</version>
 // </file>
 
-using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace ICSharpCode.TextEditor
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui
 {
 	/// <summary>
 	/// Horizontal ruler - text column measuring ruler at the top of the text area.

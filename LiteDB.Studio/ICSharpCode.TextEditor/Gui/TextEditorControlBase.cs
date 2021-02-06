@@ -14,11 +14,12 @@ using System.Drawing.Text;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using LiteDB.Studio.ICSharpCode.TextEditor.Actions;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.HighlightingStrategy;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.LineManager;
 
-using ICSharpCode.TextEditor.Actions;
-using ICSharpCode.TextEditor.Document;
-
-namespace ICSharpCode.TextEditor
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui
 {
 	/// <summary>
 	/// This class is used for a basic text area control

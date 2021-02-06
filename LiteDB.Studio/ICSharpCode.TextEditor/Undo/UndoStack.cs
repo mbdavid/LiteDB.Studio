@@ -7,9 +7,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document;
+using LiteDB.Studio.ICSharpCode.TextEditor.Gui;
 
-namespace ICSharpCode.TextEditor.Undo
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Undo
 {
 	/// <summary>
 	/// This class implements an undo stack

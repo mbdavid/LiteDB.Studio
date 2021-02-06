@@ -9,7 +9,7 @@ using System;
 using System.Diagnostics;
 using System.Drawing;
 
-namespace ICSharpCode.TextEditor.Util
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Util
 {
 	abstract class TipSection
 	{

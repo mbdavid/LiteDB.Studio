@@ -6,10 +6,9 @@
 // </file>
 
 using System;
-using System.Drawing;
-using ICSharpCode.TextEditor.Document;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document;
 
-namespace ICSharpCode.TextEditor
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui
 {
 	public class Highlight
 	{

@@ -5,7 +5,7 @@
 //     <version>$Revision$</version>
 // </file>
 
-namespace ICSharpCode.TextEditor.Document
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.TextBufferStrategy
 {
 	/// <summary>
 	/// Interface to describe a sequence of characters that can be edited. 	

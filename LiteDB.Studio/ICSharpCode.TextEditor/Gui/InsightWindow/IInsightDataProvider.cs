@@ -5,9 +5,7 @@
 //     <version>$Revision$</version>
 // </file>
 
-using System;
-
-namespace ICSharpCode.TextEditor.Gui.InsightWindow
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui.InsightWindow
 {
 	public interface IInsightDataProvider
 	{

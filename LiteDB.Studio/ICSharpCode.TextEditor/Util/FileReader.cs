@@ -9,7 +9,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace ICSharpCode.TextEditor.Util
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Util
 {
 	/// <summary>
 	/// Class that can open text files with auto-detection of the encoding.

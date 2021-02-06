@@ -7,11 +7,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
-using System.Windows.Forms;
+using System.Text;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.LineManager;
+using LiteDB.Studio.ICSharpCode.TextEditor.Gui;
 
-namespace ICSharpCode.TextEditor.Document
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.HighlightingStrategy
 {
 	public class DefaultHighlightingStrategy : IHighlightingStrategyUsingRuleSets
 	{

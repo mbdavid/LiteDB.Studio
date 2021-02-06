@@ -6,11 +6,11 @@
 // </file>
 
 using System;
-using System.Text;
-using System.Diagnostics;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text;
 
-namespace ICSharpCode.TextEditor.Util
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Util
 {
 	internal sealed class RedBlackTreeNode<T>
 	{

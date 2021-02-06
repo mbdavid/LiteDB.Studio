@@ -10,10 +10,11 @@ using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.HighlightingStrategy;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.Selection;
 
-using ICSharpCode.TextEditor.Document;
-
-namespace ICSharpCode.TextEditor
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui
 {
 	/// <summary>
 	/// This class views the line numbers and folding markers.

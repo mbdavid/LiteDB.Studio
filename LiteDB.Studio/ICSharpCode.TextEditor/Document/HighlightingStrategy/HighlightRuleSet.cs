@@ -8,10 +8,9 @@
 using System;
 using System.Collections;
 using System.Xml;
+using LiteDB.Studio.ICSharpCode.TextEditor.Util;
 
-using ICSharpCode.TextEditor.Util;
-
-namespace ICSharpCode.TextEditor.Document
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.HighlightingStrategy
 {
 	public class HighlightRuleSet
 	{

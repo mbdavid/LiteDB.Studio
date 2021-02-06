@@ -7,7 +7,7 @@
 
 using System;
 
-namespace ICSharpCode.TextEditor.Document
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.FoldingStrategy
 {
 	public enum FoldType {
 		Unspecified,

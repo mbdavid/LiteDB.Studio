@@ -9,11 +9,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Schema;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.HighlightingStrategy.SyntaxModes;
 
-namespace ICSharpCode.TextEditor.Document
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.HighlightingStrategy
 {
 	public static class HighlightingDefinitionParser
 	{

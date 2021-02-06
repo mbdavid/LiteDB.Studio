@@ -8,7 +8,7 @@
 using System;
 using System.Drawing;
 
-namespace ICSharpCode.TextEditor.Util
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Util
 {
 	class TipSpacer: TipSection
 	{

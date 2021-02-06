@@ -7,11 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Diagnostics;
-using System.Text;
+using System.Drawing;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.HighlightingStrategy;
 
-namespace ICSharpCode.TextEditor.Document
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.LineManager
 {
 	public sealed class LineSegment : ISegment
 	{

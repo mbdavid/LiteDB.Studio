@@ -10,10 +10,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.FoldingStrategy;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.LineManager;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.MarkerStrategy;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.Selection;
 
-using ICSharpCode.TextEditor.Document;
-
-namespace ICSharpCode.TextEditor
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui
 {
 	/// <summary>
 	/// This class handles all mouse stuff for a textArea.

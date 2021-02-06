@@ -7,7 +7,7 @@
 
 using System.Collections.Generic;
 
-namespace ICSharpCode.TextEditor.Document
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Document
 {
 	/// <summary>
 	/// This interface is used to describe a span inside a text sequence

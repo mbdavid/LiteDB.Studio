@@ -1,20 +1,11 @@
-﻿using ICSharpCode.TextEditor.Gui.CompletionWindow;
-using LiteDB.Engine;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
+﻿using System;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace LiteDB.Studio
+namespace LiteDB.Studio.Classes
 {
     static class UIExtensions
     {
@@ -106,7 +97,7 @@ namespace LiteDB.Studio
             grd.DataSource = null;
         }
 
-        public static void BindBsonData(this ICSharpCode.TextEditor.TextEditorControl txt, TaskData data)
+        public static void BindBsonData(this global::LiteDB.Studio.ICSharpCode.TextEditor.Gui.TextEditorControl txt, TaskData data)
         {
             var index = 0;
             var sb = new StringBuilder();
@@ -156,7 +147,7 @@ namespace LiteDB.Studio
             grid.Rows.Add(ex.Message);
         }
 
-        public static void BindErrorMessage(this ICSharpCode.TextEditor.TextEditorControl txt, string sql, Exception ex)
+        public static void BindErrorMessage(this global::LiteDB.Studio.ICSharpCode.TextEditor.Gui.TextEditorControl txt, string sql, Exception ex)
         {
             var sb = new StringBuilder();
 
@@ -192,7 +183,7 @@ namespace LiteDB.Studio
             txt.Text = sb.ToString();
         }
 
-        public static void BindParameter(this ICSharpCode.TextEditor.TextEditorControl txt, TaskData data)
+        public static void BindParameter(this global::LiteDB.Studio.ICSharpCode.TextEditor.Gui.TextEditorControl txt, TaskData data)
         {
             txt.SuspendLayout();
             txt.Clear();

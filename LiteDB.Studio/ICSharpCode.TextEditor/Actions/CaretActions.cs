@@ -8,10 +8,12 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.FoldingStrategy;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.LineManager;
+using LiteDB.Studio.ICSharpCode.TextEditor.Gui;
 
-using ICSharpCode.TextEditor.Document;
-
-namespace ICSharpCode.TextEditor.Actions
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Actions
 {
 	public class CaretLeft : AbstractEditAction
 	{

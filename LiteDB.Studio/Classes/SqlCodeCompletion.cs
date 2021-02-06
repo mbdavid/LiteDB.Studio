@@ -1,18 +1,15 @@
 ﻿// This code was based on the CSharp Editor Example with Code Completion created by Daniel Grunwald
-using System;
-using System.IO;
-using System.Text;
-using System.Xml;
-using System.Windows.Forms;
-using System.Collections;
-using System.Collections.Generic;
-using ICSharpCode.TextEditor;
-using ICSharpCode.TextEditor.Gui.CompletionWindow;
-using System.Linq;
-using System.Diagnostics;
-using ICSharpCode.TextEditor.Document;
 
-namespace LiteDB.Studio
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+using System.Xml;
+using LiteDB.Studio.ICSharpCode.TextEditor.Gui;
+using LiteDB.Studio.ICSharpCode.TextEditor.Gui.CompletionWindow;
+
+namespace LiteDB.Studio.Classes
 {
     public class SqlCodeCompletion : ICompletionDataProvider
     {

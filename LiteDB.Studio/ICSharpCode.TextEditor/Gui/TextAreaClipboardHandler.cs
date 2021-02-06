@@ -6,15 +6,14 @@
 // </file>
 
 using System;
-using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.LineManager;
+using LiteDB.Studio.ICSharpCode.TextEditor.Util;
 
-using ICSharpCode.TextEditor.Document;
-using ICSharpCode.TextEditor.Util;
-
-namespace ICSharpCode.TextEditor
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui
 {
 	public class TextAreaClipboardHandler
 	{
@@ -231,12 +230,12 @@ namespace ICSharpCode.TextEditor
 		
 		public void Delete(object sender, EventArgs e)
 		{
-			new ICSharpCode.TextEditor.Actions.Delete().Execute(textArea);
+			new global::LiteDB.Studio.ICSharpCode.TextEditor.Actions.Delete().Execute(textArea);
 		}
 		
 		public void SelectAll(object sender, EventArgs e)
 		{
-			new ICSharpCode.TextEditor.Actions.SelectWholeDocument().Execute(textArea);
+			new global::LiteDB.Studio.ICSharpCode.TextEditor.Actions.SelectWholeDocument().Execute(textArea);
 		}
 		
 		protected virtual void OnCopyText(CopyTextEventArgs e)

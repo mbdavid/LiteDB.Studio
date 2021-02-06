@@ -7,8 +7,10 @@
 
 using System;
 using System.Text;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.LineManager;
+using LiteDB.Studio.ICSharpCode.TextEditor.Gui;
 
-namespace ICSharpCode.TextEditor.Document
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.FormattingStrategy
 {
 	/// <summary>
 	/// This class handles the auto and smart indenting in the textbuffer while

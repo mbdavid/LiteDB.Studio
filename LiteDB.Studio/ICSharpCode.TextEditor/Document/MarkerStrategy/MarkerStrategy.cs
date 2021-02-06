@@ -7,9 +7,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.LineManager;
 
-namespace ICSharpCode.TextEditor.Document
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.MarkerStrategy
 {
 	/// <summary>
 	/// Manages the list of markers and provides ways to retrieve markers for specific positions.

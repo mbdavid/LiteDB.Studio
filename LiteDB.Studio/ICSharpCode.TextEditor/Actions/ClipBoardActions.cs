@@ -5,9 +5,9 @@
 //     <version>$Revision$</version>
 // </file>
 
-using System;
+using LiteDB.Studio.ICSharpCode.TextEditor.Gui;
 
-namespace ICSharpCode.TextEditor.Actions 
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Actions 
 {
 	public class Cut : AbstractEditAction
 	{

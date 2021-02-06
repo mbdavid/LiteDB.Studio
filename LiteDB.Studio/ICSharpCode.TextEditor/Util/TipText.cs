@@ -7,8 +7,9 @@
 
 using System;
 using System.Drawing;
+using LiteDB.Studio.ICSharpCode.TextEditor.Gui;
 
-namespace ICSharpCode.TextEditor.Util
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Util
 {
 	class CountTipText: TipText
 	{

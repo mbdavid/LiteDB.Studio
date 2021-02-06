@@ -5,7 +5,7 @@
 //     <version>$Revision$</version>
 // </file>
 
-namespace ICSharpCode.TextEditor.Undo
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Undo
 {
 	/// <summary>
 	/// This Interface describes a the basic Undo/Redo operation

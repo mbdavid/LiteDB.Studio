@@ -5,10 +5,9 @@
 //     <version>$Revision$</version>
 // </file>
 
-using System;
 using System.Collections.Generic;
 
-namespace ICSharpCode.TextEditor.Document
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.FoldingStrategy
 {
 	/// <summary>
 	/// This interface is used for the folding capabilities

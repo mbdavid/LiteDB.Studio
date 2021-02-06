@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace LiteDB.Studio
+namespace LiteDB.Studio.Classes
 {
     class TaskData
     {

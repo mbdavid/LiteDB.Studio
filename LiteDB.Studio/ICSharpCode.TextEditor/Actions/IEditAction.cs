@@ -5,10 +5,10 @@
 //     <version>$Revision$</version>
 // </file>
 
-using System;
 using System.Windows.Forms;
+using LiteDB.Studio.ICSharpCode.TextEditor.Gui;
 
-namespace ICSharpCode.TextEditor.Actions
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Actions
 {
 	/// <summary>
 	/// To define a new key for the textarea, you must write a class which

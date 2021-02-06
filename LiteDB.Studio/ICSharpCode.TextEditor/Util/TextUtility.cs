@@ -6,10 +6,9 @@
 // </file>
 
 using System;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document;
 
-using ICSharpCode.TextEditor.Document;
-
-namespace ICSharpCode.TextEditor.Util
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Util
 {
 	public class TextUtility
 	{

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ICSharpCode.TextEditor.Util;
+using LiteDB.Studio.Forms;
+using LiteDB.Studio.ICSharpCode.TextEditor.Util;
 
 namespace LiteDB.Studio
 {

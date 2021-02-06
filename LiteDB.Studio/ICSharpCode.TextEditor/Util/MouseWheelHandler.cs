@@ -8,7 +8,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace ICSharpCode.TextEditor.Util
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Util
 {
 	/// <summary>
 	/// Accumulates mouse wheel deltas and reports the actual number of lines to scroll.

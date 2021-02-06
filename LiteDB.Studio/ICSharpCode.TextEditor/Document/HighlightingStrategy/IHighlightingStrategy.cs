@@ -5,10 +5,10 @@
 //     <version>$Revision$</version>
 // </file>
 
-using System;
 using System.Collections.Generic;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.LineManager;
 
-namespace ICSharpCode.TextEditor.Document
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.HighlightingStrategy
 {
 	/// <summary>
 	/// A highlighting strategy for a buffer.

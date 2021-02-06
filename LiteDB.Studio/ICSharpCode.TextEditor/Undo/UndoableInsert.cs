@@ -7,9 +7,9 @@
 
 using System;
 using System.Diagnostics;
-using ICSharpCode.TextEditor.Document;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document;
 
-namespace ICSharpCode.TextEditor.Undo
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Undo
 {
 	/// <summary>
 	/// This class is for the undo of Document insert operations

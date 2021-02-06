@@ -8,7 +8,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ICSharpCode.TextEditor.Util
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Util
 {
 	/// <summary>
 	/// A collection that does not allows its elements to be garbage-collected (unless there are other

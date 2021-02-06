@@ -8,11 +8,15 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.FoldingStrategy;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.FormattingStrategy;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.HighlightingStrategy;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.LineManager;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.TextBufferStrategy;
+using LiteDB.Studio.ICSharpCode.TextEditor.Gui;
+using LiteDB.Studio.ICSharpCode.TextEditor.Undo;
 
-using ICSharpCode.TextEditor.Undo;
-
-namespace ICSharpCode.TextEditor.Document
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Document
 {
 	/// <summary>
 	/// Describes the caret marker
@@ -94,16 +98,16 @@ namespace ICSharpCode.TextEditor.Document
 	{
 		bool readOnly = false;
 		
-		LineManager           lineTrackingStrategy;
-		BookmarkManager       bookmarkManager;
+		LineManager.LineManager           lineTrackingStrategy;
+		BookmarkManager.BookmarkManager       bookmarkManager;
 		ITextBufferStrategy   textBufferStrategy;
 		IFormattingStrategy   formattingStrategy;
 		FoldingManager        foldingManager;
 		UndoStack             undoStack = new UndoStack();
 		ITextEditorProperties textEditorProperties = new DefaultTextEditorProperties();
-		MarkerStrategy        markerStrategy;
+		MarkerStrategy.MarkerStrategy        markerStrategy;
 		
-		public LineManager LineManager {
+		public LineManager.LineManager LineManager {
 			get { return lineTrackingStrategy; }
 			set { lineTrackingStrategy = value; }
 		}
@@ -121,7 +125,7 @@ namespace ICSharpCode.TextEditor.Document
 			remove { lineTrackingStrategy.LineDeleted -= value; }
 		}
 		
-		public MarkerStrategy MarkerStrategy {
+		public MarkerStrategy.MarkerStrategy MarkerStrategy {
 			get { return markerStrategy; }
 			set { markerStrategy = value; }
 		}
@@ -198,7 +202,7 @@ namespace ICSharpCode.TextEditor.Document
 			}
 		}
 		
-		public BookmarkManager BookmarkManager {
+		public BookmarkManager.BookmarkManager BookmarkManager {
 			get {
 				return bookmarkManager;
 			}

@@ -6,10 +6,9 @@
 // </file>
 
 using System;
-using System.Diagnostics;
 using System.Collections.Generic;
 
-namespace ICSharpCode.TextEditor.Util
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Util
 {
 	internal struct RedBlackTreeIterator<T> : IEnumerator<T>
 	{

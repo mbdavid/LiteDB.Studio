@@ -1,4 +1,4 @@
-﻿namespace ICSharpCode.TextEditor {
+﻿namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui {
     partial class ContextMenu {
         /// <summary>
         /// Required designer variable.

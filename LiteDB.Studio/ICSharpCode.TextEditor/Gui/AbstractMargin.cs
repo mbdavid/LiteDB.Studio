@@ -8,10 +8,9 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document;
 
-using ICSharpCode.TextEditor.Document;
-
-namespace ICSharpCode.TextEditor
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui
 {
 	public delegate void MarginMouseEventHandler(AbstractMargin sender, Point mousepos, MouseButtons mouseButtons);
 	public delegate void MarginPaintEventHandler(AbstractMargin sender, Graphics g, Rectangle rect);

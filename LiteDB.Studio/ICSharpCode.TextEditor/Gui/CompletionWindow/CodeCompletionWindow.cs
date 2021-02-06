@@ -6,12 +6,12 @@
 // </file>
 
 using System;
-using System.Drawing;
 using System.Diagnostics;
+using System.Drawing;
 using System.Windows.Forms;
-using ICSharpCode.TextEditor.Document;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document;
 
-namespace ICSharpCode.TextEditor.Gui.CompletionWindow
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui.CompletionWindow
 {
 	public class CodeCompletionWindow : AbstractCompletionWindow
 	{

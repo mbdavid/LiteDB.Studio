@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ICSharpCode.TextEditor.Util;
+using LiteDB.Studio.ICSharpCode.TextEditor.Util;
 
 namespace LiteDB.Studio.Forms
 {

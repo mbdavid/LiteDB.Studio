@@ -8,8 +8,10 @@
 using System;
 using System.Diagnostics;
 using System.Text;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.LineManager;
+using LiteDB.Studio.ICSharpCode.TextEditor.Gui;
 
-namespace ICSharpCode.TextEditor.Document
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Document
 {
 	
 	public sealed class TextUtilities

@@ -5,11 +5,10 @@
 //     <version>$Revision$</version>
 // </file>
 
-using System;
 using System.Drawing;
 using System.Xml;
 
-namespace ICSharpCode.TextEditor.Document
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.HighlightingStrategy
 {
 	/// <summary>
 	/// Extens the highlighting color with a background image.

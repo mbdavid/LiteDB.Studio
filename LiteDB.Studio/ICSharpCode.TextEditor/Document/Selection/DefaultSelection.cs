@@ -7,12 +7,11 @@
 
 using System;
 using System.Diagnostics;
-using System.Drawing;
 
-namespace ICSharpCode.TextEditor.Document
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.Selection
 {
 	/// <summary>
-	/// Default implementation of the <see cref="ICSharpCode.TextEditor.Document.ISelection"/> interface.
+	/// Default implementation of the <see cref="ISelection"/> interface.
 	/// </summary>
 	public class DefaultSelection : ISelection
 	{

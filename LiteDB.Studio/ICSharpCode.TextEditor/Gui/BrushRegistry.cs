@@ -5,13 +5,10 @@
 //     <version>$Revision$</version>
 // </file>
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 
-namespace ICSharpCode.TextEditor
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui
 {
 	/// <summary>
 	/// Contains brushes/pens for the text editor to speed up drawing. Re-Creation of brushes and pens

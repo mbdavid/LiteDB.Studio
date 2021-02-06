@@ -6,9 +6,10 @@
 // </file>
 
 using System;
-using ICSharpCode.TextEditor.Document;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.BookmarkManager;
+using LiteDB.Studio.ICSharpCode.TextEditor.Gui;
 
-namespace ICSharpCode.TextEditor.Actions 
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Actions 
 {
 	public class ToggleBookmark : AbstractEditAction
 	{

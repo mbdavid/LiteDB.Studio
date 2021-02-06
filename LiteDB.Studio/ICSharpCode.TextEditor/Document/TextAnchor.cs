@@ -6,8 +6,9 @@
 // </file>
 
 using System;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.LineManager;
 
-namespace ICSharpCode.TextEditor.Document
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Document
 {
 	public enum AnchorMovementType
 	{

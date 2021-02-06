@@ -7,7 +7,7 @@
 
 using System;
 
-namespace ICSharpCode.TextEditor.Gui.CompletionWindow
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui.CompletionWindow
 {
 	public interface ICompletionData
 	{

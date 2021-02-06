@@ -7,9 +7,12 @@
 
 using System;
 using System.Text;
-using ICSharpCode.TextEditor.Document;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.LineManager;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.Selection;
+using LiteDB.Studio.ICSharpCode.TextEditor.Gui;
 
-namespace ICSharpCode.TextEditor.Actions
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Actions
 {
 	public abstract class AbstractLineFormatAction : AbstractEditAction
 	{

@@ -9,11 +9,11 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document;
+using LiteDB.Studio.ICSharpCode.TextEditor.Gui.CompletionWindow;
+using LiteDB.Studio.ICSharpCode.TextEditor.Util;
 
-using ICSharpCode.TextEditor.Gui.CompletionWindow;
-using ICSharpCode.TextEditor.Util;
-
-namespace ICSharpCode.TextEditor.Gui.InsightWindow
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui.InsightWindow
 {
 	public class InsightWindow : AbstractCompletionWindow
 	{

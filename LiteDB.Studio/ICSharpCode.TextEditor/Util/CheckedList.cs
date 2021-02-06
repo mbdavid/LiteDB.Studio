@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace ICSharpCode.TextEditor.Util
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Util
 {
 	/// <summary>
 	/// A IList{T} that checks that it is only accessed on the thread that created it, and that

@@ -9,7 +9,7 @@ using System.Drawing;
 using System.Drawing.Text;
 using System.Windows.Forms;
 
-namespace ICSharpCode.TextEditor.Util
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Util
 {
 	static class TipPainter
 	{

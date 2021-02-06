@@ -8,7 +8,7 @@
 using System;
 using System.Drawing;
 
-namespace ICSharpCode.TextEditor.Document
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.HighlightingStrategy
 {
 	/// <summary>
 	/// This class is used to generate bold, italic and bold/italic fonts out

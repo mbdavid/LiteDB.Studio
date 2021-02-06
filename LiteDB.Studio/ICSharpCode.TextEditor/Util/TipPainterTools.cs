@@ -5,11 +5,10 @@
 //     <version>$Revision$</version>
 // </file>
 
-using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace ICSharpCode.TextEditor.Util
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Util
 {
 	static class TipPainterTools
 	{

@@ -5,9 +5,9 @@
 //     <version>$Revision$</version>
 // </file>
 
-using System;
+using LiteDB.Studio.ICSharpCode.TextEditor.Gui;
 
-namespace ICSharpCode.TextEditor.Document
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.FormattingStrategy
 {
 	/// <summary>
 	/// This interface handles the auto and smart indenting and formating

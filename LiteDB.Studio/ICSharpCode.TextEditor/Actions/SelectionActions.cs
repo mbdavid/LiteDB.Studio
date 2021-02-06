@@ -5,11 +5,10 @@
 //     <version>$Revision$</version>
 // </file>
 
-using System;
-using System.Drawing;
-using ICSharpCode.TextEditor.Document;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document;
+using LiteDB.Studio.ICSharpCode.TextEditor.Gui;
 
-namespace ICSharpCode.TextEditor.Actions
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Actions
 {
 	public class ShiftCaretRight : CaretRight
 	{

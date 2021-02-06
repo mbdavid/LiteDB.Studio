@@ -10,15 +10,16 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Text;
 using System.Text;
 using System.Windows.Forms;
+using LiteDB.Studio.ICSharpCode.TextEditor.Actions;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.FoldingStrategy;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.LineManager;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.Selection;
+using LiteDB.Studio.ICSharpCode.TextEditor.Gui.CompletionWindow;
 
-using ICSharpCode.TextEditor.Actions;
-using ICSharpCode.TextEditor.Document;
-using ICSharpCode.TextEditor.Gui.CompletionWindow;
-
-namespace ICSharpCode.TextEditor
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui
 {
 	public delegate bool KeyEventHandler(char ch);
 	public delegate bool DialogKeyProcessor(Keys keyData);

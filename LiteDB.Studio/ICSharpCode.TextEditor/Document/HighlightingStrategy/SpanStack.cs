@@ -8,7 +8,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ICSharpCode.TextEditor.Document
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.HighlightingStrategy
 {
 	/// <summary>
 	/// A stack of Span instances. Works like Stack&lt;Span&gt;, but can be cloned quickly

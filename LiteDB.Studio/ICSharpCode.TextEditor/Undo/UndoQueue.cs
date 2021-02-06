@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace ICSharpCode.TextEditor.Undo
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Undo
 {
 	/// <summary>
 	/// This class stacks the last x operations from the undostack and makes

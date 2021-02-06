@@ -8,8 +8,9 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document;
 
-namespace ICSharpCode.TextEditor.Gui.CompletionWindow
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Gui.CompletionWindow
 {
 	/// <summary>
 	/// Description of AbstractCompletionWindow.

@@ -7,9 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using ICSharpCode.TextEditor.Document;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.FoldingStrategy;
+using LiteDB.Studio.ICSharpCode.TextEditor.Gui;
 
-namespace ICSharpCode.TextEditor.Actions
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Actions
 {
 	public class ToggleFolding : AbstractEditAction
 	{

@@ -5,9 +5,7 @@
 //     <version>$Revision$</version>
 // </file>
 
-using System.Drawing;
-
-namespace ICSharpCode.TextEditor.Document
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.Selection
 {
 	/// <summary>
 	/// An interface representing a portion of the current selection.

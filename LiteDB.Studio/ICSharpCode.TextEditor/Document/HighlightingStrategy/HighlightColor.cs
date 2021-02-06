@@ -12,7 +12,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Xml;
 
-namespace ICSharpCode.TextEditor.Document
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.HighlightingStrategy
 {
 	/// <summary>
 	/// A color used for highlighting

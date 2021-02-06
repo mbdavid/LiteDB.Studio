@@ -7,12 +7,13 @@
 
 using System;
 using System.Diagnostics;
-using System.Drawing;
 using System.Text;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.LineManager;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.Selection;
+using LiteDB.Studio.ICSharpCode.TextEditor.Gui;
 
-using ICSharpCode.TextEditor.Document;
-
-namespace ICSharpCode.TextEditor.Actions
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Actions
 {
 	public class Tab : AbstractEditAction
 	{

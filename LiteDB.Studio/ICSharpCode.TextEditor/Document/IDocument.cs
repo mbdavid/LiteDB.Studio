@@ -7,11 +7,15 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.FoldingStrategy;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.FormattingStrategy;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.HighlightingStrategy;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.LineManager;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.TextBufferStrategy;
+using LiteDB.Studio.ICSharpCode.TextEditor.Gui;
+using LiteDB.Studio.ICSharpCode.TextEditor.Undo;
 
-using ICSharpCode.TextEditor.Undo;
-
-namespace ICSharpCode.TextEditor.Document
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Document
 {
 	/// <summary>
 	/// This interface represents a container which holds a text sequence and
@@ -68,11 +72,11 @@ namespace ICSharpCode.TextEditor.Document
 		/// <summary>
 		/// The <see cref="IBookMarkManager"/> attached to the <see cref="IDocument"/> instance
 		/// </summary>
-		BookmarkManager BookmarkManager {
+		BookmarkManager.BookmarkManager BookmarkManager {
 			get;
 		}
 		
-		MarkerStrategy MarkerStrategy {
+		MarkerStrategy.MarkerStrategy MarkerStrategy {
 			get;
 		}
 		

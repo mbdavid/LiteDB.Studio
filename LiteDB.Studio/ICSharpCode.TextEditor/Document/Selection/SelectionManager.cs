@@ -9,8 +9,10 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
+using LiteDB.Studio.ICSharpCode.TextEditor.Document.LineManager;
+using LiteDB.Studio.ICSharpCode.TextEditor.Gui;
 
-namespace ICSharpCode.TextEditor.Document
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.Selection
 {
 	/// <summary>
 	/// This class manages the selections in a document.

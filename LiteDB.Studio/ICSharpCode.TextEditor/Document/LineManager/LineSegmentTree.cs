@@ -8,9 +8,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using ICSharpCode.TextEditor.Util;
+using LiteDB.Studio.ICSharpCode.TextEditor.Util;
 
-namespace ICSharpCode.TextEditor.Document
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Document.LineManager
 {
 	/// <summary>
 	/// Data structure for efficient management of the line segments (most operations are O(lg n)).

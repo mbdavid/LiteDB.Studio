@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ICSharpCode.TextEditor.Util.Model;
-using LiteDB;
+using LiteDB.Studio.ICSharpCode.TextEditor.Model;
 using LiteDB.Studio.Properties;
 using Newtonsoft.Json;
 
-namespace ICSharpCode.TextEditor.Util
+namespace LiteDB.Studio.ICSharpCode.TextEditor.Util
 {
     public static class AppSettingsManager
     {
