@@ -25,9 +25,12 @@ namespace LiteDB.Studio
             string filename = null;
             bool upgrade = false;
 
-            if (args.Length == 2)
+            if (args.Length >= 1)
             {
                 filename = args[0];
+            }
+            if (args.Length >= 2)
+            {
                 bool.TryParse(args[1], out upgrade);
             }
             
