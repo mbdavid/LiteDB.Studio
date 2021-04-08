@@ -59,7 +59,7 @@ namespace LiteDB.Studio
 
                     cell.Style.BackColor = Color.White;
                     cell.Value = value.IsDocument ? value[key] : value;
-                    cell.Tag = value[key];
+                    cell.Tag = cell.Value;
                     row.ReadOnly = key == "_id";
                 }
 

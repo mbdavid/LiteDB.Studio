@@ -85,10 +85,10 @@
             this.imgCodeCompletion = new System.Windows.Forms.ImageList(this.components);
             this.loadLastDb = new System.Windows.Forms.CheckBox();
             this.maxRecentListItems = new System.Windows.Forms.NumericUpDown();
+            this.maxRecentItemsTooltip = new System.Windows.Forms.ToolTip(this.components);
             this.txtSql = new ICSharpCode.TextEditor.TextEditorControl();
             this.txtResult = new ICSharpCode.TextEditor.TextEditorControl();
             this.txtParameters = new ICSharpCode.TextEditor.TextEditorControl();
-            this.maxRecentItemsTooltip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).BeginInit();
             this.splitMain.Panel1.SuspendLayout();
             this.splitMain.Panel2.SuspendLayout();
@@ -213,7 +213,7 @@
             this.grdResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdResult.Location = new System.Drawing.Point(6, 5);
             this.grdResult.Name = "grdResult";
-            this.grdResult.Size = new System.Drawing.Size(811, 232);
+            this.grdResult.Size = new System.Drawing.Size(811, 350);
             this.grdResult.TabIndex = 0;
             this.grdResult.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.GrdResult_CellBeginEdit);
             this.grdResult.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.GrdResult_CellEndEdit);
