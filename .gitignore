@@ -4,6 +4,7 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 LiteDB.Studio.exe
+LiteDB.Studio/LiteDB.Studio.exe
 
 # User-specific files
 *.suo
