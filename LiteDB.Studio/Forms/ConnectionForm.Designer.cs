@@ -40,6 +40,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtFilename = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.cmbSort = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cmbCulture = new System.Windows.Forms.ComboBox();
@@ -48,7 +49,6 @@
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.chkReadonly = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -70,7 +70,7 @@
             this.radModeShared.AutoSize = true;
             this.radModeShared.Location = new System.Drawing.Point(151, 25);
             this.radModeShared.Name = "radModeShared";
-            this.radModeShared.Size = new System.Drawing.Size(61, 19);
+            this.radModeShared.Size = new System.Drawing.Size(120, 36);
             this.radModeShared.TabIndex = 10;
             this.radModeShared.Text = "Shared";
             this.radModeShared.UseVisualStyleBackColor = true;
@@ -81,7 +81,7 @@
             this.radModeDirect.Checked = true;
             this.radModeDirect.Location = new System.Drawing.Point(30, 25);
             this.radModeDirect.Name = "radModeDirect";
-            this.radModeDirect.Size = new System.Drawing.Size(56, 19);
+            this.radModeDirect.Size = new System.Drawing.Size(109, 36);
             this.radModeDirect.TabIndex = 9;
             this.radModeDirect.TabStop = true;
             this.radModeDirect.Text = "Direct";
@@ -116,7 +116,7 @@
             // 
             this.txtInitialSize.Location = new System.Drawing.Point(151, 61);
             this.txtInitialSize.Name = "txtInitialSize";
-            this.txtInitialSize.Size = new System.Drawing.Size(70, 23);
+            this.txtInitialSize.Size = new System.Drawing.Size(70, 39);
             this.txtInitialSize.TabIndex = 24;
             this.txtInitialSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -135,7 +135,7 @@
             // 
             this.txtFilename.Location = new System.Drawing.Point(19, 28);
             this.txtFilename.Name = "txtFilename";
-            this.txtFilename.Size = new System.Drawing.Size(502, 23);
+            this.txtFilename.Size = new System.Drawing.Size(502, 39);
             this.txtFilename.TabIndex = 2;
             // 
             // groupBox3
@@ -157,6 +157,15 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Parameters";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(274, 103);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(24, 32);
+            this.label4.TabIndex = 38;
+            this.label4.Text = "/";
+            // 
             // cmbSort
             // 
             this.cmbSort.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
@@ -165,7 +174,7 @@
             this.cmbSort.FormattingEnabled = true;
             this.cmbSort.Location = new System.Drawing.Point(292, 100);
             this.cmbSort.Name = "cmbSort";
-            this.cmbSort.Size = new System.Drawing.Size(117, 23);
+            this.cmbSort.Size = new System.Drawing.Size(117, 40);
             this.cmbSort.TabIndex = 37;
             // 
             // label2
@@ -173,7 +182,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(18, 103);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(58, 15);
+            this.label2.Size = new System.Drawing.Size(115, 32);
             this.label2.TabIndex = 36;
             this.label2.Text = "Collation:";
             // 
@@ -185,7 +194,7 @@
             this.cmbCulture.FormattingEnabled = true;
             this.cmbCulture.Location = new System.Drawing.Point(151, 100);
             this.cmbCulture.Name = "cmbCulture";
-            this.cmbCulture.Size = new System.Drawing.Size(117, 23);
+            this.cmbCulture.Size = new System.Drawing.Size(117, 40);
             this.cmbCulture.TabIndex = 35;
             // 
             // chkUpgrade
@@ -193,7 +202,7 @@
             this.chkUpgrade.AutoSize = true;
             this.chkUpgrade.Location = new System.Drawing.Point(21, 175);
             this.chkUpgrade.Name = "chkUpgrade";
-            this.chkUpgrade.Size = new System.Drawing.Size(212, 19);
+            this.chkUpgrade.Size = new System.Drawing.Size(427, 36);
             this.chkUpgrade.TabIndex = 33;
             this.chkUpgrade.Text = "Upgrade from LiteDB v4 (if needed)";
             // 
@@ -202,7 +211,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(18, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 15);
+            this.label1.Size = new System.Drawing.Size(117, 32);
             this.label1.TabIndex = 32;
             this.label1.Text = "Password:";
             // 
@@ -211,7 +220,7 @@
             this.txtPassword.Location = new System.Drawing.Point(151, 22);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(404, 23);
+            this.txtPassword.Size = new System.Drawing.Size(404, 39);
             this.txtPassword.TabIndex = 4;
             // 
             // chkReadonly
@@ -219,7 +228,7 @@
             this.chkReadonly.AutoSize = true;
             this.chkReadonly.Location = new System.Drawing.Point(21, 139);
             this.chkReadonly.Name = "chkReadonly";
-            this.chkReadonly.Size = new System.Drawing.Size(78, 19);
+            this.chkReadonly.Size = new System.Drawing.Size(152, 36);
             this.chkReadonly.TabIndex = 27;
             this.chkReadonly.Text = "Read only";
             this.chkReadonly.UseVisualStyleBackColor = true;
@@ -230,23 +239,14 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(18, 64);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(91, 15);
+            this.label3.Size = new System.Drawing.Size(185, 32);
             this.label3.TabIndex = 30;
             this.label3.Text = "Initial Size (MB):";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(274, 103);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(12, 15);
-            this.label4.TabIndex = 38;
-            this.label4.Text = "/";
-            // 
             // ConnectionForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(192F, 192F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(596, 436);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);

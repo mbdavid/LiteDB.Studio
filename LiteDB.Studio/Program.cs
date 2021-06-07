@@ -1,20 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ICSharpCode.TextEditor.Util;
+using System;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using ICSharpCode.TextEditor.Util;
 
 namespace LiteDB.Studio
 {
     static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
+        [DllImport("user32.dll")]
+        private static extern bool SetProcessDPIAware();
+
         [STAThread]
         static void Main(string[] args)
         {
+            if (Environment.OSVersion.Version.Major >= 6)
+                _ = SetProcessDPIAware();
+
             Application.ApplicationExit += OnExit;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
