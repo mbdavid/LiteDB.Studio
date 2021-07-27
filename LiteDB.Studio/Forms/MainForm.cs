@@ -246,9 +246,23 @@ namespace LiteDB.Studio
         {
             if (this.ActiveTask?.Executing == false)
             {
+                // Set Limit select statements that contain the LIMIT keyword
+                if (sql.ToUpper().Contains("SELECT ") && sql.ToUpper().Contains("LIMIT "))
+                {
+                    this.ActiveTask.ResultLimit = GetResultLimit(sql);
+                }
+
                 this.ActiveTask.Sql = sql;
                 this.ActiveTask.WaitHandle.Set();
             }
+        }
+
+        private int GetResultLimit(string sql)
+        {
+            int limit = 0;
+            int startPosition = sql.IndexOf("LIMIT ") + 6;            
+            int.TryParse(sql.Substring(startPosition), out limit);
+            return limit;
         }
 
         private void LoadTreeView()

@@ -11,7 +11,9 @@ namespace LiteDB.Studio
 {
     class TaskData
     {
-        public const int RESULT_LIMIT = 1000;
+        //public const int RESULT_LIMIT = 1000;
+
+        public int ResultLimit { get; set; }
 
         public int Id { get; set; }
         public bool Executing { get; set; } = false;
@@ -47,7 +49,7 @@ namespace LiteDB.Studio
 
             while (reader.Read())
             {
-                if (index++ >= RESULT_LIMIT)
+                if (index++ >= ResultLimit && ResultLimit > 0)
                 {
                     this.LimitExceeded = true;
                     break;
