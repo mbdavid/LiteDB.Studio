@@ -207,7 +207,7 @@ namespace LiteDB.Studio
                 p += this.SpanCString(p, "Name");
                 p += this.SpanPageID(p, "PageID", false, false);
 
-                for (var k = initial; k <= p; k++)
+                for (var k = initial; k < p; k++)
                 {
                     _items[k].Color = (color % _colors.Length);
                 }
@@ -244,7 +244,7 @@ namespace LiteDB.Studio
                 h += this.SpanItem<byte>(h, 0, null, "MaxLevel", null);
                 h += this.SpanPageID(h, "IndexPageList", false, true);
 
-                for (var k = initial; k <= h; k++)
+                for (var k = initial; k < h; k++)
                 {
                     _items[k].Color = (color % _colors.Length);
                 }
