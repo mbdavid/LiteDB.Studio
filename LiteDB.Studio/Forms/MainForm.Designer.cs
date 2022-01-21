@@ -628,7 +628,7 @@
             // loadLastDb
             // 
             this.loadLastDb.AutoSize = true;
-            this.loadLastDb.Location = new System.Drawing.Point(672, 8);
+            this.loadLastDb.Location = new System.Drawing.Point(800, 8);
             this.loadLastDb.Name = "loadLastDb";
             this.loadLastDb.Size = new System.Drawing.Size(154, 19);
             this.loadLastDb.TabIndex = 13;
@@ -638,7 +638,7 @@
             // 
             // maxRecentListItems
             // 
-            this.maxRecentListItems.Location = new System.Drawing.Point(841, 7);
+            this.maxRecentListItems.Location = new System.Drawing.Point(960, 7);
             this.maxRecentListItems.Maximum = new decimal(new int[] {
             20,
             0,
