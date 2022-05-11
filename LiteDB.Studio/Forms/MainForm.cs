@@ -26,7 +26,7 @@ namespace LiteDB.Studio
         private ConnectionString _connectionString = null;
         private SqlCodeCompletion _codeCompletion;
 
-        public MainForm(string filename)
+        public MainForm(string? filename)
         {
             InitializeComponent();
 

@@ -13,6 +13,7 @@ using System.Windows.Forms;
 
 using ICSharpCode.TextEditor.Document;
 using ICSharpCode.TextEditor.Util;
+using Timer = System.Windows.Forms.Timer;
 
 namespace ICSharpCode.TextEditor
 {

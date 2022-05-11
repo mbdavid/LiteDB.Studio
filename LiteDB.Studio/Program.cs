@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using ICSharpCode.TextEditor.Util;
 
 namespace LiteDB.Studio
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
-        /// The main entry point for the application.
+        ///  The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main(string[] args)
@@ -21,7 +16,7 @@ namespace LiteDB.Studio
             Application.Run(new MainForm(args.Length == 0 ? null : args[0]));
         }
 
-        private static void OnExit(object sender, EventArgs eventArgs)
+        private static void OnExit(object? sender, EventArgs eventArgs)
         {
             Application.ApplicationExit -= OnExit;
             AppSettingsManager.PersistData();
