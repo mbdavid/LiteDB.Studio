@@ -345,6 +345,7 @@
   <ItemGroup>
     <Content Include="ILMergeOrder.txt" />
     <Content Include="LiteDB.Studio.ico" />
+    <None Include="Resources\folder_page.png" />
     <Content Include="Resources\load_last_db.png" />
     <None Include="Resources\bug_link.png" />
   </ItemGroup>

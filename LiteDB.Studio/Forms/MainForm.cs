@@ -19,9 +19,11 @@ namespace LiteDB.Studio
 {
     public partial class MainForm : Form
     {
+        private const string TAB_SPACES = "         ";
         private readonly SynchronizationContext _synchronizationContext;
 
         private LiteDatabase _db = null;
+        private int _tabCounter = 0;
         private DatabaseDebugger _debugger = null;
         private ConnectionString _connectionString = null;
         private SqlCodeCompletion _codeCompletion;
@@ -67,7 +69,8 @@ namespace LiteDB.Studio
             };
 
             // set assembly version on window title
-            this.Text += $" (v{typeof(MainForm).Assembly.GetName().Version.ToString()})";
+            this.Text += $" (LiteDB.Studio: v{typeof(MainForm).Assembly.GetName().Version.ToString()}";
+            this.Text += $" - LiteDB v5.0.15)"; // how do I get this version? (ILMerge ommits LiteDB assembly)
 
             // load last db
 
@@ -77,19 +80,13 @@ namespace LiteDB.Studio
             }
             
             // set load last db status to checkbox
-
             loadLastDb.Checked = AppSettingsManager.ApplicationSettings.LoadLastDbOnStartup;
-            maxRecentListItems.Value = AppSettingsManager.ApplicationSettings.MaxRecentListItems;
 
             // validate recent list
             AppSettingsManager.ValidateRecentList();
             
-            // add tooltip to Max Recent List Items UpDown Counter
-            maxRecentItemsTooltip.SetToolTip(maxRecentListItems, "Max Recent Items, (Apply After Restart)");
-            
             // populate recent db list
             PopulateRecentList();
-
 
         }
 
@@ -111,6 +108,8 @@ namespace LiteDB.Studio
             try
             {
                 _db = await this.AsyncConnect(connectionString);
+
+                _tabCounter = 0;
 
                 // force open database
                 var uv = _db.UserVersion;
@@ -146,7 +145,7 @@ namespace LiteDB.Studio
 
             tabSql.TabPages.Add("+", "+");
             this.LoadTreeView();
-            this.AddNewTab("");
+            this.AddNewTab("", null);
 
             txtSql.Focus();
         }
@@ -206,6 +205,9 @@ namespace LiteDB.Studio
             tabSql.Enabled = enabled;
             btnRun.Enabled = enabled;
 
+            btnLoadSql.Enabled = enabled;
+            btnSaveSql.Enabled = enabled;
+
             btnBegin.Enabled = enabled;
             btnCommit.Enabled = enabled;
             btnRollback.Enabled = enabled;
@@ -215,20 +217,24 @@ namespace LiteDB.Studio
 
         private TaskData ActiveTask => tabSql.SelectedTab?.Tag as TaskData;
 
-        private void AddNewTab(string content)
+        private void AddNewTab(string content, string filename)
         {
             // find + tab
             var tab = tabSql.TabPages.Cast<TabPage>().Where(x => x.Text == "+").Single();
 
             var task = new TaskData();
 
+            task.Filename = filename;
             task.EditorContent = content;
             task.Thread = new Thread(new ThreadStart(() => CreateThread(task)));
             task.Thread.Start();
 
-            task.Id = task.Thread.ManagedThreadId;
+            task.Id = ++_tabCounter;
 
-            tab.Text = tab.Name = task.Id.ToString();
+            tab.Text = tab.Name = (filename == null ?
+                "Query " + task.Id : 
+                Path.GetFileName(task.Filename)) + TAB_SPACES;
+
             tab.Tag = task;
 
             if (tabSql.SelectedTab != tab)
@@ -433,7 +439,7 @@ namespace LiteDB.Studio
             }
             else
             {
-                AddNewTab(sql.Replace("\\n", "\n"));
+                AddNewTab(sql.Replace("\\n", "\n"), null);
             }
         }
 
@@ -701,28 +707,6 @@ namespace LiteDB.Studio
                 tabResult.SelectedTab == tabText ? (Control)txtResult : (Control)txtParameters; 
         }
 
-        private void TabSql_MouseClick(object sender, MouseEventArgs e)
-        {
-            var tabControl = sender as TabControl;
-            var tabs = tabControl.TabPages;
-
-            if (tabs.Count <= 1) return;
-
-            if (e.Button == MouseButtons.Middle)
-            {
-                var tab = tabs.Cast<TabPage>()
-                        .Where((t, i) => tabControl.GetTabRect(i).Contains(e.Location))
-                        .First();
-
-                if (tab.Tag is TaskData task)
-                {
-                    task.ThreadRunning = false;
-                    task.WaitHandle.Set();
-                    tabs.Remove(tab);
-                }
-            }
-        }
-
         private void TabSql_SelectedIndexChanged(object sender, EventArgs e)
         {
             // this event occurs after tab already selected
@@ -749,7 +733,7 @@ namespace LiteDB.Studio
 
             if (e.TabPage.Name == "+")
             {
-                this.AddNewTab("");
+                this.AddNewTab("", null);
             }
             else
             {
@@ -777,7 +761,7 @@ namespace LiteDB.Studio
 
         #endregion
 
-        private void grdResult_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
+        private void GrdResult_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
         {
             var value1 = e.CellValue1 as BsonValue ?? BsonValue.Null;
             var value2 = e.CellValue2 as BsonValue ?? BsonValue.Null;
@@ -785,7 +769,7 @@ namespace LiteDB.Studio
             e.Handled = true;
         }
 
-        private void grdResult_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void GrdResult_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             var value = e.Value as BsonValue;
 
@@ -833,12 +817,12 @@ namespace LiteDB.Studio
             }
         }
 
-        private void loadLastDbChecked_Changed(object sender, EventArgs e)
+        private void LoadLastDbChecked_Changed(object sender, EventArgs e)
         {
             AppSettingsManager.ApplicationSettings.LoadLastDbOnStartup = loadLastDb.Checked;
         }
 
-        private void loadLastDbNow_Click(object sender, EventArgs e)
+        private void LoadLastDbNow_Click(object sender, EventArgs e)
         {
             if (AppSettingsManager.IsLastDbExist())
             {
@@ -850,7 +834,7 @@ namespace LiteDB.Studio
             }
         }
 
-        private void clearAllToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ClearAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // clear UI
             var count = recentDBsDropDownButton.DropDownItems.Count;
@@ -862,13 +846,13 @@ namespace LiteDB.Studio
             AppSettingsManager.ClearRecentList();
         }
 
-        private void validateRecentListToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ValidateRecentListToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AppSettingsManager.ValidateRecentList();
             PopulateRecentList();
         }
 
-        private void maxRecentListItems_ValueChanged(object sender, EventArgs e)
+        private void MaxRecentListItems_ValueChanged(object sender, EventArgs e)
         {
             var num = sender as NumericUpDown;
             if (num == null)
@@ -877,6 +861,123 @@ namespace LiteDB.Studio
             }
 
             AppSettingsManager.ApplicationSettings.MaxRecentListItems = (int)num.Value;
+        }
+
+        private void TabSql_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            var tabControl = (TabControl)sender;
+
+            var tab = tabControl.TabPages[e.Index];
+            var font = new Font(e.Font.FontFamily, 12, FontStyle.Bold);
+
+            if (tab.Name == "+")
+            {
+                e.Graphics.DrawString(tab.Text, font, Brushes.SlateGray, e.Bounds.Left + 12, e.Bounds.Top - 2);
+            }
+            else
+            {
+                e.Graphics.DrawString("×", font, Brushes.SlateGray, e.Bounds.Right - 19, e.Bounds.Top - 1);
+                e.Graphics.DrawString(tab.Text, e.Font, Brushes.Black, e.Bounds.Left + 12, e.Bounds.Top + 2);
+            }
+
+            e.DrawFocusRectangle();
+        }
+
+        private void TabSql_MouseClick(object sender, MouseEventArgs e)
+        {
+            var tabControl = sender as TabControl;
+            var tabs = tabControl.TabPages;
+
+            if (tabs.Count <= 1) return;
+
+            if (e.Button == MouseButtons.Middle)
+            {
+                var tab = tabs.Cast<TabPage>()
+                        .Where((t, i) => tabControl.GetTabRect(i).Contains(e.Location))
+                        .First();
+
+                if (tab.Tag is TaskData task)
+                {
+                    task.ThreadRunning = false;
+                    task.WaitHandle.Set();
+                    tabs.Remove(tab);
+                }
+            }
+        }
+
+        private void TabSql_MouseDown(object sender, MouseEventArgs e)
+        {
+            var tabControl = sender as TabControl;
+            var tabs = tabControl.TabPages;
+
+            for (int i = 0; i < tabs.Count; i++)
+            {
+                var r = tabControl.GetTabRect(i);
+                //Getting the position of the "x" mark.
+                var closeButton = new Rectangle(r.Right - 19, r.Top - 2, 15, 15);
+
+                if (closeButton.Contains(e.Location))
+                {
+                    var tab = tabs.Cast<TabPage>()
+                            .Where((t, idx) => tabControl.GetTabRect(idx).Contains(e.Location))
+                            .First();
+
+                    if (tab.Tag is TaskData task)
+                    {
+                        task.ThreadRunning = false;
+                        task.WaitHandle.Set();
+                        tabs.Remove(tab);
+                    }
+                }
+            }
+        }
+
+        private void BtnSaveSql_Click(object sender, EventArgs e)
+        {
+            var task = this.ActiveTask;
+
+            if (task == null) return;
+
+            try
+            {
+                if (task.Filename == null)
+                {
+                    dialogSqlSave.FileName = "Query" + task.Id + ".sql";
+
+                    var result = dialogSqlSave.ShowDialog();
+
+                    if (result != DialogResult.OK) return;
+
+                    task.Filename = dialogSqlSave.FileName;
+
+                    tabSql.SelectedTab.Text = Path.GetFileName(task.Filename) + TAB_SPACES;
+                }
+
+                File.WriteAllText(task.Filename, task.EditorContent);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error on save", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BtnLoadSql_Click(object sender, EventArgs e)
+        {
+            var result = dialogSqlOpen.ShowDialog();
+
+            if (result != DialogResult.OK) return;
+
+            try
+            {
+                var content = File.ReadAllText(dialogSqlOpen.FileName);
+
+                this.AddNewTab(content, dialogSqlOpen.FileName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error on save", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
