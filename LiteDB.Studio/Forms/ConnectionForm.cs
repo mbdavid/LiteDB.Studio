@@ -51,14 +51,15 @@ namespace LiteDB.Studio.Forms
 
         private void BtnConnect_Click(object sender, EventArgs e)
         {
-            this.ConnectionString.Connection =
-                radModeDirect.Checked ? ConnectionType.Direct :
-                radModeShared.Checked ? ConnectionType.Shared : ConnectionType.Direct;
-
+            // If no file is specified, don't try to connect
             if(string.IsNullOrWhiteSpace(txtFilename.Text))
             {
                 return;
             }
+
+            this.ConnectionString.Connection =
+                radModeDirect.Checked ? ConnectionType.Direct :
+                radModeShared.Checked ? ConnectionType.Shared : ConnectionType.Direct;
 
             this.ConnectionString.Filename = txtFilename.Text;
             this.ConnectionString.ReadOnly = chkReadonly.Checked;
