@@ -55,6 +55,11 @@ namespace LiteDB.Studio.Forms
                 radModeDirect.Checked ? ConnectionType.Direct :
                 radModeShared.Checked ? ConnectionType.Shared : ConnectionType.Direct;
 
+            if(string.IsNullOrWhiteSpace(txtFilename.Text))
+            {
+                return;
+            }
+
             this.ConnectionString.Filename = txtFilename.Text;
             this.ConnectionString.ReadOnly = chkReadonly.Checked;
             this.ConnectionString.Upgrade = chkUpgrade.Checked;
