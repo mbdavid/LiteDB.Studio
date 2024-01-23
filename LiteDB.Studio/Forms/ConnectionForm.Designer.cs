@@ -34,6 +34,7 @@ namespace LiteDB.Studio.Forms
             this.radModeDirect = new System.Windows.Forms.RadioButton();
             this.btnOK = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.openFileDialog.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.btnOpen = new System.Windows.Forms.Button();
             this.txtInitialSize = new System.Windows.Forms.TextBox();
