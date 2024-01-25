@@ -131,7 +131,7 @@ namespace LiteDB.Studio.Forms
         private void buttonBuildDefaultFileName_Click(object sender, EventArgs e)
         {
             var fileName = $"{DateTime.Now:yyyyMMddHHmmss}.db";
-            var fullFileNamePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "dbFile", fileName);
+            var fullFileNamePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
             txtFilename.Text = fullFileNamePath;
         }
     }
